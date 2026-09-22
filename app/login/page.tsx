@@ -3,11 +3,9 @@
 import { Button } from "@/components/ds/Button";
 import { Input } from "@/components/ds/Input";
 import { Text } from "@/components/ds/Text";
-import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +28,7 @@ export default function LoginPage() {
       return;
     }
     const next = new URLSearchParams(window.location.search).get("next");
-    router.replace(next?.startsWith("/") ? next : "/castelo");
+    window.location.replace(next?.startsWith("/") ? next : "/castelo");
   }
 
   return (
