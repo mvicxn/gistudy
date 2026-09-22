@@ -138,6 +138,15 @@ export function PilotLessonScreen({
   const parts = lessonProgress(lesson, step);
   const currentBoss = boss.items[bossIndex];
   const mission = catalog.pedagogy.missions.find((item) => item.id === chapter.missionId);
+  const missingIdeas = teachBack.rubric
+    .filter((item) => item.required)
+    .filter(
+      (item) =>
+        !item.keys.some((key) =>
+          assembledTeach.toLocaleLowerCase("pt-BR").includes(key.toLocaleLowerCase("pt-BR")),
+        ),
+    )
+    .map((item) => item.label);
 
   return (
     <AppShell
@@ -432,7 +441,10 @@ export function PilotLessonScreen({
           ) : null}
           {feedback === "almost" ? (
             <div className="mt-5">
-              <Feedback kind="almost">Quase. Inclua as ideias principais desta aula.</Feedback>
+              <Feedback kind="almost">
+                Quase. Revise e tente novamente
+                {missingIdeas.length ? ` — ainda falta: ${missingIdeas.join(", ")}.` : "."}
+              </Feedback>
             </div>
           ) : null}
           <GuideTarget step="teachback" className="mt-8">
@@ -458,6 +470,9 @@ export function PilotLessonScreen({
       {step === "mastery" ? (
         <>
           <Professor tone="explanation">Antes de fechar, veja o que já ficou firme.</Professor>
+          <Text variant="body" className="mt-3">
+            Conceitos em construção têm um caminho: você pode revisá-los agora ou voltar depois pela Revisão.
+          </Text>
           <div className="mt-6 space-y-5">
             {chapter.conceptIds.map((id) => {
               const concept = catalog.normalized.concepts.find((item) => item.id === id);
@@ -475,6 +490,9 @@ export function PilotLessonScreen({
               );
             })}
           </div>
+          <Button href="/revisao" variant="ghost" className="mt-5 w-full">
+            Abrir revisão dos conceitos
+          </Button>
           <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
@@ -506,7 +524,9 @@ export function PilotLessonScreen({
           </Card>
           {bossFeedback === "almost" ? (
             <div className="mt-5">
-              <Feedback kind="almost">Quase. Olhe de novo, sem pressa.</Feedback>
+              <Feedback kind="almost">
+                Quase. Use a pergunta como pista, reveja a aula e tente o desafio final novamente.
+              </Feedback>
             </div>
           ) : null}
           <GuideTarget step="boss" className="mt-8">
@@ -546,6 +566,12 @@ export function PilotLessonScreen({
           </div>
           <Professor tone="celebration">Capítulo concluído!</Professor>
           <Text variant="bodyLarge">Você terminou {chapter.title}.</Text>
+          <Card variant="solid" className="text-left">
+            <Text variant="label">Síntese para levar</Text>
+            <Text variant="body" className="mt-2 text-[var(--text-primary)]">
+              {mission?.content ?? `Você consolidou os conceitos centrais de ${chapter.title}.`}
+            </Text>
+          </Card>
           <Feedback kind="xp">+{XP_RULES.chapterComplete} XP</Feedback>
           <div className="flex justify-center">
             <FlowerSlot state="bloomed" label={chapter.title} />

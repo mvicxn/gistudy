@@ -56,8 +56,8 @@ export function CalendarScreen() {
   const isPast = startOfDay(selectedDate) < startOfDay(today);
   const studied = lastActive ? sameDay(selectedDate, lastActive) : false;
 
-  let detailTitle = "Dia livre para estudar";
-  let detailBody = "Quando quiser, abra o capítulo da vez e continue a jornada.";
+  let detailTitle = "Sem registro neste dia";
+  let detailBody = "O calendário mostra o que aconteceu; ele não cria eventos nem tarefas.";
   if (isExamDay) {
     detailTitle = "Dia da prova";
     detailBody = "Revise o que já estudou e siga com calma.";
@@ -72,7 +72,7 @@ export function CalendarScreen() {
       ? `Continue em ${chapterOrdinal(nextChapter.order)} — ${nextChapter.title}.`
       : "Você já concluiu os capítulos disponíveis.";
   } else if (isPast) {
-    detailTitle = "Dia passado";
+    detailTitle = "Histórico";
     detailBody = studied ? "Você estudou neste dia." : "Nada registrado neste dia.";
   }
 
@@ -145,7 +145,7 @@ export function CalendarScreen() {
             {detailTitle}
           </Text>
           <Text variant="bodyLarge">{detailBody}</Text>
-          {nextChapter ? (
+          {isToday && nextChapter ? (
             <div className="pt-2">
               <Button href={`/aula/${nextChapter.lessonId}`} variant="ghost" className="w-full">
                 Abrir o capítulo aberto

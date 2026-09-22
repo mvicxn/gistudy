@@ -32,8 +32,14 @@ export function BibliotecaScreen() {
   return (
     <AppShell trail={[{ label: "Biblioteca" }]}>
       <PageIntro kicker="Biblioteca" title={subject?.title ?? "Seus livros"}>
-        Cada capítulo da matéria, com o estado bem visível.
+        Consulta rápida da matéria: explore qualquer capítulo aberto sem perder a ordem do Mapa.
       </PageIntro>
+      <Card variant="solid" className="mb-8 flex flex-wrap items-center justify-between gap-3 p-4">
+        <Text variant="body">Quer saber o que fazer agora?</Text>
+        <Link href="/mapa" className="inline-flex min-h-11 items-center font-semibold text-[var(--lilac)]">
+          Ver minha jornada →
+        </Link>
+      </Card>
       <div className="space-y-8">
         {modules.map((module) => {
           const moduleChapters = chapters.filter((chapter) => module.chapterIds.includes(chapter.id));

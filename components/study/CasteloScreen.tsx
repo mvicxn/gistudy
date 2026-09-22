@@ -14,6 +14,7 @@ import {
   greeting,
   lessonProgress,
   modeHeadline,
+  STUDENT_STEP_LABEL,
 } from "@/components/study/labels";
 import { getChapters } from "@/content/catalog";
 import type { ChapterState } from "@/domain/experience";
@@ -62,7 +63,7 @@ export function CasteloScreen() {
         {hello}, Giovana
       </Text>
       <Text variant="bodyLarge" className="mt-3">
-        Continue seus estudos
+        Continue seus estudos. O Castelo é seu ponto de retomada; o Mapa organiza a jornada.
       </Text>
 
       <GuideTarget step="welcome" className="mt-8">
@@ -74,6 +75,9 @@ export function CasteloScreen() {
           {current ? (
             <>
               <Text variant="body">{moduleTitle}</Text>
+              <Text variant="caption">
+                Retomada: {STUDENT_STEP_LABEL[lessonStep]} · trecho {parts.current} de {parts.total}
+              </Text>
               <ProgressBar value={parts.percent} label={`Trecho ${parts.current} de ${parts.total}`} tone="chapter" />
               <Button
                 href={href}
@@ -102,6 +106,9 @@ export function CasteloScreen() {
         </Link>
         <Link href="/jardim" className="min-h-11 inline-flex items-center">
           Jardim
+        </Link>
+        <Link href="/biblioteca" className="min-h-11 inline-flex items-center">
+          Consultar biblioteca
         </Link>
       </p>
     </AppShell>

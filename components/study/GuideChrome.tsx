@@ -50,7 +50,7 @@ export function GuideDock({ step }: { step: GuideStep }) {
       <div
         aria-hidden
         className={cn(
-          "pointer-events-none fixed inset-0 z-[30]",
+          "pointer-events-none fixed inset-0 z-[30] hidden md:block",
           reduced ? "bg-[rgba(0,0,0,0.2)]" : "bg-[rgba(0,0,0,0.45)]",
         )}
       />

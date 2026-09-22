@@ -7,6 +7,7 @@ import { EmptyState, emptyCopy } from "@/components/ds/States";
 import { Text } from "@/components/ds/Text";
 import { useStudyView } from "@/components/study/StudyProvider";
 import { getChapters } from "@/content/catalog";
+import Link from "next/link";
 
 export function GardenScreen() {
   const { snapshot } = useStudyView();
@@ -30,17 +31,19 @@ export function GardenScreen() {
   return (
     <AppShell trail={[{ label: "Jardim" }]}>
       <PageIntro kicker="Jardim" title="O que o seu estudo fez crescer">
-        Cada capítulo concluído deixa uma flor. {bloomed} de {chapters.length} já floresceram.
+        Cada capítulo concluído deixa uma flor. {bloomed} de {chapters.length} já floresceram. Use as flores para voltar ao capítulo e revisar.
       </PageIntro>
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
         {chapters.map((chapter) => {
           const flower = snapshot.flowers.find((item) => item.chapterId === chapter.id);
           return (
-            <FlowerSlot
-              key={chapter.id}
-              state={flower?.state === "bloomed" ? "bloomed" : flower?.state === "growing" ? "growing" : "empty"}
-              label={chapter.title}
-            />
+            <Link key={chapter.id} href={`/capitulo/${chapter.id}`} className="rounded-[var(--radius-lg)] focus-visible:outline-none">
+              <FlowerSlot
+                state={flower?.state === "bloomed" ? "bloomed" : flower?.state === "growing" ? "growing" : "empty"}
+                label={chapter.title}
+              />
+              <span className="mt-1 block text-center text-[12px] text-[var(--lilac)]">Revisar capítulo</span>
+            </Link>
           );
         })}
       </div>

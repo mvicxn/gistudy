@@ -10,16 +10,19 @@ const CLINICAL_LABEL = {
 export function SourcedCard({ block }: { block: SourcedBlock }) {
   return (
     <Card variant={block.kind === "lacuna" ? "locked" : "elevated"} className="space-y-3 p-6">
-      {block.clinicalType ? (
-        <Text variant="label">{CLINICAL_LABEL[block.clinicalType]}</Text>
-      ) : null}
       <Text variant="bodyLarge" className="text-[var(--text-primary)]">
         {block.text}
       </Text>
-      {block.lacuna ? (
-        <Text variant="body" className="text-[var(--pink)]">
-          {block.lacuna}
-        </Text>
+      {block.clinicalType || block.lacuna ? (
+        <details className="border-t border-[var(--border)] pt-3">
+          <summary className="cursor-pointer text-[13px] font-semibold text-[var(--lilac)]">
+            Detalhes e rastreabilidade
+          </summary>
+          <div className="mt-3 space-y-2">
+            {block.clinicalType ? <Text variant="label">{CLINICAL_LABEL[block.clinicalType]}</Text> : null}
+            {block.lacuna ? <Text variant="body" className="text-[var(--pink)]">{block.lacuna}</Text> : null}
+          </div>
+        </details>
       ) : null}
     </Card>
   );

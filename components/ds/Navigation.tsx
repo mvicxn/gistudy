@@ -127,10 +127,8 @@ export function AppShell({
         className="fixed inset-x-0 bottom-0 z-[var(--z-nav)] border-t border-[var(--border)] bg-[rgba(11,11,16,0.94)] backdrop-blur md:hidden"
         aria-label="Navegação principal"
       >
-        <ul className="grid grid-cols-4">
-          {tabs
-            .filter((tab) => tab.href !== "/biblioteca")
-            .map((tab) => {
+        <ul className="grid grid-cols-5">
+          {tabs.map((tab) => {
             const tabActive = isActive(pathname, tab.href);
             return (
               <li key={tab.href}>
@@ -138,7 +136,7 @@ export function AppShell({
                   href={tab.href}
                   aria-current={tabActive ? "page" : undefined}
                   className={cn(
-                    "flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-2 text-center text-[12px] font-semibold leading-tight",
+                    "flex min-h-14 flex-col items-center justify-center gap-0.5 px-0.5 py-2 text-center text-[11px] font-semibold leading-tight sm:text-[12px]",
                     tabActive ? "text-[var(--lilac)]" : "text-[var(--text-muted)]",
                   )}
                 >

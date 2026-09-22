@@ -127,7 +127,9 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
           </div>
           {feedback === "almost" ? (
             <div className="mt-5">
-              <Feedback kind="almost">Quase. Olhe de novo a pergunta e as alternativas.</Feedback>
+              <Feedback kind="almost">
+                Quase. Use a pergunta como pista, reveja a explicação e tente novamente.
+              </Feedback>
             </div>
           ) : null}
           <div className="mt-8">

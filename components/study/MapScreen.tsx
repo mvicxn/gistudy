@@ -49,7 +49,7 @@ export function MapScreen() {
   return (
     <AppShell trail={[{ href: "/biblioteca", label: "Biblioteca" }, { label: "Estudo" }]}>
       <PageIntro kicker={catalog.pedagogy.subjects[0]?.title ?? "Estudo"} title="Sua jornada">
-        Você não precisa escolher o que vem depois. O próximo capítulo abre sozinho.
+        O Mapa mostra a ordem pedagógica e libera o próximo capítulo. Para consultar a matéria sem seguir a ordem, abra a Biblioteca.
       </PageIntro>
       {active ? <JourneyPath current={1} /> : null}
       <div className="space-y-4 pb-28">
