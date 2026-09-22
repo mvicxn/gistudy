@@ -1,3 +1,4 @@
+import { Button } from "@/components/ds/Button";
 import { Card } from "@/components/ds/Card";
 import { Text } from "@/components/ds/Text";
 
@@ -42,9 +43,11 @@ export function ContentPlaceholder({
 export function LockedState({
   title = "Ainda não deu para abrir",
   children = "Termine o capítulo anterior para liberar este.",
+  action,
 }: {
   title?: string;
   children?: string;
+  action?: { href: string; label: string };
 }) {
   return (
     <Card variant="locked" role="status">
@@ -55,6 +58,13 @@ export function LockedState({
       <Text variant="body" className="mt-2">
         {children}
       </Text>
+      {action ? (
+        <div className="mt-5">
+          <Button href={action.href} variant="cta">
+            {action.label}
+          </Button>
+        </div>
+      ) : null}
     </Card>
   );
 }
@@ -63,10 +73,12 @@ export function EmptyState({
   kicker,
   title,
   children,
+  action,
 }: {
   kicker: string;
   title: string;
   children: string;
+  action?: { href: string; label: string };
 }) {
   return (
     <Card variant="glass" className="p-6 text-center">
@@ -77,6 +89,13 @@ export function EmptyState({
       <Text variant="body" className="mt-2">
         {children}
       </Text>
+      {action ? (
+        <div className="mt-5">
+          <Button href={action.href} variant="cta">
+            {action.label}
+          </Button>
+        </div>
+      ) : null}
     </Card>
   );
 }

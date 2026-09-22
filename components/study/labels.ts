@@ -40,19 +40,35 @@ export function chapterOrdinal(order: number): string {
 }
 
 export function chapterCta(state: ChapterState): string {
-  if (state === "LOCKED") return "Bloqueado";
-  if (state === "IN_PROGRESS") return "Continuar aula";
-  if (state === "COMPLETED" || state === "MASTERED") return "Revisar aula";
-  return "Começar aula";
+  if (state === "LOCKED") return "Ainda bloqueado";
+  if (state === "IN_PROGRESS") return "Continuar esta aula";
+  if (state === "COMPLETED" || state === "MASTERED") return "Revisitar a aula";
+  return "Abrir esta aula";
 }
 
-export function continueLabel(step: LessonStep): string {
-  if (step === "objective") return "Começar";
-  if (step === "challenge") return "Continuar";
-  if (step === "teachback") return "Continuar";
-  if (step === "boss") return "Continuar";
-  if (step === "reward") return "Continuar jornada";
-  return "Continuar";
+export function continueLabel(step: LessonStep, next?: LessonStep): string {
+  if (step === "objective") return "Começar a ler a aula";
+  if (step === "challenge") return "Conferir resposta";
+  if (step === "teachback") return "Conferir minha explicação";
+  if (step === "mastery") return "Ir ao desafio final";
+  if (step === "boss") return "Próxima pergunta";
+  if (step === "reward") return "Abrir o próximo capítulo";
+  if (next) return `Seguir: ${STUDENT_STEP_LABEL[next]}`;
+  return "Seguir em frente";
+}
+
+export function lockReason(chapterTitle: string | undefined): string {
+  if (!chapterTitle) return "Este capítulo ainda não chegou a sua vez.";
+  return `Termine “${chapterTitle}” para abrir este.`;
+}
+
+export function previousChapterTitle(
+  chapters: { id: string; order: number; title: string }[],
+  chapterId: string,
+): string | undefined {
+  const ordered = [...chapters].sort((a, b) => a.order - b.order);
+  const index = ordered.findIndex((item) => item.id === chapterId);
+  return index > 0 ? ordered[index - 1]?.title : undefined;
 }
 
 export function modeHeadline(mode: StudyModeName): { kicker: string; title: string } {
@@ -62,16 +78,27 @@ export function modeHeadline(mode: StudyModeName): { kicker: string; title: stri
   return { kicker: "Sua jornada", title: "Continue estudando" };
 }
 
-export function lessonProgressPercent(lesson: Lesson | undefined, step: LessonStep): number {
+export function lessonProgress(lesson: Lesson | undefined, step: LessonStep) {
   const flow = flowFor(lesson);
-  if (step === "reward") return 100;
+  if (step === "reward") {
+    return { current: flow.length, total: flow.length, percent: 100 };
+  }
   const index = flow.indexOf(step);
-  if (index < 0) return 0;
-  return Math.round((index / flow.length) * 100);
+  const current = index < 0 ? 1 : index + 1;
+  return {
+    current,
+    total: flow.length,
+    percent: Math.round((Math.max(index, 0) / flow.length) * 100),
+  };
 }
 
-export function progressCopy(percent: number): string {
+export function lessonProgressPercent(lesson: Lesson | undefined, step: LessonStep): number {
+  return lessonProgress(lesson, step).percent;
+}
+
+export function progressCopy(percent: number, current?: number, total?: number): string {
   if (percent <= 0) return "Você ainda não começou esta aula.";
   if (percent >= 100) return "Você concluiu esta aula.";
+  if (current && total) return `Trecho ${current} de ${total} · já fez ${percent}%.`;
   return `Já fez ${percent}% dessa aula.`;
 }

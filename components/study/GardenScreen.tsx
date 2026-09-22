@@ -1,9 +1,9 @@
 "use client";
 
 import { AppShell, PageIntro } from "@/components/ds/AppShell";
+import { Button } from "@/components/ds/Button";
 import { FlowerSlot } from "@/components/ds/World";
-import { EmptyState } from "@/components/ds/States";
-import { emptyCopy } from "@/components/ds/States";
+import { EmptyState, emptyCopy } from "@/components/ds/States";
 import { Text } from "@/components/ds/Text";
 import { useStudyView } from "@/components/study/StudyProvider";
 import { getChapters } from "@/content/catalog";
@@ -16,7 +16,11 @@ export function GardenScreen() {
   if (!chapters.length) {
     return (
       <AppShell trail={[{ label: "Jardim" }]}>
-        <EmptyState kicker={emptyCopy.jardim.kicker} title={emptyCopy.jardim.title}>
+        <EmptyState
+          kicker={emptyCopy.jardim.kicker}
+          title={emptyCopy.jardim.title}
+          action={{ href: "/mapa", label: "Ir para a jornada" }}
+        >
           {emptyCopy.jardim.body}
         </EmptyState>
       </AppShell>
@@ -41,9 +45,12 @@ export function GardenScreen() {
         })}
       </div>
       {bloomed === 0 ? (
-        <Text variant="body" className="mt-8 text-center">
-          Quando você concluir um capítulo, uma flor nasce aqui.
-        </Text>
+        <div className="mt-8 space-y-4 text-center">
+          <Text variant="body">Quando você concluir um capítulo, uma flor nasce aqui.</Text>
+          <Button href="/mapa" variant="cta">
+            Ir para a jornada
+          </Button>
+        </div>
       ) : null}
     </AppShell>
   );

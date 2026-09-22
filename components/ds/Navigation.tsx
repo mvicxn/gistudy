@@ -148,7 +148,11 @@ export function PageIntro({
       <Text as="h1" variant="h1">
         {title}
       </Text>
-      {children ? <Text variant="bodyLarge">{children}</Text> : null}
+      {children ? (
+        <Text as="div" variant="bodyLarge">
+          {children}
+        </Text>
+      ) : null}
     </header>
   );
 }

@@ -14,7 +14,10 @@ export function ExamScreen({ assessmentId }: { assessmentId: string }) {
     return (
       <AppShell>
         <BackLink href="/calendario">Voltar ao calendário</BackLink>
-        <LockedState title="Esta prova ainda não está na jornada">
+        <LockedState
+          title="Esta prova ainda não está na jornada"
+          action={{ href: "/calendario", label: "Voltar ao calendário" }}
+        >
           Quando a prova entrar no calendário, ela aparece aqui.
         </LockedState>
       </AppShell>

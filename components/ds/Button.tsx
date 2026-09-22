@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "icon" | "pill" | "cta" | "soft";
 type Status = "default" | "loading" | "success";
@@ -32,7 +32,9 @@ type Common = {
 };
 
 export function Button(
-  props: (Common & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined }) | (Common & { href: string }),
+  props:
+    | (Common & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined })
+    | (Common & { href: string; onClick?: () => void }),
 ) {
   const {
     variant = "primary",
@@ -64,6 +66,7 @@ export function Button(
         className={classes}
         aria-disabled={locked || disabled || undefined}
         aria-label={rest["aria-label"]}
+        onClick={rest.onClick as unknown as MouseEventHandler<HTMLAnchorElement>}
       >
         {label}
       </Link>

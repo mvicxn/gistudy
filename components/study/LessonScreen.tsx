@@ -44,8 +44,11 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
   if (!lesson || !chapter || !challenge || !teachBack || !boss) {
     return (
       <AppShell>
-        <LockedState title="Esta aula não está na jornada">
-          Volte aos capítulos e escolha uma aula disponível.
+        <LockedState
+          title="Esta aula não está na jornada"
+          action={{ href: "/mapa", label: "Ver os capítulos" }}
+        >
+          Volte à jornada e escolha uma aula disponível.
         </LockedState>
       </AppShell>
     );
@@ -55,7 +58,10 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
     return (
       <AppShell>
         <BackLink href="/mapa">Voltar aos capítulos</BackLink>
-        <LockedState title="Ainda não deu para abrir">
+        <LockedState
+          title="Ainda não deu para abrir"
+          action={{ href: "/mapa", label: "Voltar à jornada" }}
+        >
           Termine o capítulo anterior para começar esta aula.
         </LockedState>
       </AppShell>

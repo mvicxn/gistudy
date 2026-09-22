@@ -78,10 +78,33 @@ export function CalendarScreen() {
   return (
     <AppShell trail={[{ label: "Calendário" }]}>
       <PageIntro kicker="Calendário" title={`${MONTHS[month]} ${year}`}>
-        {mode.mode === "EXAM_URGENCY_MODE"
-          ? "Veja o que estudar hoje. Toque um dia para abrir os detalhes."
-          : "Toque um dia para ver o que ele reserva."}
+        Toque um dia se quiser. O de hoje já está aberto embaixo do título.
       </PageIntro>
+
+      <Card variant="elevated" className="mb-8 space-y-3 p-6">
+        <Text variant="label">Hoje</Text>
+        <Text as="h2" variant="h3">
+          {mode.mode === "EXAM_URGENCY_MODE" ? "O que estudar hoje" : "Sua aula de hoje"}
+        </Text>
+        <Text variant="bodyLarge">
+          {nextChapter
+            ? `${chapterOrdinal(nextChapter.order)} — ${nextChapter.title}`
+            : "Você já concluiu os capítulos disponíveis."}
+        </Text>
+        {nextChapter ? (
+          <div className="pt-2">
+            <Button href={`/aula/${nextChapter.lessonId}`} variant="cta">
+              Abrir a aula de hoje
+            </Button>
+          </div>
+        ) : (
+          <div className="pt-2">
+            <Button href="/jardim" variant="cta">
+              Ver o que floresceu
+            </Button>
+          </div>
+        )}
+      </Card>
 
       <div className="grid grid-cols-7 gap-1 text-center text-[12px] font-semibold text-[var(--text-muted)]">
         {WEEKDAYS.map((day) => (
@@ -118,7 +141,7 @@ export function CalendarScreen() {
         {isToday && nextChapter ? (
           <div className="pt-2">
             <Button href={`/aula/${nextChapter.lessonId}`} variant="cta">
-              Continuar aula
+              Abrir a aula de hoje
             </Button>
           </div>
         ) : null}

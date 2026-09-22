@@ -8,13 +8,16 @@ import { TextArea } from "@/components/ds/Input";
 import { Professor } from "@/components/ds/Professor";
 import { MasteryMeter, ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
+import { Coach } from "@/components/study/Coach";
+import { HelpTip } from "@/components/study/HelpTip";
+import { useGuide } from "@/components/study/GuideProvider";
 import { MistakeCard, SourcedCard } from "@/components/study/SourcedBlocks";
 import { useStudyView } from "@/components/study/StudyProvider";
 import {
   STUDENT_STEP_LABEL,
   chapterOrdinal,
   continueLabel,
-  lessonProgressPercent,
+  lessonProgress,
   progressCopy,
 } from "@/components/study/labels";
 import { XP_RULES } from "@/config/xp-rules";
@@ -23,21 +26,24 @@ import type { LessonBody } from "@/domain/epistemic";
 import type { LessonStep } from "@/domain/experience";
 import type { Chapter, Lesson, MicroChallenge, TeachBack, ChapterBoss } from "@/domain/pedagogy";
 import { computeMastery, MASTERY_THRESHOLD } from "@/engine/mastery";
+import { nextStep } from "@/engine/lesson-flow";
 import { nextAvailableChapter } from "@/engine/progression";
 import { scoreTeachBack } from "@/engine/teachback";
 import { useEffect, useState } from "react";
 
 function PrimaryContinue({
+  lesson,
   step,
   onContinue,
 }: {
+  lesson: Lesson;
   step: LessonStep;
   onContinue: () => void;
 }) {
   return (
     <div className="mt-10 mb-8">
       <Button variant="cta" onClick={onContinue}>
-        {continueLabel(step)}
+        {continueLabel(step, nextStep(lesson, step))}
       </Button>
     </div>
   );
@@ -83,6 +89,7 @@ export function PilotLessonScreen({
   boss: ChapterBoss;
 }) {
   const { catalog, snapshot, dispatch, states } = useStudyView();
+  const { reach, complete } = useGuide();
   const step = snapshot.chapters[chapter.id]?.currentStep ?? "objective";
   const [choice, setChoice] = useState("");
   const [feedback, setFeedback] = useState<"success" | "almost" | null>(null);
@@ -98,6 +105,11 @@ export function PilotLessonScreen({
     window.scrollTo(0, 0);
     setFeedback(null);
     setBossFeedback(null);
+    if (step === "challenge") reach("challenge");
+    else if (step === "teachback") reach("teachback");
+    else if (step === "boss") reach("boss");
+    else if (step === "reward") reach("reward");
+    else reach("lesson");
   }, [step]);
 
   function advance() {
@@ -112,7 +124,7 @@ export function PilotLessonScreen({
         : teachText;
 
   const nextChapter = nextAvailableChapter(catalog.pedagogy.chapters, snapshot);
-  const percent = lessonProgressPercent(lesson, step);
+  const parts = lessonProgress(lesson, step);
   const currentBoss = boss.items[bossIndex];
   const mission = catalog.pedagogy.missions.find((item) => item.id === chapter.missionId);
 
@@ -126,8 +138,28 @@ export function PilotLessonScreen({
     >
       <BackLink href={`/capitulo/${chapter.id}`}>Voltar ao capítulo</BackLink>
       <PageIntro kicker={chapterOrdinal(chapter.order)} title={chapter.title} />
-      <div className="mb-8">
-        <ProgressBar value={percent} label={progressCopy(percent)} tone="chapter" />
+      {step === "challenge" ? (
+        <Coach step="challenge" />
+      ) : step === "teachback" ? (
+        <Coach step="teachback" />
+      ) : step === "boss" ? (
+        <Coach step="boss" />
+      ) : step === "reward" ? (
+        <Coach step="reward" />
+      ) : (
+        <Coach step="lesson" />
+      )}
+      <div className="mb-8 flex items-start gap-1">
+        <div className="min-w-0 flex-1">
+          <ProgressBar
+            value={parts.percent}
+            label={progressCopy(parts.percent, parts.current, parts.total)}
+            tone="chapter"
+          />
+        </div>
+        <HelpTip label="Como ler o progresso">
+          Isso é só desta aula. Cada trecho conta um passo até o desafio final.
+        </HelpTip>
       </div>
       <Text variant="label" className="mb-4">
         {STUDENT_STEP_LABEL[step]}
@@ -141,7 +173,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -153,7 +185,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -165,7 +197,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -177,7 +209,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -227,7 +259,7 @@ export function PilotLessonScreen({
               </ol>
             </Card>
           ) : null}
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -239,7 +271,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -251,7 +283,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -263,7 +295,7 @@ export function PilotLessonScreen({
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -275,13 +307,16 @@ export function PilotLessonScreen({
               <MistakeCard key={block.id} block={block} />
             ))}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "challenge" ? (
         <>
           <Professor tone="hint">{challenge.prompt}</Professor>
+          <Text variant="body" className="mt-3">
+            Toque uma alternativa. Depois confira. Se não for essa, você tenta de novo.
+          </Text>
           <div className="mt-6 space-y-3">
             {challenge.options.map((option) => (
               <ChoiceButton
@@ -313,7 +348,7 @@ export function PilotLessonScreen({
                 dispatch({ type: "ANSWER_CHALLENGE", challengeId: challenge.id, result });
               }}
             >
-              Responder
+              Conferir resposta
             </Button>
           </div>
         </>
@@ -322,6 +357,11 @@ export function PilotLessonScreen({
       {step === "teachback" ? (
         <>
           <Professor tone="explanation">Agora me explique com suas palavras.</Professor>
+          <div className="mt-2 flex items-center">
+            <HelpTip label="Por que ensinar de volta">
+              Explicar com as suas palavras é o que faz a aula ficar. Não precisa escrever bonito.
+            </HelpTip>
+          </div>
           <Text variant="bodyLarge" className="mt-4">
             {teachBack.prompt}
           </Text>
@@ -413,7 +453,7 @@ export function PilotLessonScreen({
                 });
               }}
             >
-              Conferir
+              Conferir minha explicação
             </Button>
           </div>
         </>
@@ -439,7 +479,7 @@ export function PilotLessonScreen({
               );
             })}
           </div>
-          <PrimaryContinue step={step} onContinue={advance} />
+          <PrimaryContinue lesson={lesson} step={step} onContinue={advance} />
         </>
       ) : null}
 
@@ -480,7 +520,7 @@ export function PilotLessonScreen({
                 disabled={!bossAnswers[currentBoss.id]}
                 onClick={() => setBossIndex((index) => index + 1)}
               >
-                Continuar
+                Próxima pergunta
               </Button>
             ) : (
               <Button
@@ -494,7 +534,7 @@ export function PilotLessonScreen({
                   if (!ok) setBossIndex(0);
                 }}
               >
-                Concluir capítulo
+                Fechar o capítulo
               </Button>
             )}
           </div>
@@ -513,15 +553,15 @@ export function PilotLessonScreen({
           )}
           <div className="space-y-3 pt-2">
             {nextChapter && nextChapter.id !== chapter.id ? (
-              <Button href={`/capitulo/${nextChapter.id}`} variant="cta">
-                Continuar jornada
+              <Button href={`/capitulo/${nextChapter.id}`} variant="cta" onClick={complete}>
+                Abrir o próximo capítulo
               </Button>
             ) : (
-              <Button href="/jardim" variant="cta">
-                Ver o jardim
+              <Button href="/jardim" variant="cta" onClick={complete}>
+                Ver o que floresceu
               </Button>
             )}
-            <Button href="/mapa" variant="ghost" className="w-full">
+            <Button href="/mapa" variant="ghost" className="w-full" onClick={complete}>
               Ver todos os capítulos
             </Button>
           </div>

@@ -17,7 +17,11 @@ export function ReviewScreen() {
     return (
       <AppShell trail={[{ href: "/mapa", label: "Estudo" }, { label: "Revisão" }]}>
         <BackLink href="/mapa">Voltar aos capítulos</BackLink>
-        <EmptyState kicker="Revisão" title="Ainda não há uma revisão nesta jornada">
+        <EmptyState
+          kicker="Revisão"
+          title="Ainda não há uma revisão nesta jornada"
+          action={{ href: "/mapa", label: "Voltar aos capítulos" }}
+        >
           Continue pelos capítulos. A revisão aparece aqui quando estiver pronta.
         </EmptyState>
       </AppShell>

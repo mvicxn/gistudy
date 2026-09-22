@@ -19,6 +19,7 @@ export function BibliotecaScreen() {
         <EmptyState
           kicker={emptyCopy.biblioteca.kicker}
           title={emptyCopy.biblioteca.title}
+          action={{ href: "/castelo", label: "Voltar ao início" }}
         >
           {emptyCopy.biblioteca.body}
         </EmptyState>
