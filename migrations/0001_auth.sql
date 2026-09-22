@@ -24,5 +24,5 @@ CREATE TABLE IF NOT EXISTS progress (
 );
 
 INSERT OR IGNORE INTO users (id, username, password_salt, password_hash) VALUES
-  ('user-gigi', 'gigi', 'gigi-static-salt-v1', 'CV/E1T9c/WFM+jlUNB1G5CNMhArb06wZLp2oD8Dnew0='),
-  ('user-admin', 'admin', 'admin-static-salt-v1', '3P+iL2OdvVwApW8yXsWEGQe0U6Vt3W5nVSYmVdQOmH0=');
+  ('user-gigi', 'gigi', 'gigi-static-salt-v1', 'h2hfW8QCP6MS8dtswBBaRWRcdg5zZpLnDhDlvBGX6wU='),
+  ('user-admin', 'admin', 'admin-static-salt-v1', 'IGbfMzP70deuZK6bukAFrbbrw4BN5rk0shhKRJXNQX8=');
