@@ -5,6 +5,7 @@ import { Button } from "@/components/ds/Button";
 import { Card } from "@/components/ds/Card";
 import { CalendarDay } from "@/components/ds/World";
 import { Text } from "@/components/ds/Text";
+import { HelpTip } from "@/components/study/HelpTip";
 import { useStudyView } from "@/components/study/StudyProvider";
 import { chapterOrdinal, modeHeadline } from "@/components/study/labels";
 import { useMemo, useState } from "react";
@@ -78,7 +79,12 @@ export function CalendarScreen() {
   return (
     <AppShell trail={[{ label: "Calendário" }]}>
       <PageIntro kicker="Calendário" title={`${MONTHS[month]} ${year}`}>
-        Toque um dia se quiser. O de hoje já está aberto embaixo do título.
+        <span className="inline-flex items-center gap-1">
+          O de hoje já está aqui em cima. O calendário é só se quiser olhar outro dia.
+          <HelpTip label="O que o calendário decide">
+            A aula de hoje é o capítulo aberto. Você não precisa caçar no mês.
+          </HelpTip>
+        </span>
       </PageIntro>
 
       <Card variant="elevated" className="mb-8 space-y-3 p-6">
@@ -130,22 +136,24 @@ export function CalendarScreen() {
         )}
       </div>
 
-      <Card variant="elevated" className="mt-6 space-y-3 p-6">
-        <Text variant="label">
-          {selected} de {MONTHS[month]}
-        </Text>
-        <Text as="h2" variant="h3">
-          {detailTitle}
-        </Text>
-        <Text variant="bodyLarge">{detailBody}</Text>
-        {isToday && nextChapter ? (
-          <div className="pt-2">
-            <Button href={`/aula/${nextChapter.lessonId}`} variant="cta">
-              Abrir a aula de hoje
-            </Button>
-          </div>
-        ) : null}
-      </Card>
+      {isToday ? null : (
+        <Card variant="elevated" className="mt-6 space-y-3 p-6">
+          <Text variant="label">
+            {selected} de {MONTHS[month]}
+          </Text>
+          <Text as="h2" variant="h3">
+            {detailTitle}
+          </Text>
+          <Text variant="bodyLarge">{detailBody}</Text>
+          {nextChapter ? (
+            <div className="pt-2">
+              <Button href={`/aula/${nextChapter.lessonId}`} variant="ghost" className="w-full">
+                Abrir o capítulo aberto
+              </Button>
+            </div>
+          ) : null}
+        </Card>
+      )}
     </AppShell>
   );
 }

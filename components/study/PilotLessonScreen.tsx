@@ -8,7 +8,7 @@ import { TextArea } from "@/components/ds/Input";
 import { Professor } from "@/components/ds/Professor";
 import { MasteryMeter, ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
-import { Coach } from "@/components/study/Coach";
+import { GuideTarget } from "@/components/study/GuideChrome";
 import { HelpTip } from "@/components/study/HelpTip";
 import { useGuide } from "@/components/study/GuideProvider";
 import { MistakeCard, SourcedCard } from "@/components/study/SourcedBlocks";
@@ -18,7 +18,6 @@ import {
   chapterOrdinal,
   continueLabel,
   lessonProgress,
-  progressCopy,
 } from "@/components/study/labels";
 import { XP_RULES } from "@/config/xp-rules";
 import { AULA_01, PHASES_SLIDE_2 } from "@/content/pilot/relogio-da-ferida";
@@ -31,6 +30,14 @@ import { nextAvailableChapter } from "@/engine/progression";
 import { scoreTeachBack } from "@/engine/teachback";
 import { useEffect, useState } from "react";
 
+function guideStepFor(step: LessonStep) {
+  if (step === "challenge") return "challenge" as const;
+  if (step === "teachback") return "teachback" as const;
+  if (step === "boss") return "boss" as const;
+  if (step === "reward") return "reward" as const;
+  return "lesson" as const;
+}
+
 function PrimaryContinue({
   lesson,
   step,
@@ -41,11 +48,11 @@ function PrimaryContinue({
   onContinue: () => void;
 }) {
   return (
-    <div className="mt-10 mb-8">
+    <GuideTarget step={guideStepFor(step)} className="mt-10 mb-8">
       <Button variant="cta" onClick={onContinue}>
         {continueLabel(step, nextStep(lesson, step))}
       </Button>
-    </div>
+    </GuideTarget>
   );
 }
 
@@ -89,7 +96,7 @@ export function PilotLessonScreen({
   boss: ChapterBoss;
 }) {
   const { catalog, snapshot, dispatch, states } = useStudyView();
-  const { reach, complete } = useGuide();
+  const { active, reach, complete } = useGuide();
   const step = snapshot.chapters[chapter.id]?.currentStep ?? "objective";
   const [choice, setChoice] = useState("");
   const [feedback, setFeedback] = useState<"success" | "almost" | null>(null);
@@ -138,27 +145,12 @@ export function PilotLessonScreen({
     >
       <BackLink href={`/capitulo/${chapter.id}`}>Voltar ao capítulo</BackLink>
       <PageIntro kicker={chapterOrdinal(chapter.order)} title={chapter.title} />
-      {step === "challenge" ? (
-        <Coach step="challenge" />
-      ) : step === "teachback" ? (
-        <Coach step="teachback" />
-      ) : step === "boss" ? (
-        <Coach step="boss" />
-      ) : step === "reward" ? (
-        <Coach step="reward" />
-      ) : (
-        <Coach step="lesson" />
-      )}
-      <div className="mb-8 flex items-start gap-1">
+      <div className="mb-6 flex items-start gap-1">
         <div className="min-w-0 flex-1">
-          <ProgressBar
-            value={parts.percent}
-            label={progressCopy(parts.percent, parts.current, parts.total)}
-            tone="chapter"
-          />
+          <ProgressBar value={parts.percent} label={`Trecho ${parts.current} de ${parts.total}`} tone="chapter" />
         </div>
         <HelpTip label="Como ler o progresso">
-          Isso é só desta aula. Cada trecho conta um passo até o desafio final.
+          O capítulo só fica concluído depois do desafio final.
         </HelpTip>
       </div>
       <Text variant="label" className="mb-4">
@@ -338,7 +330,7 @@ export function PilotLessonScreen({
               <Feedback kind="success">Certo. Vamos seguir.</Feedback>
             </div>
           ) : null}
-          <div className="mt-8">
+          <GuideTarget step="challenge" className="mt-8">
             <Button
               variant="cta"
               disabled={!choice}
@@ -350,7 +342,7 @@ export function PilotLessonScreen({
             >
               Conferir resposta
             </Button>
-          </div>
+          </GuideTarget>
         </>
       ) : null}
 
@@ -439,7 +431,7 @@ export function PilotLessonScreen({
               <Feedback kind="almost">Quase. Inclua as ideias principais desta aula.</Feedback>
             </div>
           ) : null}
-          <div className="mt-8">
+          <GuideTarget step="teachback" className="mt-8">
             <Button
               variant="cta"
               disabled={assembledTeach.trim().length < 8}
@@ -455,7 +447,7 @@ export function PilotLessonScreen({
             >
               Conferir minha explicação
             </Button>
-          </div>
+          </GuideTarget>
         </>
       ) : null}
 
@@ -513,7 +505,7 @@ export function PilotLessonScreen({
               <Feedback kind="almost">Quase. Olhe de novo, sem pressa.</Feedback>
             </div>
           ) : null}
-          <div className="mt-8">
+          <GuideTarget step="boss" className="mt-8">
             {bossIndex < boss.items.length - 1 ? (
               <Button
                 variant="cta"
@@ -537,7 +529,7 @@ export function PilotLessonScreen({
                 Fechar o capítulo
               </Button>
             )}
-          </div>
+          </GuideTarget>
         </>
       ) : null}
 
@@ -551,20 +543,20 @@ export function PilotLessonScreen({
           ) : (
             <Feedback kind="chapter">Capítulo concluído. Você pode seguir a jornada.</Feedback>
           )}
-          <div className="space-y-3 pt-2">
+          <GuideTarget step="reward" className="space-y-3 pt-2">
             {nextChapter && nextChapter.id !== chapter.id ? (
               <Button href={`/capitulo/${nextChapter.id}`} variant="cta" onClick={complete}>
-                Abrir o próximo capítulo
+                {active ? "Começar minha jornada" : "Abrir o próximo capítulo"}
               </Button>
             ) : (
               <Button href="/jardim" variant="cta" onClick={complete}>
-                Ver o que floresceu
+                {active ? "Começar minha jornada" : "Ver o que floresceu"}
               </Button>
             )}
             <Button href="/mapa" variant="ghost" className="w-full" onClick={complete}>
               Ver todos os capítulos
             </Button>
-          </div>
+          </GuideTarget>
         </div>
       ) : null}
     </AppShell>

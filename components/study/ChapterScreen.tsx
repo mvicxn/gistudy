@@ -5,7 +5,7 @@ import { Button } from "@/components/ds/Button";
 import { ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
 import { LockedState } from "@/components/ds/States";
-import { Coach } from "@/components/study/Coach";
+import { GuideTarget } from "@/components/study/GuideChrome";
 import { useGuide } from "@/components/study/GuideProvider";
 import { useStudyView } from "@/components/study/StudyProvider";
 import {
@@ -15,7 +15,6 @@ import {
   lessonProgress,
   lockReason,
   previousChapterTitle,
-  progressCopy,
 } from "@/components/study/labels";
 import { getChapters } from "@/content/catalog";
 import type { ChapterState } from "@/domain/experience";
@@ -54,25 +53,15 @@ export function ChapterScreen({ chapterId }: { chapterId: string }) {
   }
 
   return (
-    <AppShell
-      trail={[
-        { href: "/mapa", label: "Estudo" },
-        { label: chapter.title },
-      ]}
-    >
+    <AppShell trail={[{ href: "/mapa", label: "Estudo" }, { label: chapter.title }]}>
       <BackLink href="/mapa">Voltar aos capítulos</BackLink>
-      {state !== "LOCKED" ? <Coach step="chapter" /> : null}
       <PageIntro kicker={chapterOrdinal(chapter.order)} title={chapter.title}>
         {mission?.content}
       </PageIntro>
       <Text variant="caption">{CHAPTER_STATE_LABEL[state]}</Text>
       {state !== "LOCKED" ? (
         <div className="mt-4">
-          <ProgressBar
-            value={parts.percent}
-            label={progressCopy(parts.percent, parts.current, parts.total)}
-            tone="chapter"
-          />
+          <ProgressBar value={parts.percent} label={`Trecho ${parts.current} de ${parts.total}`} tone="chapter" />
         </div>
       ) : null}
       {state === "LOCKED" ? (
@@ -85,11 +74,11 @@ export function ChapterScreen({ chapterId }: { chapterId: string }) {
           </LockedState>
         </div>
       ) : (
-        <div className="mt-8">
+        <GuideTarget step="chapter" className="mt-8">
           <Button href={`/aula/${chapter.lessonId}`} variant="cta" onClick={() => reach("lesson")}>
             {chapterCta(state)}
           </Button>
-        </div>
+        </GuideTarget>
       )}
     </AppShell>
   );

@@ -3,6 +3,7 @@
 import {
   doneGuide,
   emptyGuide,
+  guideStepFromPath,
   loadGuide,
   reachStep,
   saveGuide,
@@ -10,6 +11,7 @@ import {
   type GuideStep,
 } from "@/components/study/guide-store";
 import { useStudy } from "@/components/study/StudyProvider";
+import { usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type GuideContextValue = {
@@ -19,12 +21,14 @@ type GuideContextValue = {
   reach: (next: GuideStep) => void;
   complete: () => void;
   skip: () => void;
+  reopen: () => void;
 };
 
 const GuideContext = createContext<GuideContextValue | null>(null);
 
 export function GuideProvider({ children }: { children: React.ReactNode }) {
   const { ready, snapshot } = useStudy();
+  const pathname = usePathname();
   const [guide, setGuide] = useState<GuideState>(emptyGuide);
   const [hydrated, setHydrated] = useState(false);
 
@@ -63,8 +67,9 @@ export function GuideProvider({ children }: { children: React.ReactNode }) {
       },
       complete: () => update(doneGuide()),
       skip: () => update(doneGuide()),
+      reopen: () => update({ status: "active", step: guideStepFromPath(pathname) }),
     }),
-    [hydrated, guide],
+    [hydrated, guide, pathname],
   );
 
   return <GuideContext.Provider value={value}>{children}</GuideContext.Provider>;

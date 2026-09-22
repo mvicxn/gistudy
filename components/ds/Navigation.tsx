@@ -3,6 +3,8 @@
 import { cn } from "@/lib/cn";
 import { Text } from "@/components/ds/Text";
 import { Spinner } from "@/components/ds/States";
+import { GuideDock } from "@/components/study/GuideChrome";
+import { useGuide } from "@/components/study/GuideProvider";
 import { useStudy } from "@/components/study/StudyProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -38,12 +40,13 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const { ready } = useStudy();
+  const { ready: guideReady, active, step, skip, reopen } = useGuide();
 
   return (
     <div className="min-h-dvh md:flex">
       <aside className="hidden md:fixed md:inset-y-0 md:flex md:w-56 md:flex-col md:border-r md:border-[var(--border)] md:bg-[rgba(11,11,16,0.92)] md:px-4 md:py-8">
         <Text variant="label">MM Study</Text>
-        <nav className="mt-8 flex flex-col gap-1" aria-label="Navegação principal">
+        <nav className="mt-8 flex flex-1 flex-col gap-1" aria-label="Navegação principal">
           {tabs.map((tab) => {
             const active = isActive(pathname, tab.href);
             return (
@@ -66,10 +69,29 @@ export function AppShell({
             );
           })}
         </nav>
+        {guideReady ? (
+          <button
+            type="button"
+            onClick={active ? skip : reopen}
+            className="mt-6 min-h-11 text-left text-[13px] text-[var(--text-muted)]"
+          >
+            {active ? "Pular ajuda" : "Preciso de ajuda"}
+          </button>
+        ) : null}
       </aside>
 
-      <main className="mx-auto w-full max-w-[720px] flex-1 px-5 py-8 pb-36 md:ml-56 md:max-w-[760px] md:px-10 md:pb-16">
+      <main className="mx-auto w-full max-w-[720px] flex-1 px-5 py-8 pb-52 md:ml-56 md:max-w-[760px] md:px-10 md:pb-16">
         {trail ? <ContextTrail items={trail} /> : null}
+        {guideReady && !active ? (
+          <button
+            type="button"
+            onClick={reopen}
+            className="mb-4 inline-flex min-h-11 items-center text-[13px] text-[var(--text-muted)] md:hidden"
+          >
+            Preciso de ajuda
+          </button>
+        ) : null}
+        {guideReady && active ? <GuideDock step={step} /> : null}
         {ready ? (
           children
         ) : (

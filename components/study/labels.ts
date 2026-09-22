@@ -95,10 +95,3 @@ export function lessonProgress(lesson: Lesson | undefined, step: LessonStep) {
 export function lessonProgressPercent(lesson: Lesson | undefined, step: LessonStep): number {
   return lessonProgress(lesson, step).percent;
 }
-
-export function progressCopy(percent: number, current?: number, total?: number): string {
-  if (percent <= 0) return "Você ainda não começou esta aula.";
-  if (percent >= 100) return "Você concluiu esta aula.";
-  if (current && total) return `Trecho ${current} de ${total} · já fez ${percent}%.`;
-  return `Já fez ${percent}% dessa aula.`;
-}

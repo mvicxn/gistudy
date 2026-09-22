@@ -6,7 +6,7 @@ import { Card } from "@/components/ds/Card";
 import { ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
 import { EmptyState, emptyCopy } from "@/components/ds/States";
-import { Coach } from "@/components/study/Coach";
+import { GuideTarget, JourneyPath } from "@/components/study/GuideChrome";
 import { HelpTip } from "@/components/study/HelpTip";
 import { useGuide } from "@/components/study/GuideProvider";
 import { useStudyView } from "@/components/study/StudyProvider";
@@ -20,7 +20,6 @@ import {
 } from "@/components/study/labels";
 import { getChapters } from "@/content/catalog";
 import type { ChapterState } from "@/domain/experience";
-import { cn } from "@/lib/cn";
 import { useEffect } from "react";
 
 export function MapScreen() {
@@ -49,17 +48,11 @@ export function MapScreen() {
 
   return (
     <AppShell trail={[{ href: "/biblioteca", label: "Biblioteca" }, { label: "Estudo" }]}>
-      <Coach step="journey" />
       <PageIntro kicker={catalog.pedagogy.subjects[0]?.title ?? "Estudo"} title="Sua jornada">
-        <span className="inline-flex items-center">
-          Entre no capítulo aberto. Os bloqueados esperam o anterior.
-          <HelpTip label="O que significa cada estado">
-            Disponível: pode entrar. Em andamento: você já começou. Bloqueado: termine o anterior.
-            Concluído: você fechou o desafio final. Dominado: o conteúdo ficou firme.
-          </HelpTip>
-        </span>
+        Você não precisa escolher o que vem depois. O próximo capítulo abre sozinho.
       </PageIntro>
-      <div className="space-y-4">
+      {active ? <JourneyPath current={1} /> : null}
+      <div className="space-y-4 pb-28">
         {catalog.pedagogy.modules.map((module) => {
           const items = chapters.filter((chapter) => module.chapterIds.includes(chapter.id));
           if (!items.length) return null;
@@ -69,6 +62,7 @@ export function MapScreen() {
               {items.map((chapter) => {
                 const state = (states[chapter.id] ?? "LOCKED") as ChapterState;
                 const lesson = catalog.pedagogy.lessons.find((item) => item.id === chapter.lessonId);
+                const mission = catalog.pedagogy.missions.find((item) => item.id === chapter.missionId);
                 const step = snapshot.chapters[chapter.id]?.currentStep ?? "objective";
                 const percent =
                   state === "COMPLETED" || state === "MASTERED"
@@ -80,12 +74,8 @@ export function MapScreen() {
                         : 0;
                 const locked = state === "LOCKED";
                 const open = state === "AVAILABLE" || state === "IN_PROGRESS";
-                return (
-                  <Card
-                    key={chapter.id}
-                    variant={locked ? "locked" : "elevated"}
-                    className={cn("space-y-4 p-5", open && active && "halo")}
-                  >
+                const card = (
+                  <Card variant={locked ? "locked" : "elevated"} className="space-y-4 p-5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <Text variant="caption">{chapterOrdinal(chapter.order)}</Text>
@@ -93,10 +83,20 @@ export function MapScreen() {
                           {chapter.title}
                         </Text>
                       </div>
-                      <Text variant="caption" className="shrink-0 text-[var(--lilac)]">
-                        {CHAPTER_STATE_LABEL[state]}
-                      </Text>
+                      <span className="inline-flex items-center">
+                        <Text variant="caption" className="shrink-0 text-[var(--lilac)]">
+                          {CHAPTER_STATE_LABEL[state]}
+                        </Text>
+                        {open ? (
+                          <HelpTip label="O que significa este estado">
+                            O capítulo só fica concluído depois do desafio final.
+                          </HelpTip>
+                        ) : null}
+                      </span>
                     </div>
+                    {mission && !locked ? (
+                      <Text variant="body">{mission.title}</Text>
+                    ) : null}
                     {locked ? (
                       <Text variant="body">
                         {lockReason(previousChapterTitle(chapters, chapter.id))}
@@ -115,21 +115,25 @@ export function MapScreen() {
                     )}
                   </Card>
                 );
+                return open ? (
+                  <GuideTarget key={chapter.id} step="journey">
+                    {card}
+                  </GuideTarget>
+                ) : (
+                  <div key={chapter.id}>{card}</div>
+                );
               })}
             </section>
           );
         })}
         {upcoming.length ? (
-          <section className="space-y-3 pt-4">
+          <section className="space-y-3 pt-2">
             <Text variant="label">Em breve</Text>
             {upcoming.map((item) => (
               <Card key={item.id} variant="locked">
-                <Text variant="caption">Ainda não está na jornada</Text>
+                <Text variant="caption">Ainda não chegou</Text>
                 <Text as="h2" variant="h3" className="mt-1">
                   {item.title}
-                </Text>
-                <Text variant="body" className="mt-2">
-                  Este capítulo ainda não chegou. Ignore por agora.
                 </Text>
               </Card>
             ))}

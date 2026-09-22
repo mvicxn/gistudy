@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import Link from "next/link";
-import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "icon" | "pill" | "cta" | "soft";
 type Status = "default" | "loading" | "success";
@@ -58,6 +58,7 @@ export function Button(
 
   const label =
     status === "loading" ? "Preparando…" : status === "success" ? children : children;
+  const linkClick = rest.onClick as (() => void) | undefined;
 
   if (rest.href) {
     return (
@@ -66,7 +67,7 @@ export function Button(
         className={classes}
         aria-disabled={locked || disabled || undefined}
         aria-label={rest["aria-label"]}
-        onClick={rest.onClick as unknown as MouseEventHandler<HTMLAnchorElement>}
+        onClick={linkClick}
       >
         {label}
       </Link>
