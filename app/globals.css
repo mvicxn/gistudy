@@ -64,13 +64,43 @@ body {
   box-shadow: 0 0 0 2px rgba(185, 160, 232, 0.35), var(--glow);
 }
 
+.reward-spark {
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  border-radius: 999px;
+  background: var(--lilac);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reward-spark {
+    animation: reward-fall 1.6s var(--ease-out) both;
+  }
+}
+
+@keyframes reward-fall {
+  from {
+    transform: translateY(-8px) scale(0.6);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(28px) scale(1);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .motion-lift,
   .motion-scale,
   .motion-float {
     transform: none !important;
   }
-  .motion-particles {
+  .motion-particles,
+  .reward-sparks {
     display: none !important;
   }
 }

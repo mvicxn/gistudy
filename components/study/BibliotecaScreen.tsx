@@ -1,10 +1,12 @@
 "use client";
 
 import { AppShell, PageIntro } from "@/components/ds/AppShell";
-import { BookCover } from "@/components/ds/World";
-import { EmptyState } from "@/components/ds/States";
+import { Card } from "@/components/ds/Card";
+import { EmptyState, emptyCopy } from "@/components/ds/States";
+import { Text } from "@/components/ds/Text";
 import { useStudyView } from "@/components/study/StudyProvider";
-import { emptyCopy } from "@/components/ds/States";
+import { CHAPTER_STATE_LABEL, chapterOrdinal } from "@/components/study/labels";
+import type { ChapterState } from "@/domain/experience";
 import Link from "next/link";
 
 export function BibliotecaScreen() {
@@ -30,27 +32,42 @@ export function BibliotecaScreen() {
   return (
     <AppShell trail={[{ label: "Biblioteca" }]}>
       <PageIntro kicker="Biblioteca" title={subject?.title ?? "Seus livros"}>
-        Escolha a matéria e entre na jornada dos capítulos.
+        Cada capítulo da matéria, com o estado bem visível.
       </PageIntro>
-      <div className="space-y-4">
+      <div className="space-y-8">
         {modules.map((module) => {
           const moduleChapters = chapters.filter((chapter) => module.chapterIds.includes(chapter.id));
-          const done = moduleChapters.filter(
-            (chapter) => states[chapter.id] === "COMPLETED" || states[chapter.id] === "MASTERED",
-          ).length;
-          const locked = moduleChapters.every((chapter) => states[chapter.id] === "LOCKED");
-          const percent = moduleChapters.length
-            ? Math.round((done / moduleChapters.length) * 100)
-            : 0;
+          if (!moduleChapters.length) return null;
           return (
-            <Link key={module.id} href="/mapa" className="block">
-              <BookCover
-                title={module.title}
-                locked={locked}
-                subtitle={`${done} de ${moduleChapters.length} capítulos`}
-                progress={percent}
-              />
-            </Link>
+            <section key={module.id} className="space-y-4">
+              <Text variant="label">{module.title}</Text>
+              {moduleChapters.map((chapter) => {
+                const state = (states[chapter.id] ?? "LOCKED") as ChapterState;
+                const locked = state === "LOCKED";
+                const card = (
+                  <Card variant={locked ? "locked" : "elevated"} className="min-h-[180px] space-y-4 p-6">
+                    <Text variant="caption">{chapterOrdinal(chapter.order)}</Text>
+                    <Text as="h2" variant="h2">
+                      {chapter.title}
+                    </Text>
+                    <p
+                      className={`text-[28px] font-semibold leading-tight ${
+                        locked ? "text-[var(--text-muted)]" : "text-[var(--lilac)]"
+                      }`}
+                    >
+                      {CHAPTER_STATE_LABEL[state]}
+                    </p>
+                  </Card>
+                );
+                return locked ? (
+                  <div key={chapter.id}>{card}</div>
+                ) : (
+                  <Link key={chapter.id} href={`/capitulo/${chapter.id}`} className="block">
+                    {card}
+                  </Link>
+                );
+              })}
+            </section>
           );
         })}
       </div>

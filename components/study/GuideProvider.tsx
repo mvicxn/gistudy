@@ -5,6 +5,8 @@ import {
   emptyGuide,
   guideStepFromPath,
   loadGuide,
+  nextGuideStep,
+  previousGuideStep,
   reachStep,
   saveGuide,
   type GuideState,
@@ -19,6 +21,8 @@ type GuideContextValue = {
   active: boolean;
   step: GuideStep;
   reach: (next: GuideStep) => void;
+  back: () => void;
+  forward: () => void;
   complete: () => void;
   skip: () => void;
   reopen: () => void;
@@ -64,6 +68,17 @@ export function GuideProvider({ children }: { children: React.ReactNode }) {
         const nextState = reachStep(guide, next);
         if (nextState.status === guide.status && nextState.step === guide.step) return;
         update(nextState);
+      },
+      back: () => {
+        if (guide.status !== "active") return;
+        const previous = previousGuideStep(guide.step);
+        if (previous) update({ status: "active", step: previous });
+      },
+      forward: () => {
+        if (guide.status !== "active") return;
+        const next = nextGuideStep(guide.step);
+        if (next) update({ status: "active", step: next });
+        else update(doneGuide());
       },
       complete: () => update(doneGuide()),
       skip: () => update(doneGuide()),

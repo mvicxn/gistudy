@@ -49,11 +49,20 @@ export function CasteloScreen() {
   const firstVisit = active && step === "welcome";
   const href = firstVisit ? "/mapa" : current ? `/aula/${current.lessonId}` : "/mapa";
 
+  const cta = firstVisit
+    ? "Vamos começar"
+    : currentState === "COMPLETED" || currentState === "MASTERED"
+      ? chapterCta(currentState)
+      : "Continue seus estudos";
+
   return (
     <AppShell>
       <Text variant="label">{subject?.title ?? "Início"}</Text>
-      <Text as="h1" variant="h1" className="mt-2">
+      <Text as="h1" variant="display" className="mt-3">
         {hello}, Giovana
+      </Text>
+      <Text variant="bodyLarge" className="mt-3">
+        Continue seus estudos
       </Text>
 
       <GuideTarget step="welcome" className="mt-8">
@@ -73,7 +82,7 @@ export function CasteloScreen() {
                   if (firstVisit) reach("journey");
                 }}
               >
-                {firstVisit ? "Vamos começar" : chapterCta(currentState)}
+                {cta}
               </Button>
             </>
           ) : (

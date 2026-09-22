@@ -5,6 +5,7 @@ import { Text } from "@/components/ds/Text";
 import { Spinner } from "@/components/ds/States";
 import { GuideDock } from "@/components/study/GuideChrome";
 import { useGuide } from "@/components/study/GuideProvider";
+import type { GuideStep } from "@/components/study/guide-store";
 import { useStudy } from "@/components/study/StudyProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -31,6 +32,25 @@ function isActive(pathname: string, href: string) {
   return pathname.startsWith(href);
 }
 
+function guideDockBelongsHere(pathname: string, step: GuideStep) {
+  switch (step) {
+    case "welcome":
+      return pathname === "/" || pathname.startsWith("/castelo");
+    case "journey":
+      return pathname.startsWith("/mapa");
+    case "chapter":
+      return pathname.startsWith("/capitulo");
+    case "lesson":
+    case "challenge":
+    case "teachback":
+    case "boss":
+    case "reward":
+      return pathname.startsWith("/aula");
+    default:
+      return false;
+  }
+}
+
 export function AppShell({
   children,
   trail,
@@ -48,15 +68,15 @@ export function AppShell({
         <Text variant="label">MM Study</Text>
         <nav className="mt-8 flex flex-1 flex-col gap-1" aria-label="Navegação principal">
           {tabs.map((tab) => {
-            const active = isActive(pathname, tab.href);
+            const tabActive = isActive(pathname, tab.href);
             return (
               <Link
                 key={tab.href}
                 href={tab.href}
-                aria-current={active ? "page" : undefined}
+                aria-current={tabActive ? "page" : undefined}
                 className={cn(
                   "flex min-h-11 items-center gap-3 rounded-[var(--radius-lg)] px-3 text-[15px] font-semibold",
-                  active
+                  tabActive
                     ? "bg-[rgba(185,160,232,0.16)] text-[var(--text-primary)]"
                     : "text-[var(--text-secondary)] hover:bg-[rgba(255,255,255,0.04)]",
                 )}
@@ -91,7 +111,9 @@ export function AppShell({
             Preciso de ajuda
           </button>
         ) : null}
-        {guideReady && active ? <GuideDock step={step} /> : null}
+        {guideReady && active && guideDockBelongsHere(pathname, step) ? (
+          <GuideDock step={step} />
+        ) : null}
         {ready ? (
           children
         ) : (
@@ -109,15 +131,15 @@ export function AppShell({
           {tabs
             .filter((tab) => tab.href !== "/biblioteca")
             .map((tab) => {
-            const active = isActive(pathname, tab.href);
+            const tabActive = isActive(pathname, tab.href);
             return (
               <li key={tab.href}>
                 <Link
                   href={tab.href}
-                  aria-current={active ? "page" : undefined}
+                  aria-current={tabActive ? "page" : undefined}
                   className={cn(
                     "flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-2 text-center text-[12px] font-semibold leading-tight",
-                    active ? "text-[var(--lilac)]" : "text-[var(--text-muted)]",
+                    tabActive ? "text-[var(--lilac)]" : "text-[var(--text-muted)]",
                   )}
                 >
                   <span aria-hidden className="text-base">

@@ -1,8 +1,14 @@
 "use client";
 
-import { GUIDE_COPY, JOURNEY_PATH, type GuideStep } from "@/components/study/guide-store";
+import {
+  GUIDE_COPY,
+  GUIDE_STEP_COUNT,
+  JOURNEY_PATH,
+  type GuideStep,
+} from "@/components/study/guide-store";
 import { useGuide } from "@/components/study/GuideProvider";
 import { Text } from "@/components/ds/Text";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
 
@@ -21,9 +27,10 @@ export function GuideTarget({
     <div
       className={cn(
         on &&
-          "relative z-[35] scroll-mb-52 rounded-[var(--radius-lg)] ring-2 ring-[var(--lilac)] ring-offset-2 ring-offset-[var(--bg)] motion-safe:shadow-[var(--glow)]",
+          "relative z-[35] scroll-mb-52 rounded-[var(--radius-lg)] ring-2 ring-[var(--lilac)] ring-offset-4 ring-offset-[var(--bg)] motion-safe:shadow-[var(--glow)]",
         className,
       )}
+      data-guide-target={on ? step : undefined}
     >
       {children}
     </div>
@@ -31,35 +38,62 @@ export function GuideTarget({
 }
 
 export function GuideDock({ step }: { step: GuideStep }) {
-  const { active, step: current, skip } = useGuide();
+  const { active, step: current, back, forward, skip } = useGuide();
+  const reduced = usePrefersReducedMotion();
   if (!active || current !== step) return null;
   const copy = GUIDE_COPY[step];
+  const passo = copy.index + 1;
+  const canBack = copy.index > 0;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-3 z-[40] px-3 md:top-auto md:bottom-6">
+    <>
       <div
-        role="dialog"
-        aria-label={copy.title}
-        className="pointer-events-auto mx-auto w-full max-w-[520px] rounded-[var(--radius-xl)] border border-[rgba(185,160,232,0.45)] bg-[rgba(18,18,26,0.96)] px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur"
-      >
-        <Text variant="label">
-          {copy.index === 0 ? "Primeira aula" : `Primeira aula · ${copy.index} de 7`}
-        </Text>
-        <Text as="h2" variant="h3" className="mt-1">
-          {copy.title}
-        </Text>
-        <Text variant="body" className="mt-1 text-[var(--text-primary)]">
-          {copy.body}
-        </Text>
-        <button
-          type="button"
-          onClick={skip}
-          className="mt-1 inline-flex min-h-11 items-center text-[14px] text-[var(--text-muted)]"
+        aria-hidden
+        className={cn(
+          "pointer-events-none fixed inset-0 z-[30]",
+          reduced ? "bg-[rgba(0,0,0,0.2)]" : "bg-[rgba(0,0,0,0.45)]",
+        )}
+      />
+      <div className="pointer-events-none fixed inset-x-0 top-3 z-[40] px-3 md:top-auto md:bottom-6">
+        <div
+          role="dialog"
+          aria-label={copy.title}
+          className="pointer-events-auto mx-auto w-full max-w-[520px] rounded-[var(--radius-xl)] border border-[rgba(185,160,232,0.45)] bg-[rgba(18,18,26,0.96)] px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur"
         >
-          Pular ajuda
-        </button>
+          <Text variant="label">Passo {passo} de {GUIDE_STEP_COUNT}</Text>
+          <Text as="h2" variant="h3" className="mt-1">
+            {copy.title}
+          </Text>
+          <Text variant="body" className="mt-1 text-[var(--text-primary)]">
+            {copy.body}
+          </Text>
+          <div className="mt-2 flex flex-wrap items-center gap-x-4">
+            <button
+              type="button"
+              onClick={back}
+              disabled={!canBack}
+              className="inline-flex min-h-11 items-center text-[14px] text-[var(--text-muted)] disabled:opacity-40"
+            >
+              Voltar
+            </button>
+            <button
+              type="button"
+              onClick={forward}
+              className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[var(--lilac)]"
+            >
+              Próximo
+            </button>
+            <button
+              type="button"
+              onClick={skip}
+              className="inline-flex min-h-11 items-center text-[14px] text-[var(--text-muted)]"
+            >
+              Pular
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

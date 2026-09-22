@@ -1,0 +1,155 @@
+# MM Study
+
+Castelo de estudos da Giovana. Um app pessoal, mobile-first, para aprender Dermatofuncional II com a mesma forma em todo capítulo: aula, desafio, ensine de volta, Boss e vitória.
+
+O conteúdo vem da fonte (PDF/PPT tratado no Obreiro, fora do palco). O produto **não** pede upload, login, chat ou backend.
+
+Site publicado: https://gistudy.pages.dev/
+
+## Tecnologias
+
+- Next.js 16 (App Router, `output: "export"`)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Vitest
+- Cloudflare Pages (estático, pasta `out/`)
+
+Não há Workers, banco, API ou runtime de IA no site.
+
+## Como rodar
+
+```bash
+npm install
+npm test
+npm run dev
+```
+
+Abra http://127.0.0.1:3000.
+
+Outros comandos:
+
+```bash
+npm run build      # gera out/
+npm run typecheck  # tsc --noEmit
+npm run lint       # ESLint (veja pendência conhecida)
+```
+
+O progresso e o guia ficam no `localStorage` do navegador.
+
+## Como publicar
+
+Build estático:
+
+```bash
+npx next build
+```
+
+Saída: `out/`.
+
+Deploy no projeto Pages existente:
+
+```bash
+npx wrangler login
+npx wrangler whoami
+npx wrangler pages deploy out --project-name=gistudy --branch=main
+```
+
+URL de produção: https://gistudy.pages.dev/
+
+### Deploy automático (GitHub → Pages)
+
+O workflow `.github/workflows/deploy.yml` roda em todo push na `main`:
+
+1. `npm ci`
+2. `npm test`
+3. `npm run build`
+4. `wrangler pages deploy out --project-name=gistudy`
+
+Secrets necessários no repositório GitHub:
+
+- `CLOUDFLARE_API_TOKEN` — token com permissão **Cloudflare Pages — Edit**
+- `CLOUDFLARE_ACCOUNT_ID` — `8690b830da0b2d1acd9184f2b88ca6cd`
+
+Sem esses secrets, o Actions falha e o deploy continua podendo ser feito à mão com Wrangler:
+
+```bash
+npx wrangler pages deploy out --project-name=gistudy --branch=main
+```
+
+Conta Cloudflare do projeto: `8690b830da0b2d1acd9184f2b88ca6cd`.
+
+Como criar o token: Cloudflare Dashboard → My Profile → API Tokens → Create Token → template **Edit Cloudflare Pages**.
+
+## Estrutura do projeto
+
+```
+app/                 rotas (App Router)
+components/ds/       design system
+components/study/    telas e guia (UX)
+content/             capítulos e catálogo
+domain/              contratos e tipos
+engine/              regras (XP, mastery, Boss, teach-back)
+repository/          persistência local
+obreiro/             regras de importação (off-stage)
+config/              XP, modo de estudo
+architecture/        histórico de fases
+public/              assets estáticos
+```
+
+Camadas: SOURCE → NORMALIZED → PEDAGOGY → EXPERIENCE → UI.
+
+Não misture conteúdo acadêmico com copy de interface.
+
+## Fluxo pedagógico
+
+1. **Início (Castelo)** — matéria, capítulo atual, uma ação.
+2. **Jornada (Mapa)** — capítulos com estado humano.
+3. **Capítulo** — objetivo e entrada da aula.
+4. **Aula** — um pedaço por vez (objetivo, o quê, por quê, como, figura, analogia, prática, erros).
+5. **Desafio** — escolha + feedback.
+6. **Ensine de volta** — explicação nas palavras da estudante.
+7. **Boss** — uma pergunta por tela; fecha o capítulo.
+8. **Vitória** — XP, flor, próximo capítulo.
+
+O guia de primeira visita aponta para a interface real (spotlight + Passo X de 8). Pode pular, voltar, avançar e reabrir em **Preciso de ajuda**.
+
+## Como adicionar novos capítulos
+
+Não invente conteúdo. A fonte (PDF/PPT) passa pelo Obreiro off-stage.
+
+1. Crie o arquivo em `content/pilot/` no mesmo molde dos capítulos existentes (source_ref, tags epistêmicas, lesson mold).
+2. Registre source, pedagogy, lesson body e assets em `content/catalog.ts`.
+3. Coloque figuras em `public/content/...`.
+4. Rode os testes do conteúdo e `npm test`.
+5. Não altere engine, XP, mastery, regras de Boss/Teach-back nem contratos de domínio só para “caber” um texto.
+
+Capítulos futuros já listados como “Em breve” ficam em `upcomingChapters` no catálogo.
+
+## Cloudflare Pages
+
+- Projeto: `gistudy`
+- Build: `npx next build`
+- Output: `out`
+- Framework: Next.js static export (`output: "export"` em `next.config.ts`)
+- Sem adapter Workers
+
+Refresh direto de `/castelo`, `/aula/...` etc. funciona porque cada rota vira HTML estático.
+
+## GitHub Actions
+
+Arquivo: `.github/workflows/deploy.yml`.
+
+Dispara em `push` na `main`. Precisa dos secrets acima. Sem eles, o job de deploy não autentica.
+
+## Testes
+
+```bash
+npm test
+```
+
+Os testes cobrem engine, repositório, Obreiro e conteúdo piloto. Não altere um teste só para fazê-lo passar.
+
+## Identidade visual
+
+Premium, feminino, acadêmico, mágico, moderno. Hierarquia, tipografia e espaço — sem neon, sem excesso de cards, sem tutorial permanente depois da primeira jornada.

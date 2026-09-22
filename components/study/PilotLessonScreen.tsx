@@ -8,6 +8,7 @@ import { TextArea } from "@/components/ds/Input";
 import { Professor } from "@/components/ds/Professor";
 import { MasteryMeter, ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
+import { FlowerSlot } from "@/components/ds/World";
 import { GuideTarget } from "@/components/study/GuideChrome";
 import { HelpTip } from "@/components/study/HelpTip";
 import { useGuide } from "@/components/study/GuideProvider";
@@ -48,7 +49,10 @@ function PrimaryContinue({
   onContinue: () => void;
 }) {
   return (
-    <GuideTarget step={guideStepFor(step)} className="mt-10 mb-8">
+    <GuideTarget
+      step={guideStepFor(step)}
+      className="sticky bottom-24 z-[25] mt-12 mb-8 bg-[rgba(11,11,16,0.92)] py-2 backdrop-blur md:static md:bg-transparent md:py-0"
+    >
       <Button variant="cta" onClick={onContinue}>
         {continueLabel(step, nextStep(lesson, step))}
       </Button>
@@ -160,7 +164,7 @@ export function PilotLessonScreen({
       {step === "objective" ? (
         <>
           <Professor tone="introduction">{mission?.content}</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.objective.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -172,7 +176,7 @@ export function PilotLessonScreen({
       {step === "what" ? (
         <>
           <Professor tone="explanation">O que isso é.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.what.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -184,7 +188,7 @@ export function PilotLessonScreen({
       {step === "whyExists" ? (
         <>
           <Professor tone="explanation">Por que isso entra agora.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.whyExists.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -196,7 +200,7 @@ export function PilotLessonScreen({
       {step === "how" ? (
         <>
           <Professor tone="explanation">Como isso acontece.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.how.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -258,7 +262,7 @@ export function PilotLessonScreen({
       {step === "analogy" ? (
         <>
           <Professor tone="explanation">Uma imagem para guardar o conceito.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.analogy.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -270,7 +274,7 @@ export function PilotLessonScreen({
       {step === "whyMatters" ? (
         <>
           <Professor tone="explanation">Por que isso muda o que você vê.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.whyMatters.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -282,7 +286,7 @@ export function PilotLessonScreen({
       {step === "application" ? (
         <>
           <Professor tone="hint">O que isso muda na prática — só o que a aula já mostrou.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.application.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
@@ -294,7 +298,7 @@ export function PilotLessonScreen({
       {step === "mistakes" ? (
         <>
           <Professor tone="hint">Três confusões que parecem certas.</Professor>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-8">
             {body.mistakes.map((block) => (
               <MistakeCard key={block.id} block={block} />
             ))}
@@ -526,7 +530,7 @@ export function PilotLessonScreen({
                   if (!ok) setBossIndex(0);
                 }}
               >
-                Fechar o capítulo
+                Concluir capítulo
               </Button>
             )}
           </GuideTarget>
@@ -534,10 +538,18 @@ export function PilotLessonScreen({
       ) : null}
 
       {step === "reward" ? (
-        <div className="motion-grow space-y-6 py-6 text-center">
+        <div className="relative motion-grow space-y-6 overflow-hidden py-6 text-center">
+          <div aria-hidden className="reward-sparks pointer-events-none absolute inset-0">
+            <span className="reward-spark left-[18%] top-4" />
+            <span className="reward-spark left-[72%] top-10" />
+            <span className="reward-spark left-[48%] top-2" />
+          </div>
           <Professor tone="celebration">Capítulo concluído!</Professor>
           <Text variant="bodyLarge">Você terminou {chapter.title}.</Text>
           <Feedback kind="xp">+{XP_RULES.chapterComplete} XP</Feedback>
+          <div className="flex justify-center">
+            <FlowerSlot state="bloomed" label={chapter.title} />
+          </div>
           {states[chapter.id] === "MASTERED" ? (
             <Feedback kind="achievement">Este capítulo ficou firme.</Feedback>
           ) : (

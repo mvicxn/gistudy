@@ -110,6 +110,18 @@ export function stepIndex(step: GuideStep) {
   return GUIDE_STEPS.indexOf(step);
 }
 
+export const GUIDE_STEP_COUNT = GUIDE_STEPS.length;
+
+export function previousGuideStep(step: GuideStep): GuideStep | null {
+  const index = stepIndex(step);
+  return index > 0 ? GUIDE_STEPS[index - 1] : null;
+}
+
+export function nextGuideStep(step: GuideStep): GuideStep | null {
+  const index = stepIndex(step);
+  return index >= 0 && index < GUIDE_STEPS.length - 1 ? GUIDE_STEPS[index + 1] : null;
+}
+
 export function reachStep(current: GuideState, next: GuideStep): GuideState {
   if (current.status !== "active") return current;
   if (stepIndex(next) < stepIndex(current.step)) return current;
