@@ -138,9 +138,39 @@ Refresh direto de `/castelo`, `/aula/...` etc. funciona porque cada rota vira HT
 
 ## GitHub Actions
 
-Arquivo: `.github/workflows/deploy.yml`.
+Arquivo desejado: `.github/workflows/deploy.yml` (build + `wrangler pages deploy` em todo push na `main`).
 
-Dispara em `push` na `main`. Precisa dos secrets acima. Sem eles, o job de deploy não autentica.
+O token OAuth deste ambiente **não tem scope `workflow`**, então o arquivo precisa ser criado no GitHub uma vez (UI ou token com permissão `workflow`). Conteúdo:
+
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=gistudy --branch=main
+```
+
+Secrets: `CLOUDFLARE_API_TOKEN` (Edit Cloudflare Pages) e `CLOUDFLARE_ACCOUNT_ID` (`8690b830da0b2d1acd9184f2b88ca6cd`).
+
+Até lá, o deploy é: `npx wrangler pages deploy out --project-name=gistudy --branch=main`.
 
 ## Testes
 
