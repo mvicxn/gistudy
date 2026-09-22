@@ -1,0 +1,9 @@
+name = "gistudy"
+compatibility_date = "2026-09-22"
+pages_build_output_dir = "out"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gistudy"
+database_id = "00970a16-a4da-48df-9add-5044ff167bba"
+migrations_dir = "migrations"

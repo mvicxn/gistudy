@@ -7,12 +7,15 @@ import { resolveStudyMode } from "@/engine/mode";
 import { resolveAllChapterStates, nextAvailableChapter } from "@/engine/progression";
 import { averageMastery } from "@/engine/mastery";
 import { createLocalRepository } from "@/repository/local";
+import { createApiRepository } from "@/repository/api";
 import { createMemoryRepository } from "@/repository/memory";
 import type { ProgressRepository } from "@/repository/types";
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 type StudyContextValue = {
   ready: boolean;
+  authReady: boolean;
+  user: { id: string; username: string } | null;
   snapshot: ProgressSnapshot;
   dispatch: (action: StudyAction) => void;
 };
@@ -22,26 +25,34 @@ const StudyContext = createContext<StudyContextValue | null>(null);
 export function StudyProvider({ children }: { children: React.ReactNode }) {
   const [snapshot, setSnapshot] = useState(emptyProgress);
   const [ready, setReady] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
+  const [user, setUser] = useState<{ id: string; username: string } | null>(null);
   const repoRef = useRef<ProgressRepository>(createMemoryRepository());
 
   useEffect(() => {
     let cancelled = false;
-    try {
-      const repo = createLocalRepository(window.localStorage);
-      repoRef.current = repo;
-      repo
-        .load()
-        .then((stored) => {
+    fetch("/api/auth/session", { credentials: "same-origin" })
+      .then(async (response) => {
+        const data = response.ok ? ((await response.json()) as { user: { id: string; username: string } }) : null;
+        if (cancelled) return;
+        setUser(data?.user ?? null);
+        setAuthReady(true);
+        const repo = data?.user ? createApiRepository() : createLocalRepository(window.localStorage);
+        repoRef.current = repo;
+        return repo.load().then((stored) => ({ stored, user: data?.user }));
+      })
+        .then((result) => {
           if (cancelled) return;
-          if (stored) setSnapshot(stored);
+          if (result?.stored) setSnapshot(result.stored);
+          else if (result?.user) setSnapshot(emptyProgress(result.user.id));
           setReady(true);
         })
         .catch(() => {
-          if (!cancelled) setReady(true);
+          if (!cancelled) {
+            setAuthReady(true);
+            setReady(true);
+          }
         });
-    } catch {
-      setReady(true);
-    }
     return () => {
       cancelled = true;
     };
@@ -55,7 +66,7 @@ export function StudyProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
-  const value = useMemo(() => ({ ready, snapshot, dispatch }), [ready, snapshot]);
+  const value = useMemo(() => ({ ready, authReady, user, snapshot, dispatch }), [ready, authReady, user, snapshot]);
 
   return <StudyContext.Provider value={value}>{children}</StudyContext.Provider>;
 }

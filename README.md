@@ -2,7 +2,7 @@
 
 Castelo de estudos da Giovana. Um app pessoal, mobile-first, para aprender Dermatofuncional II com a mesma forma em todo capítulo: aula, desafio, ensine de volta, Boss e vitória.
 
-O conteúdo vem da fonte (PDF/PPT tratado no Obreiro, fora do palco). O produto **não** pede upload, login, chat ou backend.
+O conteúdo vem da fonte (PDF/PPT tratado no Obreiro, fora do palco). O produto preserva o export estático, enquanto as Pages Functions fornecem login e progresso persistido no D1.
 
 Site publicado: https://gistudy.pages.dev/
 
@@ -13,9 +13,9 @@ Site publicado: https://gistudy.pages.dev/
 - TypeScript
 - Tailwind CSS 4
 - Vitest
-- Cloudflare Pages (estático, pasta `out/`)
+- Cloudflare Pages (estático, pasta `out/`, com Pages Functions)
 
-Não há Workers, banco, API ou runtime de IA no site.
+As Pages Functions fornecem autenticação e persistência de progresso no D1. Não há runtime de IA no site.
 
 ## Como rodar
 
@@ -35,7 +35,7 @@ npm run typecheck  # tsc --noEmit
 npm run lint       # ESLint (veja pendência conhecida)
 ```
 
-O progresso e o guia ficam no `localStorage` do navegador.
+O progresso autenticado fica no D1 por conta. A sessão usa cookie HttpOnly/Secure/SameSite=Lax. O localStorage é apenas fallback controlado para visitantes não autenticados; ele não é migrado para contas.
 
 ## Como publicar
 
@@ -90,7 +90,9 @@ components/study/    telas e guia (UX)
 content/             capítulos e catálogo
 domain/              contratos e tipos
 engine/              regras (XP, mastery, Boss, teach-back)
-repository/          persistência local
+repository/          persistência local e API autenticada
+functions/           Pages Functions (sessão, progresso e administração)
+migrations/           migrações do banco D1
 obreiro/             regras de importação (off-stage)
 config/              XP, modo de estudo
 architecture/        histórico de fases
@@ -126,13 +128,20 @@ Não invente conteúdo. A fonte (PDF/PPT) passa pelo Obreiro off-stage.
 
 Capítulos futuros já listados como “Em breve” ficam em `upcomingChapters` no catálogo.
 
-## Cloudflare Pages
+## Cloudflare Pages + D1
 
 - Projeto: `gistudy`
 - Build: `npx next build`
 - Output: `out`
 - Framework: Next.js static export (`output: "export"` em `next.config.ts`)
-- Sem adapter Workers
+- As funções em `functions/` usam o binding D1 `DB` configurado em `wrangler.toml`.
+- Aplique a migração (depois de substituir o `database_id` pelo ID real):
+
+```bash
+npx wrangler d1 migrations apply gistudy --remote
+```
+
+A migração cria as contas iniciais `gigi/gigi` e `admin/admin` com hashes PBKDF2; senhas nunca são enviadas ao cliente. Em produção, troque as credenciais iniciais após o primeiro acesso por um fluxo administrativo seguro.
 
 Refresh direto de `/castelo`, `/aula/...` etc. funciona porque cada rota vira HTML estático.
 

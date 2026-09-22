@@ -8,8 +8,8 @@ import { useGuide } from "@/components/study/GuideProvider";
 import type { GuideStep } from "@/components/study/guide-store";
 import { useStudy } from "@/components/study/StudyProvider";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, type ReactNode } from "react";
 
 const tabs = [
   { href: "/castelo", label: "Início", icon: "⌂" },
@@ -59,7 +59,15 @@ export function AppShell({
   trail?: { href?: string; label: string }[];
 }) {
   const pathname = usePathname();
-  const { ready } = useStudy();
+  const { ready, authReady, user } = useStudy();
+  const router = useRouter();
+  useEffect(() => {
+    if (authReady && !user) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+  }, [authReady, user, pathname, router]);
+  async function logout() {
+    await fetch("/api/auth/logout", { method: "POST", credentials: "same-origin" });
+    router.replace("/login");
+  }
   const { ready: guideReady, active, step, skip, reopen } = useGuide();
 
   return (
@@ -98,6 +106,16 @@ export function AppShell({
             {active ? "Pular ajuda" : "Preciso de ajuda"}
           </button>
         ) : null}
+        {user ? (
+          <button type="button" onClick={logout} className="mt-2 min-h-11 text-left text-[13px] text-[var(--text-muted)]">
+            Sair
+          </button>
+        ) : null}
+        {user?.username === "admin" ? (
+          <Link href="/admin" className="mt-2 min-h-11 text-left text-[13px] text-[var(--text-muted)]">
+            Administração
+          </Link>
+        ) : null}
       </aside>
 
       <main className="mx-auto w-full max-w-[720px] flex-1 px-5 py-8 pb-52 md:ml-56 md:max-w-[760px] md:px-10 md:pb-16">
@@ -114,7 +132,7 @@ export function AppShell({
         {guideReady && active && guideDockBelongsHere(pathname, step) ? (
           <GuideDock step={step} />
         ) : null}
-        {ready ? (
+        {ready && user ? (
           children
         ) : (
           <div className="flex min-h-[40vh] items-center justify-center">
