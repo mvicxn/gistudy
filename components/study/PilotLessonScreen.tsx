@@ -6,43 +6,64 @@ import { Card } from "@/components/ds/Card";
 import { Feedback } from "@/components/ds/Feedback";
 import { TextArea } from "@/components/ds/Input";
 import { Professor } from "@/components/ds/Professor";
-import { MasteryMeter } from "@/components/ds/Progress";
+import { MasteryMeter, ProgressBar } from "@/components/ds/Progress";
 import { Text } from "@/components/ds/Text";
-import { CiteList, KindBadge, MistakeCard, SourcedCard } from "@/components/study/SourcedBlocks";
+import { MistakeCard, SourcedCard } from "@/components/study/SourcedBlocks";
 import { useStudyView } from "@/components/study/StudyProvider";
+import {
+  STUDENT_STEP_LABEL,
+  chapterOrdinal,
+  continueLabel,
+  lessonProgressPercent,
+  progressCopy,
+} from "@/components/study/labels";
 import { XP_RULES } from "@/config/xp-rules";
 import { AULA_01, PHASES_SLIDE_2 } from "@/content/pilot/relogio-da-ferida";
 import type { LessonBody } from "@/domain/epistemic";
 import type { LessonStep } from "@/domain/experience";
 import type { Chapter, Lesson, MicroChallenge, TeachBack, ChapterBoss } from "@/domain/pedagogy";
 import { computeMastery, MASTERY_THRESHOLD } from "@/engine/mastery";
-import { nextStep, STEP_LABEL, STEP_XP } from "@/engine/lesson-flow";
-import { scoreTeachBack } from "@/engine/teachback";
 import { nextAvailableChapter } from "@/engine/progression";
-import { useState } from "react";
+import { scoreTeachBack } from "@/engine/teachback";
+import { useEffect, useState } from "react";
 
-function Continue({
-  lesson,
+function PrimaryContinue({
   step,
   onContinue,
 }: {
-  lesson: Lesson;
   step: LessonStep;
   onContinue: () => void;
 }) {
-  const following = nextStep(lesson, step);
-  const rule = STEP_XP[step];
   return (
-    <div className="mt-6 space-y-3">
-      {rule ? (
-        <Feedback kind="xp">
-          Ao seguir: +{XP_RULES[rule]} XP ({rule}). Não é domínio.
-        </Feedback>
-      ) : null}
+    <div className="mt-10 mb-8">
       <Button variant="cta" onClick={onContinue}>
-        {following ? `Seguir · ${STEP_LABEL[following]}` : "Continuar"}
+        {continueLabel(step)}
       </Button>
     </div>
+  );
+}
+
+function ChoiceButton({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex min-h-12 w-full items-center rounded-[var(--radius-lg)] border px-4 py-4 text-left text-[16px] leading-relaxed ${
+        selected
+          ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
+          : "border-[var(--border)]"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -69,13 +90,18 @@ export function PilotLessonScreen({
   const [teachText, setTeachText] = useState("");
   const [guided, setGuided] = useState({ what: "", why: "", importance: "" });
   const [chips, setChips] = useState<string[]>([]);
+  const [bossIndex, setBossIndex] = useState(0);
   const [bossAnswers, setBossAnswers] = useState<Record<string, string>>({});
   const [bossFeedback, setBossFeedback] = useState<"success" | "almost" | null>(null);
 
-  function advance() {
-    dispatch({ type: "COMPLETE_SEGMENT", lessonId: lesson.id, step });
+  useEffect(() => {
+    window.scrollTo(0, 0);
     setFeedback(null);
     setBossFeedback(null);
+  }, [step]);
+
+  function advance() {
+    dispatch({ type: "COMPLETE_SEGMENT", lessonId: lesson.id, step });
   }
 
   const assembledTeach =
@@ -86,197 +112,198 @@ export function PilotLessonScreen({
         : teachText;
 
   const nextChapter = nextAvailableChapter(catalog.pedagogy.chapters, snapshot);
+  const percent = lessonProgressPercent(lesson, step);
+  const currentBoss = boss.items[bossIndex];
+  const mission = catalog.pedagogy.missions.find((item) => item.id === chapter.missionId);
 
   return (
     <AppShell
       trail={[
-        { href: "/biblioteca", label: "Biblioteca" },
-        { href: "/mapa", label: "Mapa" },
+        { href: "/mapa", label: "Estudo" },
         { href: `/capitulo/${chapter.id}`, label: chapter.title },
-        { label: STEP_LABEL[step] },
+        { label: STUDENT_STEP_LABEL[step] },
       ]}
     >
       <BackLink href={`/capitulo/${chapter.id}`}>Voltar ao capítulo</BackLink>
-      <PageIntro kicker={`Passo · ${STEP_LABEL[step]}`} title={chapter.title} />
+      <PageIntro kicker={chapterOrdinal(chapter.order)} title={chapter.title} />
+      <div className="mb-8">
+        <ProgressBar value={percent} label={progressCopy(percent)} tone="chapter" />
+      </div>
+      <Text variant="label" className="mb-4">
+        {STUDENT_STEP_LABEL[step]}
+      </Text>
 
       {step === "objective" ? (
         <>
-          <Professor tone="introduction">{catalog.pedagogy.missions.find((item) => item.id === chapter.missionId)?.content}</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="introduction">{mission?.content}</Professor>
+          <div className="mt-6 space-y-5">
             {body.objective.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "what" ? (
         <>
-          <Professor tone="explanation">O que a fonte afirma neste recorte.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="explanation">O que isso é.</Professor>
+          <div className="mt-6 space-y-5">
             {body.what.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "whyExists" ? (
         <>
-          <Professor tone="explanation">Por que este recorte existe no mapa, não como enfeite.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="explanation">Por que isso entra agora.</Professor>
+          <div className="mt-6 space-y-5">
             {body.whyExists.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "how" ? (
         <>
-          <Professor tone="explanation">Como a fonte descreve o mecanismo neste recorte.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="explanation">Como isso acontece.</Professor>
+          <div className="mt-6 space-y-5">
             {body.how.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "figure" ? (
         <>
           <Professor tone="hint">{body.figure.observe}</Professor>
-          <Card variant="locked" className="mt-4 space-y-2">
-            <KindBadge kind={body.figure.kind} />
+          <Card variant="elevated" className="mt-6 space-y-4 p-6">
             {body.figure.uri ? (
               <img
                 src={body.figure.uri}
-                alt={body.figure.captionFromSource ?? "Asset extraído da fonte"}
-                className="mt-2 w-full rounded-[var(--radius-lg)]"
+                alt={body.figure.captionFromSource ?? "Figura da aula"}
+                className="w-full rounded-[var(--radius-lg)]"
               />
             ) : null}
-            <Text variant="body" className="text-[var(--text-primary)]">
-              {body.figure.observe}
-            </Text>
             {body.figure.captionFromSource ? (
-              <Text variant="bodySmall">Legenda / rótulos da fonte: {body.figure.captionFromSource}</Text>
+              <Text variant="body">{body.figure.captionFromSource}</Text>
             ) : null}
-            {body.figure.hotspots?.map((spot) => (
-              <Text key={spot.id} variant="bodySmall">
-                {spot.label} — {spot.note}
-              </Text>
-            ))}
+            {body.figure.hotspots?.length ? (
+              <div className="space-y-2">
+                {body.figure.hotspots.map((spot) => (
+                  <Text key={spot.id} variant="body">
+                    {spot.label}
+                    {spot.note ? ` — ${spot.note}` : ""}
+                  </Text>
+                ))}
+              </div>
+            ) : null}
             {body.figure.lacuna ? (
-              <Text variant="bodySmall" className="text-[var(--pink)]">
+              <Text variant="body" className="text-[var(--pink)]">
                 {body.figure.lacuna}
               </Text>
             ) : null}
-            <CiteList refs={body.figure.sourceRefs} />
           </Card>
           {lesson.id === AULA_01 ? (
-            <Card variant="elevated" className="mt-4 space-y-3">
-              <KindBadge kind="transformacao-pedagogica" />
-              <Text variant="label">Mapa pedagógico das fases — não é asset do PPT</Text>
+            <Card variant="elevated" className="mt-5 space-y-3 p-6">
+              <Text variant="label">As fases, em ordem</Text>
               <ol className="space-y-2">
                 {PHASES_SLIDE_2.map((phase, index) => (
                   <li
                     key={phase}
-                    className="flex min-h-11 items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border)] px-4"
+                    className="flex min-h-11 items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border)] px-4 py-3"
                   >
                     <span className="text-[var(--lilac)]">{index + 1}</span>
-                    <span>{phase}</span>
+                    <span className="text-[16px]">{phase}</span>
                   </li>
                 ))}
               </ol>
-              <CiteList refs={body.what[0]?.sourceRefs ?? body.figure.sourceRefs} />
             </Card>
           ) : null}
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "analogy" ? (
         <>
-          <Professor tone="explanation">Uma imagem mental fiel ao conceito, sem virar fato novo.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="explanation">Uma imagem para guardar o conceito.</Professor>
+          <div className="mt-6 space-y-5">
             {body.analogy.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "whyMatters" ? (
         <>
-          <Professor tone="explanation">Por que este recorte muda o mapa.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="explanation">Por que isso muda o que você vê.</Professor>
+          <div className="mt-6 space-y-5">
             {body.whyMatters.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "application" ? (
         <>
-          <Professor tone="hint">
-            Conduta só entra se a fonte sustentar. Se só houver relevância, o bloco é relevância. Sem suporte: lacuna.
-          </Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="hint">O que isso muda na prática — só o que a aula já mostrou.</Professor>
+          <div className="mt-6 space-y-5">
             {body.application.map((block) => (
               <SourcedCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "mistakes" ? (
         <>
-          <Professor tone="hint">Três confusões que parecem certas — e como separar.</Professor>
-          <div className="mt-4 space-y-3">
+          <Professor tone="hint">Três confusões que parecem certas.</Professor>
+          <div className="mt-6 space-y-5">
             {body.mistakes.map((block) => (
               <MistakeCard key={block.id} block={block} />
             ))}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
       {step === "challenge" ? (
         <>
           <Professor tone="hint">{challenge.prompt}</Professor>
-          <CiteList refs={challenge.sourceRefs} />
-          <div className="mt-4 space-y-2">
+          <div className="mt-6 space-y-3">
             {challenge.options.map((option) => (
-              <button
+              <ChoiceButton
                 key={option.id}
-                type="button"
+                selected={choice === option.id}
                 onClick={() => setChoice(option.id)}
-                className={`flex min-h-11 w-full items-center rounded-[var(--radius-lg)] border px-4 py-3 text-left ${
-                  choice === option.id
-                    ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
-                    : "border-[var(--border)]"
-                }`}
               >
                 {option.label}
-              </button>
+              </ChoiceButton>
             ))}
           </div>
           {feedback === "almost" ? (
-            <div className="mt-4">
-              <Feedback kind="almost">
-                Quase. Os produtos não param no tampão: eles direcionam o curso futuro.
-              </Feedback>
+            <div className="mt-5">
+              <Feedback kind="almost">Quase. Olhe de novo a pergunta e as alternativas.</Feedback>
             </div>
           ) : null}
-          <div className="mt-6">
+          {feedback === "success" ? (
+            <div className="mt-5">
+              <Feedback kind="success">Certo. Vamos seguir.</Feedback>
+            </div>
+          ) : null}
+          <div className="mt-8">
             <Button
               variant="cta"
               disabled={!choice}
@@ -286,7 +313,7 @@ export function PilotLessonScreen({
                 dispatch({ type: "ANSWER_CHALLENGE", challengeId: challenge.id, result });
               }}
             >
-              Conferir
+              Responder
             </Button>
           </div>
         </>
@@ -294,35 +321,37 @@ export function PilotLessonScreen({
 
       {step === "teachback" ? (
         <>
-          <Professor tone="explanation">{teachBack.prompt}</Professor>
-          <CiteList refs={teachBack.sourceRefs} />
-          <div className="mt-4 flex flex-wrap gap-2">
+          <Professor tone="explanation">Agora me explique com suas palavras.</Professor>
+          <Text variant="bodyLarge" className="mt-4">
+            {teachBack.prompt}
+          </Text>
+          <div className="mt-5 flex flex-wrap gap-2">
             {(["livre", "guiado", "rapido"] as const).map((mode) => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => setTeachMode(mode)}
-                className={`min-h-11 rounded-[var(--radius-pill)] border px-4 ${
+                className={`min-h-11 rounded-[var(--radius-pill)] border px-4 text-[14px] ${
                   teachMode === mode
                     ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
                     : "border-[var(--border)]"
                 }`}
               >
-                {mode === "livre" ? "Livre" : mode === "guiado" ? "Guiado" : "Rápido"}
+                {mode === "livre" ? "Escrever" : mode === "guiado" ? "Com ajuda" : "Escolher ideias"}
               </button>
             ))}
           </div>
           {teachMode === "livre" ? (
-            <div className="mt-4">
+            <div className="mt-5">
               <TextArea
                 value={teachText}
                 onChange={(event) => setTeachText(event.target.value)}
-                placeholder="Explique com as suas palavras. Sem IA nesta fase."
+                placeholder="Escreva como se estivesse explicando para a professora."
               />
             </div>
           ) : null}
           {teachMode === "guiado" ? (
-            <div className="mt-4 space-y-3">
+            <div className="mt-5 space-y-4">
               <TextArea
                 value={guided.what}
                 onChange={(event) => setGuided({ ...guided, what: event.target.value })}
@@ -336,12 +365,12 @@ export function PilotLessonScreen({
               <TextArea
                 value={guided.importance}
                 onChange={(event) => setGuided({ ...guided, importance: event.target.value })}
-                placeholder="Qual a importância?"
+                placeholder="Por que isso importa?"
               />
             </div>
           ) : null}
           {teachMode === "rapido" ? (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-5 flex flex-wrap gap-2">
               {teachBack.keyIdeas.map((idea) => {
                 const on = chips.includes(idea);
                 return (
@@ -366,14 +395,11 @@ export function PilotLessonScreen({
             </div>
           ) : null}
           {feedback === "almost" ? (
-            <div className="mt-4">
-              <Feedback kind="almost">
-                Quase. Falta alguma ideia-chave: imediato após a injúria, plaqueta/cascada, produtos que
-                direcionam o curso futuro.
-              </Feedback>
+            <div className="mt-5">
+              <Feedback kind="almost">Quase. Inclua as ideias principais desta aula.</Feedback>
             </div>
           ) : null}
-          <div className="mt-6">
+          <div className="mt-8">
             <Button
               variant="cta"
               disabled={assembledTeach.trim().length < 8}
@@ -387,7 +413,7 @@ export function PilotLessonScreen({
                 });
               }}
             >
-              Entregar explicação
+              Conferir
             </Button>
           </div>
         </>
@@ -395,97 +421,100 @@ export function PilotLessonScreen({
 
       {step === "mastery" ? (
         <>
-          <Professor tone="explanation">
-            Domínio se calcula por eventos, separado do XP. Recência ainda não esfria o número — lacuna da
-            máquina, não da aula.
-          </Professor>
-          <div className="mt-4 space-y-4">
+          <Professor tone="explanation">Antes de fechar, veja o que já ficou firme.</Professor>
+          <div className="mt-6 space-y-5">
             {chapter.conceptIds.map((id) => {
               const concept = catalog.normalized.concepts.find((item) => item.id === id);
               const value = computeMastery(snapshot.masteryEvents, id);
               return (
-                <Card key={id} variant="progress">
-                  <Text variant="h3">{concept?.title ?? id}</Text>
-                  <div className="mt-3">
-                    <MasteryMeter value={value} label={value >= MASTERY_THRESHOLD ? "Dominado" : "Em construção"} />
+                <Card key={id} variant="progress" className="p-6">
+                  <Text variant="h3">{concept?.title ?? "Conceito da aula"}</Text>
+                  <div className="mt-4">
+                    <MasteryMeter
+                      value={value}
+                      label={value >= MASTERY_THRESHOLD ? "Já ficou firme" : "Ainda em construção"}
+                    />
                   </div>
-                  <CiteList refs={concept?.sourceRefs ?? []} />
                 </Card>
               );
             })}
           </div>
-          <Continue lesson={lesson} step={step} onContinue={advance} />
+          <PrimaryContinue step={step} onContinue={advance} />
         </>
       ) : null}
 
-      {step === "boss" ? (
+      {step === "boss" && currentBoss ? (
         <>
-          <Professor tone="introduction">{boss.title}. Três perguntas do capítulo inteiro.</Professor>
-          <div className="mt-4 space-y-4">
-            {boss.items.map((item) => (
-              <Card key={item.id} variant="elevated" className="space-y-3">
-                <p>{item.prompt}</p>
-                {item.options.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => setBossAnswers((current) => ({ ...current, [item.id]: option.id }))}
-                    className={`flex min-h-11 w-full items-center rounded-[var(--radius-lg)] border px-4 py-3 text-left ${
-                      bossAnswers[item.id] === option.id
-                        ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
-                        : "border-[var(--border)]"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </Card>
+          <Professor tone="introduction">Você chegou ao desafio final.</Professor>
+          <Text variant="bodyLarge" className="mt-3">
+            {boss.title}
+          </Text>
+          <Text variant="caption" className="mt-4">
+            Pergunta {bossIndex + 1} de {boss.items.length}
+          </Text>
+          <Card variant="elevated" className="mt-4 space-y-3 p-6">
+            <Text variant="bodyLarge" className="text-[var(--text-primary)]">
+              {currentBoss.prompt}
+            </Text>
+            {currentBoss.options.map((option) => (
+              <ChoiceButton
+                key={option.id}
+                selected={bossAnswers[currentBoss.id] === option.id}
+                onClick={() =>
+                  setBossAnswers((current) => ({ ...current, [currentBoss.id]: option.id }))
+                }
+              >
+                {option.label}
+              </ChoiceButton>
             ))}
-          </div>
+          </Card>
           {bossFeedback === "almost" ? (
-            <div className="mt-4">
-              <Feedback kind="almost">
-                Quase. O boss pede reconhecimento, diferenciação e raciocínio — não só a lista.
-              </Feedback>
+            <div className="mt-5">
+              <Feedback kind="almost">Quase. Olhe de novo, sem pressa.</Feedback>
             </div>
           ) : null}
-          <div className="mt-6">
-            <Button
-              variant="cta"
-              disabled={boss.items.some((item) => !bossAnswers[item.id])}
-              onClick={() => {
-                const ok = boss.items.every((item) => bossAnswers[item.id] === item.answerId);
-                const result = ok ? "success" : "almost";
-                setBossFeedback(result);
-                dispatch({ type: "COMPLETE_BOSS", bossId: boss.id, result });
-              }}
-            >
-              Fechar o capítulo
-            </Button>
+          <div className="mt-8">
+            {bossIndex < boss.items.length - 1 ? (
+              <Button
+                variant="cta"
+                disabled={!bossAnswers[currentBoss.id]}
+                onClick={() => setBossIndex((index) => index + 1)}
+              >
+                Continuar
+              </Button>
+            ) : (
+              <Button
+                variant="cta"
+                disabled={boss.items.some((item) => !bossAnswers[item.id])}
+                onClick={() => {
+                  const ok = boss.items.every((item) => bossAnswers[item.id] === item.answerId);
+                  const result = ok ? "success" : "almost";
+                  setBossFeedback(result);
+                  dispatch({ type: "COMPLETE_BOSS", bossId: boss.id, result });
+                  if (!ok) setBossIndex(0);
+                }}
+              >
+                Concluir capítulo
+              </Button>
+            )}
           </div>
         </>
       ) : null}
 
       {step === "reward" ? (
-        <>
-          <Professor tone="celebration">O capítulo fechou. A flor nasceu. XP não é domínio.</Professor>
-          <Feedback kind="xp">+{XP_RULES.chapterComplete} XP de capítulo · regra canônica.</Feedback>
-          <div className="mt-4">
-            <Feedback kind="flower">O canteiro de {chapter.title} respondeu.</Feedback>
-          </div>
+        <div className="motion-grow space-y-6 py-6 text-center">
+          <Professor tone="celebration">Capítulo concluído!</Professor>
+          <Text variant="bodyLarge">Você terminou {chapter.title}.</Text>
+          <Feedback kind="xp">+{XP_RULES.chapterComplete} XP</Feedback>
           {states[chapter.id] === "MASTERED" ? (
-            <div className="mt-4">
-              <Feedback kind="achievement">Capítulo dominado. Mastery ≥ {MASTERY_THRESHOLD}.</Feedback>
-            </div>
+            <Feedback kind="achievement">Este capítulo ficou firme.</Feedback>
           ) : (
-            <div className="mt-4">
-              <Feedback kind="chapter">Capítulo concluído. Algum conceito ainda não chegou a {MASTERY_THRESHOLD}.</Feedback>
-            </div>
+            <Feedback kind="chapter">Capítulo concluído. Você pode seguir a jornada.</Feedback>
           )}
-          <div className="mt-6 space-y-3">
+          <div className="space-y-3 pt-2">
             {nextChapter && nextChapter.id !== chapter.id ? (
               <Button href={`/capitulo/${nextChapter.id}`} variant="cta">
-                Ir ao próximo capítulo
+                Continuar jornada
               </Button>
             ) : (
               <Button href="/jardim" variant="cta">
@@ -493,10 +522,10 @@ export function PilotLessonScreen({
               </Button>
             )}
             <Button href="/mapa" variant="ghost" className="w-full">
-              Voltar ao mapa
+              Ver todos os capítulos
             </Button>
           </div>
-        </>
+        </div>
       ) : null}
     </AppShell>
   );

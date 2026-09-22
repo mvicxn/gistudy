@@ -10,9 +10,9 @@ export function Skeleton({ className = "h-16" }: { className?: string }) {
   );
 }
 
-export function Spinner({ label = "Carregando" }: { label?: string }) {
+export function Spinner({ label = "Estamos preparando sua aula..." }: { label?: string }) {
   return (
-    <div className="flex min-h-11 items-center gap-3 text-[14px] text-[var(--text-muted)]">
+    <div className="flex min-h-11 items-center gap-3 text-[15px] text-[var(--text-muted)]">
       <span
         className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--lilac)] motion-reduce:animate-none"
         aria-hidden
@@ -40,15 +40,15 @@ export function ContentPlaceholder({
 }
 
 export function LockedState({
-  title = "Próxima aventura",
-  children = "Complete o capítulo anterior para desbloquear.",
+  title = "Ainda não deu para abrir",
+  children = "Termine o capítulo anterior para liberar este.",
 }: {
   title?: string;
   children?: string;
 }) {
   return (
     <Card variant="locked" role="status">
-      <Text variant="label">🔒 Bloqueado</Text>
+      <Text variant="label">Bloqueado</Text>
       <Text as="h3" variant="h3" className="mt-2">
         {title}
       </Text>
@@ -69,7 +69,7 @@ export function EmptyState({
   children: string;
 }) {
   return (
-    <Card variant="glass" className="text-center">
+    <Card variant="glass" className="p-6 text-center">
       <Text variant="label">{kicker}</Text>
       <Text as="h3" variant="h3" className="mt-2">
         {title}
@@ -84,27 +84,27 @@ export function EmptyState({
 export const emptyCopy = {
   biblioteca: {
     kicker: "Biblioteca",
-    title: "Os livros ainda estão sendo encadernados",
-    body: "Quando o conteúdo entrar na máquina, os livros aparecem aqui — nunca como PDF solto.",
+    title: "Os livros ainda estão chegando",
+    body: "Quando uma matéria entrar na jornada, ela aparece aqui.",
   },
   mapa: {
-    kicker: "Mapa",
-    title: "O caminho ainda não foi desenhado",
-    body: "Os nós genéricos mostram o molde. O território acadêmico entra depois.",
+    kicker: "Estudo",
+    title: "Ainda não há capítulos para abrir",
+    body: "Quando os capítulos estiverem prontos, a jornada começa nesta tela.",
   },
   jardim: {
     kicker: "Jardim",
     title: "O canteiro espera a primeira flor",
-    body: "Flores e gemas nascem de capítulos concluídos, não de arquivos.",
+    body: "Conclua um capítulo para ver o jardim crescer.",
   },
   calendario: {
     kicker: "Calendário",
     title: "Nenhuma data marcada ainda",
-    body: "Provas e rituais entram como eventos do calendário, não como urgência permanente.",
+    body: "Os dias de estudo e a prova aparecem aqui quando estiverem no calendário.",
   },
   progresso: {
     kicker: "Progresso",
     title: "Ainda não há trilha para mostrar",
-    body: "XP e domínio ficarão separados assim que a jornada começar.",
+    body: "Comece uma aula para ver o quanto você já fez.",
   },
 } as const;

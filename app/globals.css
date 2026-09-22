@@ -25,9 +25,14 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-padding-bottom: 7rem;
+}
+
 html,
 body {
   min-height: 100%;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-sans);

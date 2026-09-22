@@ -2,7 +2,8 @@ import { ExamScreen } from "@/components/study/ExamScreen";
 import { assessmentParams } from "@/content/catalog";
 
 export function generateStaticParams() {
-  return assessmentParams();
+  const params = assessmentParams();
+  return params.length ? params : [{ id: "prova" }];
 }
 
 export default async function ProvaPage({

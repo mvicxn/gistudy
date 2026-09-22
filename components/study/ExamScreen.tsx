@@ -8,12 +8,15 @@ import { LockedState } from "@/components/ds/States";
 import { useStudyView } from "@/components/study/StudyProvider";
 
 export function ExamScreen({ assessmentId }: { assessmentId: string }) {
-  const { catalog, snapshot, dispatch, mode } = useStudyView();
+  const { catalog, snapshot, dispatch } = useStudyView();
   const assessment = catalog.pedagogy.assessments.find((item) => item.id === assessmentId);
   if (!assessment) {
     return (
       <AppShell>
-        <LockedState title="Essa prova não existe neste mock" />
+        <BackLink href="/calendario">Voltar ao calendário</BackLink>
+        <LockedState title="Esta prova ainda não está na jornada">
+          Quando a prova entrar no calendário, ela aparece aqui.
+        </LockedState>
       </AppShell>
     );
   }
@@ -28,12 +31,10 @@ export function ExamScreen({ assessmentId }: { assessmentId: string }) {
     >
       <BackLink href="/calendario">Voltar ao calendário</BackLink>
       <PageIntro kicker="Prova" title={assessment.title} />
-      <Professor tone="introduction">
-        {assessment.content} Modo atual: {mode.mode}.
-      </Professor>
+      <Professor tone="introduction">{assessment.content}</Professor>
       {done ? (
-        <div className="mt-6">
-          <Feedback kind="achievement">Prova mock concluída. Sem nota acadêmica.</Feedback>
+        <div className="mt-8">
+          <Feedback kind="achievement">Prova concluída.</Feedback>
           <div className="mt-4">
             <Button href="/jardim" variant="cta">
               Ver o jardim
@@ -41,12 +42,12 @@ export function ExamScreen({ assessmentId }: { assessmentId: string }) {
           </div>
         </div>
       ) : (
-        <div className="mt-6">
+        <div className="mt-8">
           <Button
             variant="cta"
             onClick={() => dispatch({ type: "COMPLETE_EXAM", assessmentId: assessment.id })}
           >
-            Encerrar a cerimônia
+            Encerrar a prova
           </Button>
         </div>
       )}

@@ -23,7 +23,7 @@ export function Professor({
   return (
     <aside
       className={cn(
-        "glass flex gap-4 rounded-[var(--radius-xl)] p-5",
+        "glass flex gap-4 rounded-[var(--radius-xl)] p-6",
         tone === "success" && "border-[rgba(31,169,122,0.4)]",
         tone === "almost" && "border-[rgba(185,160,232,0.55)]",
         tone === "celebration" && "shadow-[var(--glow)]",

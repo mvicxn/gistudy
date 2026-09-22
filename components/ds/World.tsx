@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/cn";
 import { Card } from "@/components/ds/Card";
 import { Text } from "@/components/ds/Text";
@@ -5,9 +7,9 @@ import type { MapNodeState } from "@/lib/tokens";
 import Link from "next/link";
 
 const nodeCopy: Record<MapNodeState, string> = {
-  locked: "Próxima aventura",
+  locked: "Bloqueado",
   available: "Disponível",
-  inProgress: "Continuar",
+  inProgress: "Em andamento",
   completed: "Concluído",
   mastered: "Dominado",
 };
@@ -22,11 +24,11 @@ export function MapNode({
   href?: string;
 }) {
   const body = (
-    <div className="relative z-[1] flex items-center gap-3">
+    <div className="relative z-[1] flex min-h-14 items-center gap-4">
       <div
         aria-hidden
         className={cn(
-          "flex h-[72px] w-[72px] items-center justify-center rounded-full border border-[var(--border)]",
+          "flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[var(--border)]",
           state === "available" && "halo",
           state === "inProgress" && "halo bg-[rgba(75,30,122,0.4)]",
           state === "completed" && "border-[rgba(31,169,122,0.5)]",
@@ -34,9 +36,9 @@ export function MapNode({
           state === "locked" && "opacity-60",
         )}
       >
-        {state === "locked" ? "○" : state === "completed" || state === "mastered" ? "❀" : "●"}
+        {state === "locked" ? "○" : state === "completed" || state === "mastered" ? "✓" : "▶"}
       </div>
-      <div>
+      <div className="min-w-0">
         <Text variant="bodyLarge" className="text-[var(--text-primary)]">
           {title}
         </Text>
@@ -58,7 +60,7 @@ export function MapNode({
 
 export function MapPath({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative space-y-6 before:absolute before:bottom-8 before:left-[35px] before:top-8 before:w-px before:bg-[var(--border)]">
+    <div className="relative space-y-6 before:absolute before:bottom-8 before:left-[27px] before:top-8 before:w-px before:bg-[var(--border)]">
       {children}
     </div>
   );
@@ -73,7 +75,7 @@ export function MapPin({
 }) {
   const mark = kind === "exam" ? "♛" : kind === "revision" ? "✦" : "·";
   return (
-    <div className="flex min-h-11 items-center gap-2 text-[14px] text-[var(--text-secondary)]">
+    <div className="flex min-h-11 items-center gap-2 text-[15px] text-[var(--text-secondary)]">
       <span aria-hidden>{mark}</span>
       <span>{label}</span>
     </div>
@@ -90,6 +92,14 @@ export function FlowerSlot({
   label: string;
 }) {
   const resolved = filled ? "bloomed" : state;
+  const status =
+    resolved === "bloomed"
+      ? "floresceu"
+      : resolved === "growing"
+        ? "crescendo"
+        : resolved === "gem"
+          ? "brilha"
+          : "espera";
   return (
     <div className="flex flex-col items-center gap-2">
       <div
@@ -100,7 +110,7 @@ export function FlowerSlot({
           resolved === "gem" && "border-[var(--pink)]",
           resolved === "empty" && "bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)]",
         )}
-        aria-label={label}
+        aria-label={`${label}: ${status}`}
       >
         {resolved === "empty" ? "·" : resolved === "gem" ? "◆" : "❀"}
       </div>
@@ -134,22 +144,25 @@ export function ExamCard({
 export function BookCover({
   title,
   locked,
+  subtitle,
+  progress,
 }: {
   title: string;
   locked?: boolean;
+  subtitle?: string;
+  progress?: number;
 }) {
+  const width = locked ? 0 : Math.max(0, Math.min(100, progress ?? 20));
   return (
-    <Card variant={locked ? "locked" : "interactive"} className="min-h-[180px]">
+    <Card variant={locked ? "locked" : "interactive"} className="min-h-[160px]">
       <Text as="h2" variant="h2">
         {title}
       </Text>
-      <Text variant="caption" className="mt-3">
-        {locked
-          ? "Isso existe, mas ainda não chegou sua vez."
-          : "Livro da biblioteca · estrutura pedagógica revisável"}
+      <Text variant="body" className="mt-3">
+        {subtitle ?? (locked ? "Ainda não chegou a sua vez." : "Toque para abrir os capítulos.")}
       </Text>
-      <div className="mt-6 h-1.5 overflow-hidden rounded-[var(--radius-pill)] bg-[rgba(255,255,255,0.08)]">
-        <div className={cn("h-full bg-[var(--lilac)]", locked ? "w-0" : "w-1/5")} />
+      <div className="mt-6 h-2 overflow-hidden rounded-[var(--radius-pill)] bg-[rgba(255,255,255,0.08)]">
+        <div className="h-full bg-[var(--lilac)]" style={{ width: `${width}%` }} />
       </div>
     </Card>
   );
@@ -161,24 +174,35 @@ export function CalendarDay({
   exam,
   studied,
   muted,
+  selected,
+  onSelect,
+  label,
 }: {
   day: number;
   today?: boolean;
   exam?: boolean;
   studied?: boolean;
   muted?: boolean;
+  selected?: boolean;
+  onSelect?: () => void;
+  label?: string;
 }) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      aria-label={label ?? `Dia ${day}`}
       className={cn(
-        "flex min-h-11 items-center justify-center rounded-[var(--radius-md)] text-[14px]",
+        "flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-md)] text-[14px]",
         muted && "text-[var(--text-muted)] opacity-40",
         today && "halo",
         exam && "text-[var(--pink)]",
         studied && "bg-[rgba(185,160,232,0.16)]",
+        selected && "border border-[var(--lilac)]",
       )}
     >
-      {exam ? <span aria-label={`Dia ${day}, prova`}>♛</span> : day}
-    </div>
+      {day}
+    </button>
   );
 }

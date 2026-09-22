@@ -6,6 +6,7 @@ import { Card } from "@/components/ds/Card";
 import { Professor } from "@/components/ds/Professor";
 import { Feedback } from "@/components/ds/Feedback";
 import { EmptyState } from "@/components/ds/States";
+import { Text } from "@/components/ds/Text";
 import { useStudyView } from "@/components/study/StudyProvider";
 
 export function ReviewScreen() {
@@ -14,10 +15,10 @@ export function ReviewScreen() {
 
   if (!review) {
     return (
-      <AppShell trail={[{ href: "/mapa", label: "Mapa" }, { label: "Revisão" }]}>
-        <BackLink href="/mapa">Voltar ao mapa</BackLink>
-        <EmptyState kicker="Revisão" title="Ainda não há revisão neste recorte">
-          O capítulo piloto não abre revisão de módulo. Isso entra depois, se a fonte sustentar.
+      <AppShell trail={[{ href: "/mapa", label: "Estudo" }, { label: "Revisão" }]}>
+        <BackLink href="/mapa">Voltar aos capítulos</BackLink>
+        <EmptyState kicker="Revisão" title="Ainda não há uma revisão nesta jornada">
+          Continue pelos capítulos. A revisão aparece aqui quando estiver pronta.
         </EmptyState>
       </AppShell>
     );
@@ -26,34 +27,31 @@ export function ReviewScreen() {
   const done = snapshot.completedReviewIds.includes(review.id);
 
   return (
-    <AppShell
-      trail={[
-        { href: "/mapa", label: "Mapa" },
-        { label: "Revisão" },
-      ]}
-    >
-      <BackLink href="/mapa">Voltar ao mapa</BackLink>
+    <AppShell trail={[{ href: "/mapa", label: "Estudo" }, { label: "Revisão" }]}>
+      <BackLink href="/mapa">Voltar aos capítulos</BackLink>
       <PageIntro kicker="Revisão" title={review.title} />
       <Professor tone="explanation">{review.content}</Professor>
-      <div className="mt-5 space-y-3">
+      <div className="mt-6 space-y-4">
         {review.conceptIds.map((id) => {
           const concept = catalog.normalized.concepts.find((item) => item.id === id);
           return (
-            <Card key={id} variant="solid">
-              <p className="font-[family-name:var(--font-display)] text-[length:var(--type-h3)]">
+            <Card key={id} variant="solid" className="p-6">
+              <Text as="h3" variant="h3">
                 {concept?.title}
-              </p>
-              <p className="mt-1 text-[14px] text-[var(--text-secondary)]">{concept?.description}</p>
+              </Text>
+              <Text variant="body" className="mt-2">
+                {concept?.description}
+              </Text>
             </Card>
           );
         })}
       </div>
       {done ? (
-        <div className="mt-6">
-          <Feedback kind="success">Revisão registrada. Mastery pode ser recalculado.</Feedback>
+        <div className="mt-8">
+          <Feedback kind="success">Revisão concluída.</Feedback>
         </div>
       ) : (
-        <div className="mt-6">
+        <div className="mt-8">
           <Button variant="cta" onClick={() => dispatch({ type: "COMPLETE_REVIEW", reviewId: review.id })}>
             Concluir revisão
           </Button>

@@ -7,12 +7,13 @@ import { Feedback } from "@/components/ds/Feedback";
 import { TextArea } from "@/components/ds/Input";
 import { Professor } from "@/components/ds/Professor";
 import { LockedState } from "@/components/ds/States";
+import { Text } from "@/components/ds/Text";
 import { PilotLessonScreen } from "@/components/study/PilotLessonScreen";
 import { useStudyView } from "@/components/study/StudyProvider";
+import { STUDENT_STEP_LABEL } from "@/components/study/labels";
 import { XP_RULES } from "@/config/xp-rules";
 import { getChapters, getLessonBody } from "@/content/catalog";
 import { nextAvailableChapter } from "@/engine/progression";
-import { STEP_LABEL } from "@/engine/lesson-flow";
 import { useEffect, useState } from "react";
 
 export function LessonScreen({ lessonId }: { lessonId: string }) {
@@ -23,9 +24,12 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
   const teachBack = catalog.pedagogy.teachBacks.find((item) => item.id === chapter?.teachBackId);
   const boss = catalog.pedagogy.bosses.find((item) => item.id === chapter?.bossId);
   const body = getLessonBody(lessonId);
-  const step = chapter ? snapshot.chapters[chapter.id]?.currentStep ?? (lesson?.mold === "full" ? "objective" : "lesson") : "lesson";
-  const [choice, setChoice] = useState<string>("");
-  const [bossChoice, setBossChoice] = useState<string>("");
+  const step = chapter
+    ? snapshot.chapters[chapter.id]?.currentStep ?? (lesson?.mold === "full" ? "objective" : "lesson")
+    : "lesson";
+  const [choice, setChoice] = useState("");
+  const [bossIndex, setBossIndex] = useState(0);
+  const [bossAnswers, setBossAnswers] = useState<Record<string, string>>({});
   const [teachText, setTeachText] = useState("");
   const [feedback, setFeedback] = useState<"success" | "almost" | null>(null);
 
@@ -40,7 +44,9 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
   if (!lesson || !chapter || !challenge || !teachBack || !boss) {
     return (
       <AppShell>
-        <LockedState title="Essa aula não existe neste recorte" />
+        <LockedState title="Esta aula não está na jornada">
+          Volte aos capítulos e escolha uma aula disponível.
+        </LockedState>
       </AppShell>
     );
   }
@@ -48,7 +54,10 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
   if (states[chapter.id] === "LOCKED") {
     return (
       <AppShell>
-        <LockedState />
+        <BackLink href="/mapa">Voltar aos capítulos</BackLink>
+        <LockedState title="Ainda não deu para abrir">
+          Termine o capítulo anterior para começar esta aula.
+        </LockedState>
       </AppShell>
     );
   }
@@ -67,25 +76,25 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
   }
 
   const next = nextAvailableChapter(getChapters(), snapshot);
+  const currentBoss = boss.items[bossIndex];
 
   return (
     <AppShell
       trail={[
-        { href: "/biblioteca", label: "Biblioteca" },
-        { href: "/mapa", label: "Mapa" },
+        { href: "/mapa", label: "Estudo" },
         { href: `/capitulo/${chapter.id}`, label: chapter.title },
-        { label: lesson.title },
+        { label: STUDENT_STEP_LABEL[step] },
       ]}
     >
       <BackLink href={`/capitulo/${chapter.id}`}>Voltar ao capítulo</BackLink>
-      <PageIntro kicker={`Passo · ${STEP_LABEL[step]}`} title={lesson.title} />
+      <PageIntro kicker={STUDENT_STEP_LABEL[step]} title={lesson.title} />
 
       {step === "lesson" ? (
         <>
           <Professor tone="explanation">{lesson.content}</Professor>
-          <div className="mt-6">
+          <div className="mt-8">
             <Button variant="cta" onClick={() => dispatch({ type: "COMPLETE_LESSON", lessonId: lesson.id })}>
-              Entendi · ir ao desafio
+              Continuar
             </Button>
           </div>
         </>
@@ -94,13 +103,13 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
       {step === "challenge" ? (
         <>
           <Professor tone="hint">{challenge.prompt}</Professor>
-          <div className="mt-4 space-y-2">
+          <div className="mt-6 space-y-3">
             {challenge.options.map((option) => (
               <button
                 key={option.id}
                 type="button"
                 onClick={() => setChoice(option.id)}
-                className={`flex min-h-11 w-full items-center rounded-[var(--radius-lg)] border px-4 text-left ${
+                className={`flex min-h-12 w-full items-center rounded-[var(--radius-lg)] border px-4 py-4 text-left text-[16px] ${
                   choice === option.id
                     ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
                     : "border-[var(--border)]"
@@ -111,11 +120,11 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
             ))}
           </div>
           {feedback === "almost" ? (
-            <div className="mt-4">
-              <Feedback kind="almost">Quase. Olhe de novo o que recebe o peso.</Feedback>
+            <div className="mt-5">
+              <Feedback kind="almost">Quase. Olhe de novo a pergunta e as alternativas.</Feedback>
             </div>
           ) : null}
-          <div className="mt-6">
+          <div className="mt-8">
             <Button
               variant="cta"
               disabled={!choice}
@@ -125,7 +134,7 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
                 dispatch({ type: "ANSWER_CHALLENGE", challengeId: challenge.id, result });
               }}
             >
-              Conferir
+              Responder
             </Button>
           </div>
         </>
@@ -133,15 +142,18 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
 
       {step === "teachback" ? (
         <>
-          <Professor tone="explanation">{teachBack.prompt}</Professor>
-          <div className="mt-4">
+          <Professor tone="explanation">Agora me explique com suas palavras.</Professor>
+          <Text variant="bodyLarge" className="mt-4">
+            {teachBack.prompt}
+          </Text>
+          <div className="mt-5">
             <TextArea
               value={teachText}
               onChange={(event) => setTeachText(event.target.value)}
-              placeholder="Escreva com as suas palavras. Sem IA nesta fase."
+              placeholder="Escreva como se estivesse explicando para a professora."
             />
           </div>
-          <div className="mt-6">
+          <div className="mt-8">
             <Button
               variant="cta"
               disabled={teachText.trim().length < 12}
@@ -153,24 +165,29 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
                 })
               }
             >
-              Entregar explicação
+              Conferir
             </Button>
           </div>
         </>
       ) : null}
 
-      {step === "boss" ? (
+      {step === "boss" && currentBoss ? (
         <>
-          <Professor tone="introduction">{boss.title}</Professor>
-          <Card variant="elevated" className="mt-4 space-y-3">
-            <p>{boss.items[0].prompt}</p>
-            {boss.items[0].options.map((option) => (
+          <Professor tone="introduction">Você chegou ao desafio final.</Professor>
+          <Text variant="caption" className="mt-4">
+            Pergunta {bossIndex + 1} de {boss.items.length}
+          </Text>
+          <Card variant="elevated" className="mt-4 space-y-3 p-6">
+            <p className="text-[18px] leading-relaxed">{currentBoss.prompt}</p>
+            {currentBoss.options.map((option) => (
               <button
                 key={option.id}
                 type="button"
-                onClick={() => setBossChoice(option.id)}
-                className={`flex min-h-11 w-full items-center rounded-[var(--radius-lg)] border px-4 text-left ${
-                  bossChoice === option.id
+                onClick={() =>
+                  setBossAnswers((current) => ({ ...current, [currentBoss.id]: option.id }))
+                }
+                className={`flex min-h-12 w-full items-center rounded-[var(--radius-lg)] border px-4 py-4 text-left text-[16px] ${
+                  bossAnswers[currentBoss.id] === option.id
                     ? "border-[var(--lilac)] bg-[rgba(185,160,232,0.16)]"
                     : "border-[var(--border)]"
                 }`}
@@ -179,35 +196,45 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
               </button>
             ))}
           </Card>
-          <div className="mt-6">
-            <Button
-              variant="cta"
-              disabled={!bossChoice}
-              onClick={() =>
-                dispatch({
-                  type: "COMPLETE_BOSS",
-                  bossId: boss.id,
-                  result: bossChoice === boss.items[0].answerId ? "success" : "almost",
-                })
-              }
-            >
-              Fechar o capítulo
-            </Button>
+          <div className="mt-8">
+            {bossIndex < boss.items.length - 1 ? (
+              <Button
+                variant="cta"
+                disabled={!bossAnswers[currentBoss.id]}
+                onClick={() => setBossIndex((index) => index + 1)}
+              >
+                Continuar
+              </Button>
+            ) : (
+              <Button
+                variant="cta"
+                disabled={boss.items.some((item) => !bossAnswers[item.id])}
+                onClick={() =>
+                  dispatch({
+                    type: "COMPLETE_BOSS",
+                    bossId: boss.id,
+                    result: boss.items.every((item) => bossAnswers[item.id] === item.answerId)
+                      ? "success"
+                      : "almost",
+                  })
+                }
+              >
+                Concluir capítulo
+              </Button>
+            )}
           </div>
         </>
       ) : null}
 
       {step === "reward" ? (
-        <>
-          <Professor tone="celebration">O capítulo fechou. A flor nasceu. XP não é domínio.</Professor>
-          <Feedback kind="xp">+{XP_RULES.chapterComplete} XP de capítulo · regra central.</Feedback>
-          <div className="mt-4">
-            <Feedback kind="flower">O canteiro de {chapter.title} respondeu.</Feedback>
-          </div>
-          <div className="mt-6 space-y-3">
+        <div className="motion-grow space-y-6 py-6 text-center">
+          <Professor tone="celebration">Capítulo concluído!</Professor>
+          <Text variant="bodyLarge">Você terminou {chapter.title}.</Text>
+          <Feedback kind="xp">+{XP_RULES.chapterComplete} XP</Feedback>
+          <div className="space-y-3">
             {next ? (
               <Button href={`/capitulo/${next.id}`} variant="cta">
-                Ir ao próximo capítulo
+                Continuar jornada
               </Button>
             ) : (
               <Button href="/jardim" variant="cta">
@@ -215,10 +242,10 @@ export function LessonScreen({ lessonId }: { lessonId: string }) {
               </Button>
             )}
             <Button href="/mapa" variant="ghost" className="w-full">
-              Voltar ao mapa
+              Ver todos os capítulos
             </Button>
           </div>
-        </>
+        </div>
       ) : null}
     </AppShell>
   );

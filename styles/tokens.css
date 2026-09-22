@@ -38,9 +38,9 @@
   --z-sheet: 30;
   --z-toast: 40;
   --z-focus: 50;
-  --type-display: 40px;
-  --type-h1: 32px;
-  --type-h2: 24px;
+  --type-display: clamp(32px, 8vw, 40px);
+  --type-h1: clamp(26px, 6vw, 32px);
+  --type-h2: clamp(20px, 4.5vw, 24px);
   --type-h3: 20px;
   --type-body-lg: 18px;
   --type-body: 16px;

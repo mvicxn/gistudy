@@ -2,54 +2,31 @@
 
 import { cn } from "@/lib/cn";
 import { Text } from "@/components/ds/Text";
+import { Spinner } from "@/components/ds/States";
+import { useStudy } from "@/components/study/StudyProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const tabs = [
-  { href: "/castelo", label: "Castelo" },
-  { href: "/biblioteca", label: "Biblioteca" },
-  { href: "/mapa", label: "Aula" },
-  { href: "/calendario", label: "Calendário" },
-  { href: "/jardim", label: "Jardim" },
-];
+  { href: "/castelo", label: "Início", icon: "⌂" },
+  { href: "/mapa", label: "Estudo", icon: "◎" },
+  { href: "/biblioteca", label: "Biblioteca", icon: "▣" },
+  { href: "/calendario", label: "Calendário", icon: "◷" },
+  { href: "/jardim", label: "Jardim", icon: "❀" },
+] as const;
 
-export function ContextTrail({
-  items,
-}: {
-  items: { href?: string; label: string }[];
-}) {
-  return (
-    <nav aria-label="Contexto" className="mb-4 overflow-x-auto">
-      <ol className="flex min-h-11 flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-[var(--text-muted)]">
-        {items.map((item, i) => (
-          <li key={`${item.label}-${i}`} className="flex items-center gap-2">
-            {item.href ? (
-              <Link className="min-h-11 min-w-11 py-2 text-[var(--lilac)]" href={item.href}>
-                {item.label}
-              </Link>
-            ) : (
-              <span className="py-2 text-[var(--text-primary)]" aria-current="page">
-                {item.label}
-              </span>
-            )}
-            {i < items.length - 1 ? <span aria-hidden>→</span> : null}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
-export function BackLink({ href, children }: { href: string; children: string }) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex min-h-11 items-center text-[14px] text-[var(--lilac)]"
-    >
-      ← {children}
-    </Link>
-  );
+function isActive(pathname: string, href: string) {
+  if (href === "/castelo") return pathname === "/castelo";
+  if (href === "/mapa") {
+    return (
+      pathname.startsWith("/mapa") ||
+      pathname.startsWith("/capitulo") ||
+      pathname.startsWith("/aula") ||
+      pathname.startsWith("/revisao")
+    );
+  }
+  return pathname.startsWith(href);
 }
 
 export function AppShell({
@@ -60,71 +37,99 @@ export function AppShell({
   trail?: { href?: string; label: string }[];
 }) {
   const pathname = usePathname();
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
-
-  const tabLinks = (compact: boolean) =>
-    tabs.map((tab) => {
-      const active = ready && pathname.startsWith(tab.href);
-      return (
-        <Link
-          key={tab.href}
-          href={tab.href}
-          aria-current={active ? "page" : undefined}
-          className={cn(
-            "flex min-h-12 items-center justify-center rounded-full px-2 text-[11px]",
-            compact && "h-12 w-12 px-0",
-            active
-              ? "bg-[var(--purple)] shadow-[var(--glow)]"
-              : "text-[var(--text-muted)] hover:text-[var(--text-primary)]",
-          )}
-        >
-          {compact ? tab.label.slice(0, 3) : tab.label}
-        </Link>
-      );
-    });
+  const { ready } = useStudy();
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[1440px]">
-      <a
-        href="#conteudo"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[var(--z-focus)] focus:rounded-[var(--radius-pill)] focus:bg-[var(--purple)] focus:px-4 focus:py-2"
-      >
-        Ir ao conteúdo
-      </a>
-      <aside
-        aria-label="Principal desktop"
-        className="sticky top-0 hidden h-dvh w-20 flex-col items-center gap-3 border-r border-[var(--border)] py-6 lg:flex"
-      >
-        <Link href="/" className="font-[family-name:var(--font-display)] text-lg" aria-label="MM Study, início">
-          MM
-        </Link>
-        {tabLinks(true)}
+    <div className="min-h-dvh md:flex">
+      <aside className="hidden md:fixed md:inset-y-0 md:flex md:w-56 md:flex-col md:border-r md:border-[var(--border)] md:bg-[rgba(11,11,16,0.92)] md:px-4 md:py-8">
+        <Text variant="label">MM Study</Text>
+        <nav className="mt-8 flex flex-col gap-1" aria-label="Navegação principal">
+          {tabs.map((tab) => {
+            const active = isActive(pathname, tab.href);
+            return (
+              <Link
+                key={tab.href}
+                href={tab.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "flex min-h-11 items-center gap-3 rounded-[var(--radius-lg)] px-3 text-[15px] font-semibold",
+                  active
+                    ? "bg-[rgba(185,160,232,0.16)] text-[var(--text-primary)]"
+                    : "text-[var(--text-secondary)] hover:bg-[rgba(255,255,255,0.04)]",
+                )}
+              >
+                <span aria-hidden className="w-5 text-center text-[var(--lilac)]">
+                  {tab.icon}
+                </span>
+                {tab.label}
+              </Link>
+            );
+          })}
+        </nav>
       </aside>
 
-      <div className="flex min-h-dvh flex-1 flex-col pb-24 md:pb-8">
-        <nav
-          aria-label="Principal tablet"
-          className="glass sticky top-0 z-[var(--z-nav)] hidden items-center gap-2 overflow-x-auto px-3 py-2 md:flex lg:hidden"
-        >
-          <Link href="/" className="px-2 font-[family-name:var(--font-display)]" aria-label="MM Study, início">
-            MM
-          </Link>
-          {tabLinks(false)}
-        </nav>
-        <main id="conteudo" className="mx-auto w-full max-w-[800px] flex-1 px-5 py-6">
-          {trail ? <ContextTrail items={trail} /> : null}
-          {children}
-        </main>
-      </div>
+      <main className="mx-auto w-full max-w-[720px] flex-1 px-5 py-8 pb-36 md:ml-56 md:max-w-[760px] md:px-10 md:pb-16">
+        {trail ? <ContextTrail items={trail} /> : null}
+        {ready ? (
+          children
+        ) : (
+          <div className="flex min-h-[40vh] items-center justify-center">
+            <Spinner label="Estamos preparando sua aula..." />
+          </div>
+        )}
+      </main>
 
       <nav
-        aria-label="Principal"
-        className="glass fixed inset-x-0 bottom-0 z-[var(--z-nav)] grid grid-cols-5 gap-1 px-2 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden"
+        className="fixed inset-x-0 bottom-0 z-[var(--z-nav)] border-t border-[var(--border)] bg-[rgba(11,11,16,0.94)] backdrop-blur md:hidden"
+        aria-label="Navegação principal"
       >
-        {tabLinks(false)}
+        <ul className="grid grid-cols-4">
+          {tabs
+            .filter((tab) => tab.href !== "/biblioteca")
+            .map((tab) => {
+            const active = isActive(pathname, tab.href);
+            return (
+              <li key={tab.href}>
+                <Link
+                  href={tab.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-2 text-center text-[12px] font-semibold leading-tight",
+                    active ? "text-[var(--lilac)]" : "text-[var(--text-muted)]",
+                  )}
+                >
+                  <span aria-hidden className="text-base">
+                    {tab.icon}
+                  </span>
+                  {tab.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
     </div>
+  );
+}
+
+export function ContextTrail({ items }: { items: { href?: string; label: string }[] }) {
+  return (
+    <nav aria-label="Você está em" className="mb-5 text-[13px] text-[var(--text-muted)]">
+      <ol className="flex flex-wrap gap-1">
+        {items.map((item, index) => (
+          <li key={`${item.label}-${index}`} className="flex items-center gap-1">
+            {item.href ? (
+              <Link href={item.href} className="underline-offset-2 hover:underline">
+                {item.label}
+              </Link>
+            ) : (
+              <span className="text-[var(--text-secondary)]">{item.label}</span>
+            )}
+            {index < items.length - 1 ? <span aria-hidden>/</span> : null}
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
 
@@ -138,16 +143,23 @@ export function PageIntro({
   children?: ReactNode;
 }) {
   return (
-    <header className="mb-6">
+    <header className="mb-8 space-y-3">
       <Text variant="label">{kicker}</Text>
-      <Text as="h1" variant="h1" className="mt-1">
+      <Text as="h1" variant="h1">
         {title}
       </Text>
-      {children ? (
-        <Text variant="body" className="mt-2">
-          {children}
-        </Text>
-      ) : null}
+      {children ? <Text variant="bodyLarge">{children}</Text> : null}
     </header>
+  );
+}
+
+export function BackLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="mb-5 inline-flex min-h-11 items-center text-[15px] text-[var(--lilac)]"
+    >
+      ← {children}
+    </Link>
   );
 }
