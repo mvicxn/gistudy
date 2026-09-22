@@ -1,0 +1,757 @@
+{
+  "cobertura": "104/104 slides",
+  "metodos": [
+    "XML nativo de cada PPTX (caixas de texto, atributos show, pictures)",
+    "pdftotext -layout de cada página",
+    "OCR Tesseract por+eng de cada slide renderizado",
+    "HTML exportado pelo LibreOffice",
+    "strings OLE do .ppt original",
+    "inspeção visual de todos os slides com imagem"
+  ],
+  "naoExisteNosArquivos": [
+    "notas do apresentador",
+    "slides ocultos",
+    "comentários",
+    "gráficos",
+    "objetos embutidos (embeddings)",
+    "exercícios / casos clínicos prontos",
+    "legendas nas fotos clínicas de quelóide"
+  ],
+  "metadados": {
+    "cicatrizacao": {
+      "criado": "2011-08-02",
+      "autor": "natalia.eleuterio",
+      "ultimaEdicao": "2019-07-30",
+      "editadoPor": "Cintia-cpd",
+      "tituloInterno": "FISIOTERAPIA APLICADA DERMATO-FUNCIONAL"
+    },
+    "queloide": {
+      "criado": "2005-10-17",
+      "autor": "AMD",
+      "ultimaEdicao": "2019-07-30",
+      "editadoPor": "Cintia-cpd",
+      "tituloInterno": "Cicatrização Quelóide e Hipertrófica",
+      "origemImagens": [
+        "web.udl.es/usuaris/dermatol/PaginesGrans/queloidesG8.html",
+        "queloidesG13.html",
+        "queloidesG16.html"
+      ],
+      "atlasStatus": "502 no momento da leitura"
+    },
+    "abdominoplastia": {
+      "criado": "2011-09-05",
+      "autor": "cintia.silva",
+      "ultimaEdicao": "2022-08-30",
+      "editadoPor": "Fisio"
+    },
+    "mamoplastia": {
+      "criado": "2008-08-18",
+      "autor": "cintia.silva",
+      "ultimaEdicao": "2022-10-11",
+      "editadoPor": "Fisio"
+    },
+    "planograma": {
+      "criado": "2012-02-07",
+      "autor": "cintia.silva",
+      "ultimaEdicao": "2026-08-10",
+      "editadoPor": "CINTIA ZACAIB SILVA",
+      "tituloInternoAntigo": "Planograma 2012 1ºsemestre"
+    }
+  },
+  "decks": {
+    "abdominoplastia": {
+      "slides": 30,
+      "midiasEmbutidas": [
+        "image7.jpeg",
+        "image6.jpeg",
+        "image3.jpeg",
+        "image5.jpeg",
+        "image2.jpeg",
+        "image4.jpeg",
+        "image1.jpeg"
+      ],
+      "conteudo": [
+        {
+          "n": 1,
+          "textoIntegral": "ABDOMINOPLASTIA OU DERMOLIPECTOMIA \nProfª. Ms. Cintia Zacaib Silva",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 2,
+          "textoIntegral": "Abdominoplastia\nAbdominoplastia é um dos procedimentos mais realizados na Cirurgia Plástica mundial. Abrange o aspecto estético e reconstrutor da parede abdominal. \nMuitas variações das incisões, do reparo musculofascial e da remodelagem do umbigo têm sido descritas.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 3,
+          "textoIntegral": "Em 1965, Callia realizou incisão sobre o púbis com prolongamentos laterais. Em 1967, Pitanguy fez incisão horizontal baixa com as extremidades para fora e para baixo e promoveu a plicatura dos músculos retos abdominais sem a abertura da aponeurose.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 4,
+          "textoIntegral": "A finalidade da abdominoplastia é de melhorar o aspecto do abdômen e devolver ao paciente seu contorno corporal, alternado por distensões causadas pela obesidade ou pela gravidez.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 5,
+          "textoIntegral": "O resultado é obtido através da remoção do excesso de pele e de tecido gorduroso da parte inferior do abdômen. \nAlém de dar tonicidade à pele esticada, esse tipo de cirurgia reforça os músculos da região e provoca um achatamento do abdômen inferior.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 6,
+          "textoIntegral": "Hakme (1985) associou a lipoaspiração à abdominoplastia parcial, denominando-a minilipoabdominoplastia e miniabdominoplastia.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 7,
+          "textoIntegral": "Avelar (1985) descreveu a associação de lipoaspiração à abdominoplastia para pacientes com abdome protruso, gordura localizada supra e infraumbilical e flacidez muscular.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 8,
+          "textoIntegral": "Baroudi \net al.\n (1998) defenderam o emprego de pontos capitonados unindo o retalho à parede abdominal, a partir do processo xifoide, até a borda inferior da incisão do púbis, com o intuito de prevenir o seroma.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 9,
+          "textoIntegral": "Saldanha \net al.\n (2001, 2003) e Avelar (2001) em trabalhos paralelos, divulgaram técnicas de abdominoplastias, sem descolamento, introduzindo as técnicas de lipoabdominoplastias em nosso meio.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 10,
+          "textoIntegral": "Bozola & Psillakis, em 1988, e Rosa & Bozola, em 2010, enfatizaram a classificação das alterações estéticas no tratamento do abdome, com seus tratamentos específicos.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 11,
+          "textoIntegral": "Nahas & Ferreira(2005) mostraram a eficácia a longo prazo da correção da diástase dos músculos retos abdominais. \nEm 2010,os mesmos autores chamaram atenção para os fatores relacionados a flacidez da parede abdominal.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 12,
+          "textoIntegral": "A diástase abdominal é o afastamento dos músculos abdominais e do tecido conjuntivo que geralmente acontece durante a gravidez, sendo a principal causa de flacidez abdominal e dor lombar no pós-parto.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 13,
+          "textoIntegral": "Diástase Abdominal",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Esquema axial: reto abdominal, diástase, bainha anterior dos retos, musculatura lateral, área da plicatura."
+        },
+        {
+          "n": 14,
+          "textoIntegral": "Antes e depois das plicaturas. Notar melhora do abaulamento da parede abdominal.",
+          "imagensNoSlide": 2,
+          "descricaoVisual": "2 fotos intraoperatórias da parede: antes e depois das plicaturas (abaulamento vs parede tensionada)."
+        },
+        {
+          "n": 15,
+          "textoIntegral": "Procedimento Cirúrgico \nOs tipos de anestesia mais usados para abdominoplastia são a geral ou a mista (que é uma combinação da anestesia geral com local).",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 16,
+          "textoIntegral": "É feita uma incisão horizontal logo acima dos pêlos pubianos, de onde parte um corte em elipse, cuja largura maior vai até o umbigo, o qual será transplantado e, se necessário, remodelado.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 17,
+          "textoIntegral": "Após a incisão, o tecido flácido que cobre o músculo abdominal é puxado em direção ao centro.\n Esse procedimento reforça a musculatura, dá firmeza à parede abdominal e afina a cintura. \nO exceso de pele é então retirado e, antes das sutura, o umbigo é reinstalado em seu local original.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 18,
+          "textoIntegral": "Abdominoplastia/Lipoaspiração",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Cicatriz horizontal baixa recém-suturada, umbigo reimplantado, instrumento ao lado."
+        },
+        {
+          "n": 19,
+          "textoIntegral": "Pré- operatório",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Pré-operatório em 3 vistas (frente, frente, perfil) com flacidez/protrusão."
+        },
+        {
+          "n": 20,
+          "textoIntegral": "Pós- operatório",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Pós-operatório nas mesmas 3 vistas: abdômen aplanado, cicatriz baixa."
+        },
+        {
+          "n": 21,
+          "textoIntegral": "O paciente deve estar ciente, entretanto, de que o objetivo da abdominoplastia não é de alcançar a perfeição, mas sim de diminuir o problema. \nQuanto menor for a quantidade de pele em excesso a ser retirado, tanto mais satisfatório serão os resultados finais.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 22,
+          "textoIntegral": "Antes                 Depois",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Antes/depois frente e perfil de contorno corporal."
+        },
+        {
+          "n": 23,
+          "textoIntegral": "Antes                  Depois",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Antes/depois close do abdômen inferior (pele em avental vs cicatriz de biquíni)."
+        },
+        {
+          "n": 24,
+          "textoIntegral": "Principais Complicações\nSeromas;\nDeiscências de suturas;\nNecrose de pele;\nAderências;\nDiminuição ou perda de sensibilidade em alguma área do abdome ( transitória ou definitiva).",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 25,
+          "textoIntegral": "Pós-operatório\nO pós-operatório da abdominoplastia é, em geral, indolor, e o tempo médio de internação é de 24 horas. \nO paciente deve levantar da cama já no dia seguinte à cirurgia, sempre alternando períodos em posição deitado e sentado.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 26,
+          "textoIntegral": "É recomendável andar com o tronco ligeiramente curvado para a frente a passos curtos, durante os primeiros cinco dias, evitando escadas longas.\n Deve-se usar uma faixa abdominal durante os primeiros cinco dias, evitando escadas longas.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 27,
+          "textoIntegral": "Deve-se usar uma faixa abdominal durante 30 dias. \nAo fim do primeiro mês, é retirado o curativo de micropore. É aplicado, então, um creme indicado pelo médico, no local da cicatriz. \nO inchaço natural e uma posível falta de sensibilidade são comuns e desaparecem com o tempo. O resultado definitivo só poderá ser observado após 12 a 18 meses da cirurgia.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 28,
+          "textoIntegral": "Complicações\nAlém das alterações como as cicatrizes hipertróficas e queloideanas orginárias principalmente pelo excesso de tensão na região inferior do abdome e de produção de colágeno .\n O seroma é uma complicação comum, tanto nas cirurgias convensionais, quanto na associações com a lipoaspiração.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 29,
+          "textoIntegral": "Fisioterapia no Pré-Operatório\nAnamnese Completa do paciente;\nCorreção de Desvio Posturais;\nFortalecimento Muscular;\nMelhorar o fluxo do sistema Linfático;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 30,
+          "textoIntegral": "Fisioterapia no Pós-Operatório\nCompressão;\nCrioterapia ( 20 a 30 min);\nDrenagem Linfática;\nUltra-Som",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        }
+      ]
+    },
+    "mamoplastia": {
+      "slides": 19,
+      "midiasEmbutidas": [
+        "image1.jpeg",
+        "image13.jpeg",
+        "image5.png",
+        "image4.jpeg",
+        "image3.png",
+        "image2.png",
+        "image7.jpeg",
+        "image12.jpeg",
+        "image10.jpeg",
+        "image6.png",
+        "image8.jpeg",
+        "image9.jpeg",
+        "image14.jpeg",
+        "image11.jpeg"
+      ],
+      "conteudo": [
+        {
+          "n": 1,
+          "textoIntegral": "Prof.ª Ms. Cintia Zacaib Silva",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Capa: título Mamoplastia + Prof.ª Ms. Cintia Zacaib Silva (título está na arte, não só no XML)."
+        },
+        {
+          "n": 2,
+          "textoIntegral": "Mamoplastia Redutora\nRetira-se pele, gordura, às vezes glândulas mamárias, além de realizar plicatura da glândula mamária;\nAs incisões podem ser em “L” ou em “T” invertido, também chamada em “âncora;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 3,
+          "textoIntegral": "Antes\n      Depois",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Ilustração redutora antes/depois: volume e ptose vs mamas menores e mais altas."
+        },
+        {
+          "n": 4,
+          "textoIntegral": "Antes\n                  Depois",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Ilustração redutora com território amarelo/assimetria vs resultado simétrico."
+        },
+        {
+          "n": 5,
+          "textoIntegral": "Pós-Operatório (Redutora)\nOs cuidados a serem tomados :\n Relacionados à mobilidade do membro superior, sendo totalmente contra-indicado a realização de flexão ou abdução do ombro acima de 45º;\nRestrição da mobilidade do ombro varia entre 20 a 30 dias;\nO tracionamento da cicatriz;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 6,
+          "textoIntegral": "Mastopexia\nTrata-se do procedimento cirúrgico para a correção da ptose mamária;\nNormalmente faz-se plicatura da glândula mamária apenas;\nAlgumas vezes, faz-se necessário a excerese de pele;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 7,
+          "textoIntegral": "Mastopexia\nantes\ndepois",
+          "imagensNoSlide": 2,
+          "descricaoVisual": "Ilustração mastopexia antes/depois (ptose sem grande volume)."
+        },
+        {
+          "n": 8,
+          "textoIntegral": "Mamoplastia  de Aumento\nOs casos de hipomastia ou reconstrução pós-mastectomia, onde faz-se inclusão de próteses de silicone texturizadas ;\nA inserção pode ocorrer em dois níveis: retroglandular ou retromuscular, sendo esta ultima de menores riscos de encapsulamento de prótese;\nPara este tipo de cirurgia, faz-se necessário uma quantidade de pele adequada para o volume a ser colocado, além de uma elasticidade de pele satisfatória;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 9,
+          "textoIntegral": "Mamoplastia  de Aumento\nNos casos onde estes requisitos não são atingidos (por exemplo, mastectomia radical com grande excerese de pele) pode-se inserir temporariamente próteses expansivas;\nDepois de se ter adquirido quantidade de pele suficiente, esta prótese é trocada pela definitiva;\nA maior complicação desta cirurgia é o encapsulamento ou contratura da prótese;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 10,
+          "textoIntegral": "Mamoplastia  de Aumento",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "4 quadros de aumento: perfil hipomastia, 3/4, corte sagital com prótese, resultado."
+        },
+        {
+          "n": 11,
+          "textoIntegral": "Mamoplastia  de Aumento",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Tríptico: Antes / Técnica / Depois."
+        },
+        {
+          "n": 12,
+          "textoIntegral": "Demarcação para cirurgia",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Demarcação pré-operatória periareolar."
+        },
+        {
+          "n": 13,
+          "textoIntegral": "Depois da prótese",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Corte sagital após prótese (plano de inclusão)."
+        },
+        {
+          "n": 14,
+          "textoIntegral": "Causas de  Encapsulamento\nPrótese maior do que a cavidade;\nTrauma cirúrgico;\nAcumulo seroso ou sanguíneo;\nPresença de patches nas próteses;\nInfecções subclinicas;\nExtravasamento de silicone gel;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 15,
+          "textoIntegral": "Outras complicações\nHematomas;\nInfecção;\nExposição da prótese;\nRuptura;\nAssimetria;\nHipossensibilidade;\nEnfisema subcutâneo;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 16,
+          "textoIntegral": "Pós-Operatório\nEdema moderado nas extremidades dos retalhos no pólo inferior da mama;\nEdema acentuado na aréola mamilar;\nPresença de equimoses nas aréolas e pólo lateral e medial da mama;\nHipoestesia;\nDor junto às incisões;\nEdema junto às incisões;\nPodendo encontrar discreta cianose e espasmos da musculatura peitoral.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 17,
+          "textoIntegral": "Objetivos do Pré-Operatório\nMelhorar a circulação;\nMelhorar a hidratação cutânea;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 18,
+          "textoIntegral": "Objetivos do Pós-Operatório\nImediato\nMelhorar a irrigação sangüínea areolar;\nReduzir edema;\nMelhorar quadro álgico;\nDiminuir contratura capsular;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 19,
+          "textoIntegral": "Objetivos no Pós-Operatório\nTardio\nDiminuir a formação de trombos;\nReeducação respiratória;\nMelhorara a hidratação cutânea;\nDiminuir edema e hematomas;\nDiminuir chances de seroma;\nTratar e/ou evitar aderências;\nMelhorar cicatrização;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        }
+      ]
+    },
+    "planograma": {
+      "slides": 5,
+      "midiasEmbutidas": [],
+      "conteudo": [
+        {
+          "n": 1,
+          "textoIntegral": "Planograma 2026\n           2ºsemestre\nDisciplina:\n \nFISIOTERAPIA APLICADA  DERMATOFUNCIONAL II",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 2,
+          "textoIntegral": "01.  Apresentação da Disciplina e Cicatrização (04/08)\n02. Cicatriz Hipertrófica e queloideana (11/08)\n03. Abdominoplastia (18/08)\n04. Mamoplastia (25/08)",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 3,
+          "textoIntegral": "Casos Clínicos em sala de aula (para nota)(14/09)\nCorreção dos casos clínicos (14/09)\nProva Bimestral (22/09)\nRitidoplastia (29/09)\nLipoaspiração (06/10)\n7ª Maratona de Empreendedorismo e Inovação (13/10)",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 4,
+          "textoIntegral": "Queimados (20/10)\nAula prática (27/10)\nAula prática (03/11)\nApresentação dos Trabalhos de Hanseníase (10 e 17/11)",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 5,
+          "textoIntegral": "18. Prova (24/11)\n19. Entrega das Notas e Médias (01/12)\n20. 2ª Chamada (08/12)\n21. Exame (15/12)\nAvaliação:\n2 avaliações teóricas (valor 8,0)\n Casos clínicos e Seminários (valor 2,0)",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        }
+      ]
+    },
+    "cicatrizacao": {
+      "slides": 19,
+      "midiasEmbutidas": [],
+      "conteudo": [
+        {
+          "n": 1,
+          "textoIntegral": "FISIOTERAPIA APLICADA\nDERMATO-FUNCIONAL\nCICATRIZAÇÃO\n                            Prof.ª Ms. Cintia Zacaib Silva",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 2,
+          "textoIntegral": "CICATRIZAÇÃO\n A cicatrização das feridas ocorre em várias fases:\nCoagulação\nInflamação\nProliferação\nContração das feridas\nRemodelação",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 3,
+          "textoIntegral": "COAGULAÇÃO\n        \n           Inicia-se imediatamente após a injúria, sendo mediada pela atividade das plaquetas e pelas vias intrínsecas e extrínsecas da cascada de coagulação que aderem-se à parede dos vasos sanguíneos e liberam, vários produtos, entre eles: \n => substâncias vasoativas (ex: prostaglandinas); \n => proteínas adesivas (ex:trombospodina;fibronectina e fibrinogênio);\n => fatores de crescimento e proteases (colagenase, elastase, etc);",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 4,
+          "textoIntegral": "COAGUALÇÃO\n         \nEstes produtos direcionarão o curso futuro da cicatrização de feridas pelos seus efeitos quimiotáxicos e proliferativos nos macrófagos, fibroblastos e células epiteliais e endoteliais. \n           Além disso o estancamento é facilitado por proenzimas de coagulação específicas.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 5,
+          "textoIntegral": "FASE INFLAMATÓRIA\nFase aguda (inicial), duração de 24 a 48 horas.\nFase subaguda (tardia), se prolonga por mais 10 a 14 horas.\nVasorregulação e coagulação sanguínea\nMigração e ação celulares\nFatores químicos",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 6,
+          "textoIntegral": "FASE PROLIFERATIVA\n       Sobrepõe-se à fase inflamatória, com duração de 10 a 17 dias (14 a 21 dias após o início da lesão.\nFibroplasia – importante na formação do tecido de granulação.\nAngiogênese;\nContração da ferida",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 7,
+          "textoIntegral": "FASE DE REMODELAGEM\n        \nSobrepõe-se à fase proliferativa, inicia-se no 14 a 21 dia, até meses ou anos a lesão.\nProcesso que pode levar meses;\nDeposição de fibras colágenas em resposta a lesão tecidual é aparentemente ao acaso, durante a remodelação o arranjo e o tipo de colágeno são mudados;\nColágeno do tipo III é substituído por colágeno do\n    tipo I em resposta ao estresse mecânico até atingir características semelhantes as do tecido anterior à lesão;",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 8,
+          "textoIntegral": "FASE DE REMODELAGEM\n A água é reabsorvida da cicatriz, o que permite que as fibras colágenas fiquem juntas novamente, favorecendo a ligação cruzada entre elas e diminui a espessura da cicatriz.\nA neovascularização diminui, gradualmente, levando a uma cicatrização final, consideravelmente mais avascular.\nCicatriz com 80% da força de tensão.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 9,
+          "textoIntegral": "INFLAMAÇÃO\n\t\nInflamação é uma reação local, por meio do qual o organismo procura defender-se da ação de agentes lesivo-inflamatórios ou flogísticos. Para que haja uma inflamação é necessário que se desenvolvam no local da flogose, também os fenômenos vasculares e exsudativos. \n     Não se inflamam, portanto, os tecidos desprosivos de vasos sanguíneos (ex: tecidos epiteliais).",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 10,
+          "textoIntegral": "As manifestações locais de uma inflamação aguda apresentam três componentes desta resposta: modificações hemodinâmicas, modificações da permeabilidade e fenômenos relacionados com os leucócitos, nesta ordem.\nAs modificações hemodinâmicas exigem uma circulação intacta para que ocorra, na seguinte ordem.\n1. dilatação arteriolar, as vezes procedida de vasoconstrição transitória.\n2. aumento do fluxo sanguíneo e nas arteriolas.\n3. abertura de novos capilares e dos leitos venulares locais.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 11,
+          "textoIntegral": "Fatores que modificam a inflamação\nfenômenos gerais que a acompanham\nQuando o estado de reatividade é alto, a reação inflamatória torna-se aguda e intensa, e são mais pronunciados as fenômenos exsudativos e hemorrágicos necróticos ( inflamação alérgica).\nA reação inflamatória é modificada fortemente por ações hormonais.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 12,
+          "textoIntegral": "A cortisona inibe o aparecimento da exsudação e dos fenômenos produtivos. \nApós a ação do corticóide, falta as vezes de modo quase que completa, a formação de células gigantes, de granulomas e são inibidas a neoprodução de fibroblastos e de colágenos (tecido de reparação).",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 13,
+          "textoIntegral": "PROCESSOS DE CURA\nA cicatrização é a forma mais comum de cura das inflamações e consiste na substituição mais ou menos completa do tecido destruído por conjuntivo neoformado, indicado como cicatricial. \nO tipo mais simples é a cicatrização por primeira intenção nas feridas operatórias, não contaminadas e pouco traumatizadas.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 14,
+          "textoIntegral": "Em três ou quatro dias, o tecido conjuntivo vascular procedente de uma das margens da ferida se encontra e se funde com o que provem da outra, e assim fia restabelecida, pelo menos em parte a continuidade anatômica do tecido.\nA cicatrização por primeira intenção é uma modalidade direta de cura, procedida por uma flogose mínima, com excassa destruição de tecidos e pouca exsudação.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 15,
+          "textoIntegral": "A cicatrização por segunda intenção dá-se nas inflamações com grandes perdas de tecidos com exsudação abundante ou nas feridas nas quais não houve junção das margens. \nÉ mais lenta, são cicatrizes excessivas e hipertróficas, e em alguns casos torna aspecto de quelóide.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 16,
+          "textoIntegral": "PREPARAÇÃO PARA A PRIMEIRA INTENÇAÕ\nO exemplo mais característico deste tipo de reparação é a da incisão cirúrgica.\nProcuramos descrever os fenômenos relacionando-os com o espaço temporal que eles ocorrem.\nPrimeiras 24 horas- ocorre acumulo leucocitario, principalmente de neutrofilos. A epiderme marginal se espessa e em 24 a 48 horas, cresce não só para baixo, assim como sob a superfície da crosta para fundir-se e produzir uma camada epitelial fina, mas continua. A continuidade epidérmica é restabelecida antes da reação do tecido subjacente",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 17,
+          "textoIntegral": "3° dia- os neutrofilos desaparecem e são substituídos por monócitos que removem, entre outras coisas, hemácias e fibrina. Torna-se visível a hipertrofias dos fibroblastos subepiteliais.\n5° dia- o espaço da incisão é ocupado por tecido conjuntivo fibroblastico frouxo, vascularizado e rico em substancia fundamental. Os brotamentos de capilares neoformados se juntam e formam canais. A vascularização atinge o máximo. As fibrilas colágenas passam a ser abundantes, cruzando a incisão. A epiderme atinge sua espessura normal.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 18,
+          "textoIntegral": "2° semana- ocorre um acumulo de colágeno e fibroblastos. O infiltrado leucocitario começa a comprimir a parede dos capilares. A força de tensão da ferida ainda é baixo.\nAo final do 1° mês- cicatriz formada por tecido conjuntivo celular, ainda hipervascularizado.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 19,
+          "textoIntegral": "REPARAÇÃO DE SEGUNDA INTENÇÃO\nO aumento da força da ferida é lento e não esta associado ao acréscimo do conteúdo de colágeno da ferida, já que ele é grande a partir do inicio da fibroplasia.\nLinchtenstein e col (1970) demonstraram que feridas cuidadosamente suturadas tem pelo menos 70% da força de tensão da pele.\nInfelizmente a junção dermo-epidermica podem levar muitos meses para estabilizar-se",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        }
+      ]
+    },
+    "queloide": {
+      "slides": 31,
+      "midiasEmbutidas": [
+        "image3.png",
+        "image2.png",
+        "image10.jpeg",
+        "image1.png",
+        "image5.jpeg",
+        "image7.jpeg",
+        "image12.jpeg",
+        "image6.jpeg",
+        "image9.jpeg",
+        "image4.jpeg",
+        "image14.jpeg",
+        "image16.jpeg",
+        "image13.png",
+        "image15.jpeg",
+        "image11.jpeg",
+        "image8.jpeg"
+      ],
+      "conteudo": [
+        {
+          "n": 1,
+          "textoIntegral": "Cicatrização Quelóide e Hipertrófica\nSão decorrentes de um processo cicatricial inadequado, provocado por lesão tecidual seja por trauma, cirurgia ou queimadura.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 2,
+          "textoIntegral": "Processo de cicatrização\n É o processo pelo qual um tecido lesado é   substituído por tecido conjuntivo vascularizado semelhante. \nO processo de cicatrização envolve um conjunto de fases fisiológicas e bioquímicas em resposta a uma lesão, culminando com o reparo tecidual",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 3,
+          "textoIntegral": "Fases do Reparo\n Fase do reparo tecidual – inicia no 3º dia e pode durar até meses ou anos.\n   Caracteriza-se pelo alinhamento e reorganização  das fibras para aumentar a resistência do tecido e diminuir a espessura da cicatriz.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 4,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Esquema em duas fileiras: ferida aberta → tecido de granulação → cicatriz. Fileira inferior inclui etapa de PUS entre ferida e granulação, cicatriz mais elevada."
+        },
+        {
+          "n": 5,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Esquema: ferida incisional (corte vertical) → cicatriz em faixa dérmica."
+        },
+        {
+          "n": 6,
+          "textoIntegral": "Fatores que interferem na cicatrização\nPerfusão e oxigenação do tecido \nMedicamentos – os quimioterápicos e os radioterápicos retardam a cicatrização porque reduzem a resposta imune normal\nNutrição – a deficiência nutricional dificulta a cicatrização ao deprimir o sistema imune\nEdema e obstrução linfática – dificulta a cicatrização ao diminuir o fluxo sanguíneo",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 7,
+          "textoIntegral": "Fatores que interferem na cicatrização\nIdade – nos idosos, a cicatrização é mais lenta devido a diminuição da capacidade proliferativa das células e pela pouca elasticidade dos tecidos\nLocalização da ferida – feridas mais vascularizadas e em áreas de menor mobilidade cicatrizam mais rápido",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 8,
+          "textoIntegral": "Cicatriz Queloideana\nÉ decorrente de proliferação fibrosa pós-traumática ou conseqüências de reparação viciosa de queimaduras\nCaracteriza-se pela cicatrização excessiva \nO processo de regeneração do tecido conjuntivo torna-se exagerado, formando uma saliência elevada, consistente e de coloração rósea.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 9,
+          "textoIntegral": "Cicatriz Queloideana\nApresenta-se arredondada, linear, alongada e sempre extravasa os limites da lesão original\nSubjetivamente, o portador de um quelóide pode ter a sensação de prurido, queimação ou ferroadas porém, são indolores à palpação.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 10,
+          "textoIntegral": "",
+          "imagensNoSlide": 3,
+          "descricaoVisual": "3 fotos clínicas de quelóide: nódulo pequeno sob o dedo; placa irregular em dorso/ombro; massa lobulada brilhante em close."
+        },
+        {
+          "n": 11,
+          "textoIntegral": "",
+          "imagensNoSlide": 2,
+          "descricaoVisual": "2 fotos de mão: ferida aguda exsudativa; mão cicatrizada/edemaciada com etiqueta 040-04NOV93."
+        },
+        {
+          "n": 12,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "Quelóide cervical/mandibular róseo, lobulado, extravasando limites."
+        },
+        {
+          "n": 13,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "3 orelhas com nódulos queloidianos de lóbulo/concha."
+        },
+        {
+          "n": 14,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "3 momentos cervicais: nódulo; cicatriz linear elevada; close com marcas de sutura."
+        },
+        {
+          "n": 15,
+          "textoIntegral": "",
+          "imagensNoSlide": 1,
+          "descricaoVisual": "3 abdômens: cicatriz vertical irregular; cicatriz com halo; cicatriz horizontal baixa elevada."
+        },
+        {
+          "n": 16,
+          "textoIntegral": "Fatores Pré disponentes\nRaça negra 4 : 1\nPredisposição genética\nFatores hormonais\nSexo feminino",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 17,
+          "textoIntegral": "Cicatrização Hipertrófica\nResposta exagerada do tecido de granulação, que leva a proliferação anárquica dos fibroblastos e miofibroblastos, conduzindo ao reparo tecidual alterado e hipertrófico com deposição colagenosa exacerbada.\nEste tipo de hipertrofia forma-se a partir de um feixe colagenoso rígido e avermelhado, de tecido conjuntivo que cresce sobre a superfície de uma lesão por trauma ou queimadura.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 18,
+          "textoIntegral": "Cicatrização Hipertrófica\nO colágeno se forma sem alinhamento\nA cicatriz é esteticamente anormal, com respeito a cor, textura e fragilidade sendo propensa a abrasão com pequenos traumas.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 19,
+          "textoIntegral": "",
+          "imagensNoSlide": 4,
+          "descricaoVisual": "4 cicatrizes lineares no limite da lesão: abdominal em V, cervical fina, dorso de mão, vertical longa."
+        },
+        {
+          "n": 20,
+          "textoIntegral": "Fatores que contribuem para gravidade da cicatrização \nProfundidade da lesão\nTempo de cicatrização\nIdade\nCaráter da pele\nenxerto",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 21,
+          "textoIntegral": "Incidência\nOs jovens são mais acometidos devido ao metabolismo aumentado e a presença abundante de hormônio do crescimento, que aumenta a formação das fibras (componentes principais da cicatriz hipertrófica).",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 22,
+          "textoIntegral": "Diferenças entre cicatrização hipertrófica e quelóide\nHIPETRÓFICA\n1.Regride espontaneamente\n2.Hipertrofia dentro limite da lesão\n3.Não apresentam recidivas uma vez estirpadas adquirem coloração pele normal\n4.Dolorosa\nQUELÓIDE\n1.Geralmente situação definitiva\n2.Ultrapassa limite lesão. 3.Adquire coloração vermelho escura, rosada ou esbranquiçada , de acordo com a idade\n4.Sensação de prurido, queimação ou ferroada",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 23,
+          "textoIntegral": "Tratamento Clínico\nCorticóides – a cortisona e a hidrocortisona tem efeito inibitório sobre os fibroblastos ativos, impedindo o surgimento de infecções e evitando a formação de quelóides e aderências\nInfiltração com hialuronidase – promove amolecimento e redução até mesmo de quelóides mais antigas",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 24,
+          "textoIntegral": "Tratamento Clínico\nÁcido acexâmico (sal sódico) – acelera o processo de cicatrização por multiplicação fibroblástica, equilibrando o processo cicatricial e diminuindo a inflamação local\nRadioterapia – em quelóides recentes (menos de 6 meses) pode se obter um bom resultado.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 25,
+          "textoIntegral": "Tratamento Cirúrgico\nRemoção da cicatriz\nAplicação de radioterapia após a cirurgia\nPós operatório: compressão e pressão (  malha elástica)  na área num período de 4 a 6 meses para evitar elevação da linha cicatricial",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 26,
+          "textoIntegral": "Fisioterapia pré operatória\nA fisioterapia deve ser iniciada no pré-operatório com o objetivo de manter adequada a manutenção do sistema musculoaponeurótico superficial e do metabolismo cutâneo.\nTécnicas:\n   - deslisamento miofascicular\n   - deslisamento superficial e profundo\n   - drenagem linfática 3 a 6 semanas antes da cirurgia.",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 27,
+          "textoIntegral": "Fisioterapia Pós Operatória\nObjetivos:\nControlar o quadro álgico\nDiminuir o edema\nPrevenção e controle de fibroses\nPrevenção e controle de nódulos subcutâneos\nMonitorar o processo cicatricial iniciando a partir do 5º P.O.\nOrientações gerais",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 28,
+          "textoIntegral": "Eletroterapia\nCorrente galvânica :\n - Aumenta a circulação sanguínea\n - Auxilia na distensibilidade do tecido\n OBS: pode ser usada, associada a medicamentos (iontoforese) e a manobras de alongamento e mobilização do tecido",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 29,
+          "textoIntegral": "Ultra-som promove: \n  - Analgésica \n  - Neovascularização\n  - Aumento da circulação\n  - organização e aumento da extensibilidade das fibras colágenas / mobiliza aderências\n  - Melhora das propriedades mecânicas do tecido",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 30,
+          "textoIntegral": "Fisioterapia\nMassagem: atua na prevenção  e auxilia na terapia de quelóides mais antigos\n\t\nA fricção com pressão e mobilização dos tecidos com o objetivo de liberar aderências.\n\t\nTambém auxilia na redução de algia e edema\nCrioterapia: atua de forma isolada de tratamento das cicatrizes quelóides, sendo seu princípio, a destruição das camadas celulares por anóxia, e auxilia na redução da algia",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        },
+        {
+          "n": 31,
+          "textoIntegral": "Fisioterapia\nCinesioterapia: Para minimizar aderências e retrações, realinhar e direcionar as fibras de colágeno e permitir a neovascularização local:\n - Alongamento\n -Exercícios ativos ou passivos",
+          "imagensNoSlide": 0,
+          "descricaoVisual": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@theme {
+  --font-display: var(--font-playfair), serif;
+  --font-sans: var(--font-manrope), sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-glass: var(--glass);
+  --color-border: var(--border);
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-purple: var(--purple);
+  --color-violet: var(--violet);
+  --color-lilac: var(--lilac);
+  --color-pink: var(--pink);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-focus: var(--focus);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+body {
+  background-image:
+    radial-gradient(900px 480px at 10% -10%, rgba(75, 30, 122, 0.45), transparent 60%),
+    radial-gradient(700px 400px at 110% 10%, rgba(244, 143, 177, 0.12), transparent 55%);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  box-shadow: var(--glow);
+}
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+}
+
+.halo {
+  box-shadow: 0 0 0 2px rgba(185, 160, 232, 0.35), var(--glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-lift,
+  .motion-scale,
+  .motion-float {
+    transform: none !important;
+  }
+  .motion-particles {
+    display: none !important;
+  }
+}

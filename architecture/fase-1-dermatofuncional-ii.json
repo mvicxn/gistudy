@@ -1,0 +1,1037 @@
+{
+  "fase": 1,
+  "status": "completa",
+  "notaArquitetural": "Os arrays materias[].capitulos são PEDAGOGIA proposta, não SOURCE. A fonte é arquivo+slide. Reagrupar capítulos não exige reler os PPTs. Conteúdo acadêmico desta Fase 1 permanece intocado.",
+  "leituraIntegral": {
+    "cobertura": "104/104 slides",
+    "transcricao": "architecture/leitura-integral-104-slides.json",
+    "metodos": ["XML PPTX", "pdftotext", "OCR Tesseract por+eng", "HTML LibreOffice", "OLE strings", "inspeção visual de toda imagem"],
+    "notasDoApresentador": false,
+    "slidesOcultos": false,
+    "comentarios": false,
+    "exerciciosNaFonte": false,
+    "atlasExternoQueloides": {
+      "pathsNoPpt": ["queloidesG8.html", "queloidesG13.html", "queloidesG16.html"],
+      "origemProvavel": "http://web.udl.es/usuaris/dermatol/PaginesGrans/",
+      "status": "502 no momento da leitura — legendas originais do atlas NÃO entram no conteúdo da matéria"
+    }
+  },
+  "geradoEm": "2026-09-22",
+  "proximoPasso": "FASE 2 concluída. Próxima só quando pedida: FASE 3 — Design System em componentes, sem aula e sem features.",
+  "disciplina": {
+    "id": "dermatofuncional-ii",
+    "nome": "Fisioterapia Aplicada Dermatofuncional II",
+    "slug": "dermatofuncional-ii",
+    "professor": "Prof.ª Ms. Cintia Zacaib Silva",
+    "aluna": "Giovana",
+    "semestre": "2º semestre 2026",
+    "instituicaoContexto": "planograma interno da disciplina",
+    "hospedagem": "cloudflare",
+    "fonteCalendario": "Planograma 2º semestre 2026.ppt",
+    "avaliacao": {
+      "teoricas": { "quantidade": 2, "valor": 8.0 },
+      "casosESeminarios": { "valor": 2.0 }
+    }
+  },
+  "blocoAtivo": {
+    "id": "bloco-1-tronco-e-cicatriz",
+    "nome": "Bloco I — Cicatrização e Cirurgias do Tronco",
+    "prova": {
+      "tipo": "bimestral",
+      "data": "2026-09-22",
+      "statusNoDiaDaArquitetura": "hoje",
+      "modoCalendario": "urgencia-dia-de-prova",
+      "cobreMaterias": [
+        "cicatrizacao",
+        "queloide-hipertrofica",
+        "abdominoplastia",
+        "mamoplastia"
+      ]
+    },
+    "casosClinicosSala": {
+      "data": "2026-09-14",
+      "paraNota": true,
+      "arquivoEnviado": false
+    }
+  },
+  "materias": [
+    {
+      "id": "cicatrizacao",
+      "livro": "Cicatrização",
+      "ordem": 1,
+      "aulaPlanograma": "01",
+      "dataAula": "2026-08-04",
+      "fonte": "cicatrização..[1][1].ppt",
+      "slides": 19,
+      "professor": "Prof.ª Ms. Cintia Zacaib Silva",
+      "estado": "desbloqueada",
+      "objetivo": "Ensinar como uma ferida vira tecido de novo — fase por fase, célula por célula — para que Giovana reconheça o tempo biológico da cicatriz, o que acelera, o que trava e como isso muda o raciocínio da fisioterapia dermatofuncional.",
+      "emocaoAlvo": "clareza profunda, como entender um relógio interno do corpo",
+      "acaoPrincipal": "atravessar as fases até conseguir narrar uma incisão do minuto zero ao primeiro mês",
+      "recompensaVisual": "primeira flor do jardim + constelação das 5 fases acesa",
+      "capitulos": [
+        {
+          "id": "cicatrizacao-01",
+          "ordem": 1,
+          "titulo": "O relógio da ferida",
+          "subtitulo": "As fases da cicatrização e a coagulação",
+          "dificuldade": "fundacao",
+          "tempoEstimadoMin": 18,
+          "xp": 120,
+          "flor": "orquidea-branca",
+          "origensSlides": [1, 2, 3, 4],
+          "titulosFonte": ["CICATRIZAÇÃO", "COAGULAÇÃO", "COAGUALÇÃO"],
+          "ensinamentosObrigatorios": [
+            "A cicatrização das feridas ocorre em várias fases: coagulação, inflamação, proliferação, contração das feridas e remodelação.",
+            "A coagulação inicia-se imediatamente após a injúria.",
+            "É mediada pela atividade das plaquetas e pelas vias intrínseca e extrínseca da cascata de coagulação.",
+            "As plaquetas aderem-se à parede dos vasos sanguíneos e liberam: substâncias vasoativas (ex.: prostaglandinas); proteínas adesivas (trombospondina, fibronectina e fibrinogênio); fatores de crescimento e proteases (colagenase, elastase etc.).",
+            "Esses produtos direcionam o curso futuro da cicatrização pelos efeitos quimiotáxicos e proliferativos sobre macrófagos, fibroblastos e células epiteliais e endoteliais.",
+            "O estancamento é facilitado por proenzimas de coagulação específicas."
+          ]
+        },
+        {
+          "id": "cicatrizacao-02",
+          "ordem": 2,
+          "titulo": "O campo inflamatório",
+          "subtitulo": "Por que sem vaso não há inflamação",
+          "dificuldade": "faculdade",
+          "tempoEstimadoMin": 22,
+          "xp": 140,
+          "flor": "lila-profunda",
+          "origensSlides": [5, 9, 10, 11, 12],
+          "titulosFonte": [
+            "FASE INFLAMATÓRIA",
+            "INFLAMAÇÃO",
+            "Fatores que modificam a inflamação"
+          ],
+          "ensinamentosObrigatorios": [
+            "Fase inflamatória aguda (inicial): 24 a 48 horas.",
+            "Fase inflamatória subaguda (tardia): o slide original escreve 'mais 10 a 14 horas'. Tratar como dado da fonte e apontar a inconsistência temporal com a fase proliferativa (dias), sem inventar correção silenciosa.",
+            "Componentes da fase inflamatória no slide: vasorregulação e coagulação sanguínea; migração e ação celulares; fatores químicos.",
+            "Inflamação é uma reação local pela qual o organismo procura defender-se da ação de agentes lesivo-inflamatórios ou flogísticos.",
+            "Para haver inflamação é necessário que se desenvolvam no local os fenômenos vasculares e exsudativos.",
+            "Não se inflamam tecidos desprovidos de vasos sanguíneos (ex.: tecidos epiteliais).",
+            "Manifestações locais da inflamação aguda, nesta ordem: modificações hemodinâmicas, modificações da permeabilidade e fenômenos relacionados com os leucócitos.",
+            "Modificações hemodinâmicas exigem circulação intacta, nesta ordem: 1) dilatação arteriolar, às vezes precedida de vasoconstrição transitória; 2) aumento do fluxo sanguíneo nas arteríolas; 3) abertura de novos capilares e dos leitos venulares locais.",
+            "Quando o estado de reatividade é alto, a reação torna-se aguda e intensa, com fenômenos exsudativos e hemorrágico-necróticos mais pronunciados (inflamação alérgica).",
+            "A reação inflamatória é modificada fortemente por ações hormonais.",
+            "A cortisona inibe o aparecimento da exsudação e dos fenômenos produtivos.",
+            "Após corticóide, pode faltar quase por completo a formação de células gigantes e de granulomas; ficam inibidas a neoprodução de fibroblastos e de colágenos (tecido de reparação)."
+          ]
+        },
+        {
+          "id": "cicatrizacao-03",
+          "ordem": 3,
+          "titulo": "Construir e esculpir",
+          "subtitulo": "Proliferação, contração e remodelagem",
+          "dificuldade": "faculdade",
+          "tempoEstimadoMin": 20,
+          "xp": 140,
+          "flor": "rosa-antiga",
+          "origensSlides": [6, 7, 8],
+          "titulosFonte": ["FASE PROLIFERATIVA", "FASE DE REMODELAGEM"],
+          "ensinamentosObrigatorios": [
+            "A fase proliferativa sobrepõe-se à inflamatória, com duração de 10 a 17 dias (14 a 21 dias após o início da lesão).",
+            "Componentes: fibroplasia — importante na formação do tecido de granulação; angiogênese; contração da ferida.",
+            "A fase de remodelagem sobrepõe-se à proliferativa, inicia-se no 14º ao 21º dia e pode durar meses ou anos.",
+            "A deposição de fibras colágenas em resposta à lesão é aparentemente ao acaso; durante a remodelação o arranjo e o tipo de colágeno mudam.",
+            "Colágeno do tipo III é substituído por colágeno do tipo I em resposta ao estresse mecânico até atingir características semelhantes às do tecido anterior à lesão.",
+            "A água é reabsorvida da cicatriz, aproximando as fibras, favorecendo ligações cruzadas e diminuindo a espessura da cicatriz.",
+            "A neovascularização diminui gradualmente, levando a uma cicatriz final consideravelmente mais avascular.",
+            "Cicatriz com 80% da força de tensão."
+          ]
+        },
+        {
+          "id": "cicatrizacao-04",
+          "ordem": 4,
+          "titulo": "Duas intenções",
+          "subtitulo": "Primeira e segunda intenção no tempo real da ferida",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 24,
+          "xp": 160,
+          "flor": "jasmim",
+          "origensSlides": [13, 14, 15, 16, 17, 18, 19],
+          "titulosFonte": [
+            "PROCESSOS DE CURA",
+            "PREPARAÇÃO PARA A PRIMEIRA INTENÇÃO",
+            "REPARAÇÃO DE SEGUNDA INTENÇÃO"
+          ],
+          "ensinamentosObrigatorios": [
+            "A cicatrização é a forma mais comum de cura das inflamações e consiste na substituição mais ou menos completa do tecido destruído por conjuntivo neoformado, indicado como cicatricial.",
+            "O tipo mais simples é a cicatrização por primeira intenção nas feridas operatórias, não contaminadas e pouco traumatizadas.",
+            "Em três ou quatro dias, o tecido conjuntivo vascular procedente de uma margem encontra e se funde com o da outra, restabelecendo ao menos em parte a continuidade anatômica.",
+            "Primeira intenção: modalidade direta de cura, precedida por flogose mínima, com escassa destruição de tecidos e pouca exsudação.",
+            "Segunda intenção: inflamações com grandes perdas de tecido e exsudação abundante, ou feridas sem junção das margens.",
+            "Segunda intenção é mais lenta; cicatrizes excessivas e hipertróficas; em alguns casos toma aspecto de quelóide.",
+            "Linha do tempo da primeira intenção — primeiras 24 horas: acúmulo leucocitário, principalmente de neutrófilos. A epiderme marginal se espessa e em 24 a 48 horas cresce para baixo e sob a crosta, fundindo-se numa camada epitelial fina e contínua. A continuidade epidérmica é restabelecida antes da reação do tecido subjacente.",
+            "3º dia: neutrófilos desaparecem e são substituídos por monócitos que removem hemácias e fibrina. Torna-se visível a hipertrofia dos fibroblastos subepiteliais.",
+            "5º dia: espaço da incisão ocupado por tecido conjuntivo fibroblástico frouxo, vascularizado e rico em substância fundamental. Brotamentos de capilares neoformados se juntam e formam canais. A vascularização atinge o máximo. Fibrilas colágenas tornam-se abundantes, cruzando a incisão. A epiderme atinge sua espessura normal.",
+            "2ª semana: acúmulo de colágeno e fibroblastos. O infiltrado leucocitário começa a comprimir a parede dos capilares. A força de tensão da ferida ainda é baixa.",
+            "Final do 1º mês: cicatriz de tecido conjuntivo celular, ainda hipervascularizado.",
+            "Segunda intenção: o aumento da força da ferida é lento e não está associado ao acréscimo do conteúdo de colágeno, já grande desde o início da fibroplasia.",
+            "Linchtenstein e col. (1970): feridas cuidadosamente suturadas têm pelo menos 70% da força de tensão da pele.",
+            "A junção dermoepidérmica pode levar muitos meses para se estabilizar."
+          ]
+        }
+      ],
+      "conceitos": [
+        "cicatrização",
+        "coagulacao",
+        "cascata-intrinseca-extrinseca",
+        "plaquetas",
+        "quimiotaxia",
+        "inflamacao",
+        "fenomenos-vasculares-exsudativos",
+        "fase-proliferativa",
+        "fibroplasia",
+        "angiogenese",
+        "contracao-da-ferida",
+        "tecido-de-granulacao",
+        "remodelagem",
+        "colageno-iii-para-i",
+        "forca-de-tensao",
+        "primeira-intencao",
+        "segunda-intencao",
+        "cortisona-e-reparo"
+      ],
+      "glossario": [
+        "cicatrizacao",
+        "coagulacao",
+        "plaqueta",
+        "prostaglandinas",
+        "trombospondina",
+        "fibronectina",
+        "fibrinogenio",
+        "colagenase",
+        "elastase",
+        "macrofago",
+        "fibroblasto",
+        "quimiotaxia",
+        "inflamacao",
+        "flogose",
+        "exsudacao",
+        "fibroplasia",
+        "angiogenese",
+        "tecido-de-granulacao",
+        "colageno-tipo-i",
+        "colageno-tipo-iii",
+        "ligacao-cruzada",
+        "primeira-intencao",
+        "segunda-intencao",
+        "neutrofilo",
+        "monocito",
+        "forca-de-tensao"
+      ],
+      "imagens": [],
+      "tabelas": [],
+      "exerciciosNaFonte": [],
+      "inconsistenciasDaFonte": [
+        "Slide 4: título grafado 'COAGUALÇÃO'.",
+        "Slide 5: fase subaguda descrita como '10 a 14 horas' enquanto as demais fases usam dias.",
+        "Slide 16: título grafado 'INTENÇAÕ'.",
+        "Slide 2 lista contração como fase própria; slide 6 a coloca dentro da proliferativa. O molde ensina as duas leituras e resolve o conflito: contração é evento da proliferação e também marco do mapa das fases."
+      ]
+    },
+    {
+      "id": "queloide-hipertrofica",
+      "livro": "Quelóide e Cicatriz Hipertrófica",
+      "ordem": 2,
+      "aulaPlanograma": "02",
+      "dataAula": "2026-08-11",
+      "fonte": "Cicatrização Quelóide e Hipertrófica apresentação definitiva.ppt",
+      "slides": 31,
+      "professor": "Prof.ª Ms. Cintia Zacaib Silva",
+      "estado": "desbloqueada",
+      "objetivo": "Ensinar a diferença viva entre uma cicatriz que cabe no ferimento e uma que transborda — e o que a fisioterapeuta faz antes, durante e depois para não deixar a pele virar prisão.",
+      "emocaoAlvo": "olho clínico elegante, sem medo da imagem",
+      "acaoPrincipal": "olhar uma cicatriz e decidir: hipertrófica ou quelóide — e qual caminho terapêutico",
+      "recompensaVisual": "mesa diagnóstica de pedras (dois caminhos) + flor escura do jardim",
+      "capitulos": [
+        {
+          "id": "queloide-01",
+          "ordem": 1,
+          "titulo": "Quando o reparo falha",
+          "subtitulo": "Processo de cicatrização e fatores que interferem",
+          "dificuldade": "fundacao",
+          "tempoEstimadoMin": 16,
+          "xp": 120,
+          "flor": "violeta",
+          "origensSlides": [1, 2, 3, 4, 5, 6, 7],
+          "ensinamentosObrigatorios": [
+            "Quelóide e cicatriz hipertrófica decorrem de processo cicatricial inadequado, provocado por lesão tecidual por trauma, cirurgia ou queimadura.",
+            "Cicatrização: processo pelo qual um tecido lesado é substituído por tecido conjuntivo vascularizado semelhante.",
+            "Envolve um conjunto de fases fisiológicas e bioquímicas em resposta a uma lesão, culminando com o reparo tecidual.",
+            "Fase do reparo tecidual — inicia no 3º dia e pode durar até meses ou anos. Caracteriza-se pelo alinhamento e reorganização das fibras para aumentar a resistência do tecido e diminuir a espessura da cicatriz.",
+            "Fatores que interferem: perfusão e oxigenação do tecido; medicamentos (quimioterápicos e radioterápicos retardam porque reduzem a resposta imune normal); nutrição (deficiência deprime o sistema imune); edema e obstrução linfática (diminuem o fluxo sanguíneo); idade (em idosos, cicatrização mais lenta por diminuição da capacidade proliferativa e pouca elasticidade); localização da ferida (áreas mais vascularizadas e de menor mobilidade cicatrizam mais rápido)."
+          ]
+        },
+        {
+          "id": "queloide-02",
+          "ordem": 2,
+          "titulo": "A cicatriz que transborda",
+          "subtitulo": "Cicatriz queloideana",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 20,
+          "xp": 150,
+          "flor": "rubi",
+          "origensSlides": [8, 9, 10, 11, 12, 13, 14, 15, 16],
+          "ensinamentosObrigatorios": [
+            "Decorrente de proliferação fibrosa pós-traumática ou consequência de reparação viciosa de queimaduras.",
+            "Caracteriza-se pela cicatrização excessiva.",
+            "A regeneração do tecido conjuntivo torna-se exagerada, formando saliência elevada, consistente e de coloração rósea.",
+            "Apresenta-se arredondada, linear, alongada e sempre extravasa os limites da lesão original.",
+            "O portador pode ter prurido, queimação ou ferroadas; são indolores à palpação.",
+            "Fatores predisponentes: raça negra 4:1; predisposição genética; fatores hormonais; sexo feminino."
+          ]
+        },
+        {
+          "id": "queloide-03",
+          "ordem": 3,
+          "titulo": "A cicatriz que cabe — e o diagnóstico diferencial",
+          "subtitulo": "Hipertrófica versus quelóide",
+          "dificuldade": "prova",
+          "tempoEstimadoMin": 18,
+          "xp": 160,
+          "flor": "coral",
+          "origensSlides": [17, 18, 19, 20, 21, 22],
+          "ensinamentosObrigatorios": [
+            "Hipertrófica: resposta exagerada do tecido de granulação, com proliferação anárquica de fibroblastos e miofibroblastos, reparo alterado e deposição colagenosa exacerbada.",
+            "Forma-se a partir de um feixe colagenoso rígido e avermelhado de tecido conjuntivo que cresce sobre a superfície de uma lesão por trauma ou queimadura.",
+            "O colágeno se forma sem alinhamento.",
+            "A cicatriz é esteticamente anormal em cor, textura e fragilidade, propensa a abrasão com pequenos traumas.",
+            "Fatores que contribuem para a gravidade: profundidade da lesão, tempo de cicatrização, idade, caráter da pele, enxerto.",
+            "Incidência: jovens mais acometidos pelo metabolismo aumentado e hormônio do crescimento abundante, que aumenta a formação das fibras.",
+            "Tabela diferencial obrigatória: hipertrófica regride espontaneamente / quelóide geralmente é situação definitiva; hipertrófica permanece no limite da lesão / quelóide ultrapassa; hipertrófica não recidiva após extirpação e adquire cor de pele normal / quelóide adquire coloração vermelho-escura, rosada ou esbranquiçada conforme a idade; hipertrófica é dolorosa / quelóide dá prurido, queimação ou ferroada."
+          ]
+        },
+        {
+          "id": "queloide-04",
+          "ordem": 4,
+          "titulo": "Tratar sem punir a pele",
+          "subtitulo": "Clínico, cirúrgico e o lugar da fisioterapia",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 24,
+          "xp": 170,
+          "flor": "esmeralda",
+          "origensSlides": [23, 24, 25, 26, 27, 28, 29, 30, 31],
+          "ensinamentosObrigatorios": [
+            "Corticóides: cortisona e hidrocortisona têm efeito inibitório sobre fibroblastos ativos, impedem infecções e evitam formação de quelóides e aderências.",
+            "Infiltração com hialuronidase: amolece e reduz até quelóides mais antigos.",
+            "Ácido acexâmico (sal sódico): acelera a cicatrização por multiplicação fibroblástica, equilibra o processo e diminui a inflamação local.",
+            "Radioterapia: em quelóides recentes (menos de 6 meses) pode-se obter bom resultado.",
+            "Tratamento cirúrgico: remoção da cicatriz + radioterapia após a cirurgia.",
+            "Pós-operatório cirúrgico: compressão e pressão (malha elástica) por 4 a 6 meses para evitar elevação da linha cicatricial.",
+            "Fisioterapia pré-operatória: manter o sistema musculoaponeurótico superficial e o metabolismo cutâneo. Técnicas: deslizamento miofascicular; deslizamento superficial e profundo; drenagem linfática 3 a 6 semanas antes da cirurgia.",
+            "Fisioterapia pós-operatória — objetivos: controlar o quadro álgico; diminuir o edema; prevenção e controle de fibroses; prevenção e controle de nódulos subcutâneos; monitorar o processo cicatricial a partir do 5º P.O.; orientações gerais.",
+            "Corrente galvânica: aumenta a circulação sanguínea e auxilia na distensibilidade do tecido. Pode associar-se a medicamentos (iontoforese) e a manobras de alongamento e mobilização.",
+            "Ultrassom: analgésico; neovascularização; aumento da circulação; organização e aumento da extensibilidade das fibras colágenas / mobiliza aderências; melhora das propriedades mecânicas do tecido.",
+            "Massagem: prevenção e auxílio em quelóides mais antigos. Fricção com pressão e mobilização para liberar aderências; reduz algia e edema.",
+            "Crioterapia: tratamento isolado de cicatrizes queloides; princípio de destruição das camadas celulares por anóxia; auxilia na redução da algia.",
+            "Cinesioterapia: minimizar aderências e retrações, realinhar e direcionar as fibras de colágeno e permitir neovascularização local — alongamento; exercícios ativos ou passivos."
+          ]
+        }
+      ],
+      "conceitos": [
+        "processo-cicatricial-inadequado",
+        "fase-do-reparo-tecidual",
+        "fatores-que-interferem",
+        "cicatriz-queloideana",
+        "extravasamento-dos-limites",
+        "fatores-predisponentes",
+        "cicatriz-hipertrofica",
+        "fibroblastos-e-miofibroblastos",
+        "diagnostico-diferencial",
+        "tratamento-clinico",
+        "tratamento-cirurgico",
+        "compressao-elastica",
+        "fisioterapia-pre-pos",
+        "galvanica",
+        "ultrassom",
+        "massagem-cicatricial",
+        "crioterapia-queloide",
+        "cinesioterapia-cicatriz"
+      ],
+      "glossario": [
+        "queloide",
+        "cicatriz-hipertrofica",
+        "tecido-de-granulacao",
+        "miofibroblasto",
+        "prurido",
+        "ferroada",
+        "hialuronidase",
+        "acido-acexamico",
+        "radioterapia",
+        "malha-elastica",
+        "sistema-musculoaponeurotico-superficial",
+        "drenagem-linfatica",
+        "iontoforese",
+        "corrente-galvanica",
+        "ultrassom",
+        "crioterapia",
+        "cinesioterapia",
+        "fibrose",
+        "nodulo-subcutaneo"
+      ],
+      "imagens": [
+        {
+          "id": "q-fig-01",
+          "slide": 4,
+          "tipo": "esquema",
+          "titulo": "Ferida aberta → tecido de granulação → cicatriz",
+          "legendaFonte": "Dois fluxos: cicatrização limpa versus cicatrização com pus",
+          "oQueMostra": "Corte histológico esquemático. Fileira superior: ferida aberta em V, preenchimento por tecido de granulação vermelho, cicatriz plana. Fileira inferior: mesmo ponto de partida, etapa de pus (setas para cima), granulação exuberante em relevo, cicatriz residual elevada.",
+          "observacoes": [
+            "A fileira de baixo ensina o preço da segunda intenção e da infecção/exsudato.",
+            "Usar como figura interativa com hotspots nas 6 etapas."
+          ],
+          "destaques": ["ferida-aberta", "pus", "granulacao", "cicatriz-plana", "cicatriz-elevada"]
+        },
+        {
+          "id": "q-fig-02",
+          "slide": 5,
+          "tipo": "esquema",
+          "titulo": "Ferida incisional → cicatriz",
+          "legendaFonte": "Primeira intenção em corte",
+          "oQueMostra": "Corte vertical fino (incisão) que vira faixa cicatricial densa descendo da epiderme à derme, com vasos no subcutâneo.",
+          "observacoes": ["Pares com a linha do tempo de 24h / 3º / 5º dia / 2ª semana / 1º mês da matéria Cicatrização."],
+          "destaques": ["incisao", "continuidade-epidermica", "faixa-cicatricial"]
+        },
+        {
+          "id": "q-fig-03",
+          "slide": 10,
+          "tipo": "foto-clinica",
+          "titulo": "Quelóides em diferentes topografias e morfologias",
+          "oQueMostra": "Três fotos: nódulo queloidiano pequeno sob o dedo (forma arredondada, elevada); grande placa irregular em dorso/ombro; massa queloidiana brilhante e lobulada em close.",
+          "observacoes": [
+            "Ilustra 'arredondada, linear, alongada' e o extravasamento dos limites.",
+            "Tratar com dignidade clínica: zoom, overlay, nunca mosaico apelativo."
+          ],
+          "destaques": ["saliencia-elevada", "consistencia", "extravasa-limites"]
+        },
+        {
+          "id": "q-fig-04",
+          "slide": 11,
+          "tipo": "foto-clinica",
+          "titulo": "Mão: lesão aguda e desfecho cicatricial",
+          "oQueMostra": "Dorso/palma de mão com ferida exsudativa recente (equipe com luvas) e, abaixo, mão já cicatrizada, edemaciada, com marca 040-04NOV93.",
+          "observacoes": ["Ponte visual entre trauma e reparo vicioso. Relacionar com queimadura/trauma da abertura da aula."],
+          "destaques": ["trauma", "reparo-tardio"]
+        },
+        {
+          "id": "q-fig-05",
+          "slide": 12,
+          "tipo": "foto-clinica",
+          "titulo": "Quelóide cervical / ângulo da mandíbula",
+          "oQueMostra": "Placa queloidiana vermelho-rósea, lobulada, brilhante, claramente além da lesão original, no contorno da mandíbula até próximo à orelha.",
+          "observacoes": ["Caso-assinatura do extravasamento. Ideal para missão 'esta cicatriz cabe ou transborda?'."],
+          "destaques": ["ultrapassa-limites", "coloracao-rosea", "lobulacao"]
+        },
+        {
+          "id": "q-fig-06",
+          "slide": 13,
+          "tipo": "foto-clinica",
+          "titulo": "Quelóides de lóbulo e hélice",
+          "oQueMostra": "Três orelhas com nódulos queloidianos em lóbulo ou concha: um com dois nódulos, um com nódulo em ampulheta, um nódulo único no terço médio.",
+          "observacoes": ["Topografia clássica pós-perfuração. Ligar a fatores predisponentes e a trauma mínimo."],
+          "destaques": ["lobulo", "nodulo", "trauma-minimo"]
+        },
+        {
+          "id": "q-fig-07",
+          "slide": 14,
+          "tipo": "foto-clinica",
+          "titulo": "Do nódulo à cicatriz linear no pescoço",
+          "oQueMostra": "Três momentos: nódulo isolado na face lateral do pescoço; cicatriz linear elevada após abordagem; close da cicatriz em relevo com marcas de sutura.",
+          "observacoes": ["Ponte para tratamento cirúrgico + compressão de 4 a 6 meses. Não afirmar que é o mesmo paciente sem fonte."],
+          "destaques": ["nodulo", "linha-cicatricial", "risco-de-elevacao"]
+        },
+        {
+          "id": "q-fig-08",
+          "slide": 15,
+          "tipo": "foto-clinica",
+          "titulo": "Abdômen: três desfechos cicatriciais",
+          "oQueMostra": "Cicatriz vertical irregular; cicatriz com halo/equimose; cicatriz horizontal baixa tipo abdominoplastia, elevada.",
+          "observacoes": ["A terceira imagem conversa com a matéria Abdominoplastia (tensão na região inferior + seroma + quelóide)."],
+          "destaques": ["tensao-inferior", "cicatriz-horizontal", "variacao-de-desfecho"]
+        },
+        {
+          "id": "q-fig-09",
+          "slide": 19,
+          "tipo": "foto-clinica",
+          "titulo": "Cicatrizes no limite da lesão",
+          "oQueMostra": "Quatro cicatrizes lineares: abdominal em V aberto, cervical fina levemente eritematosa, dorso de mão discreta, vertical longa e fina.",
+          "observacoes": [
+            "Contrastar com as fotos de quelóide. Ensinar o olho: cabe no ferimento versus transborda.",
+            "Usar no capítulo do diferencial, não como 'cicatriz bonita'."
+          ],
+          "destaques": ["dentro-do-limite", "linear", "estetica-anormal-vs-adequada"]
+        }
+      ],
+      "tabelas": [
+        {
+          "id": "q-tab-01",
+          "slide": 22,
+          "titulo": "Diferenças entre cicatrização hipertrófica e quelóide",
+          "tipo": "diagnostico-diferencial",
+          "linhas": [
+            {
+              "hipertrofica": "Regride espontaneamente",
+              "queloide": "Geralmente situação definitiva"
+            },
+            {
+              "hipertrofica": "Hipertrofia dentro do limite da lesão",
+              "queloide": "Ultrapassa o limite da lesão"
+            },
+            {
+              "hipertrofica": "Não apresentam recidivas uma vez extirpadas; adquirem coloração de pele normal",
+              "queloide": "Adquire coloração vermelho-escura, rosada ou esbranquiçada, de acordo com a idade"
+            },
+            {
+              "hipertrofica": "Dolorosa",
+              "queloide": "Sensação de prurido, queimação ou ferroada"
+            }
+          ],
+          "notaFonte": "O slide original grafou 'HIPETRÓFICA'. Corrigir na interface, preservar o conteúdo."
+        }
+      ],
+      "exerciciosNaFonte": []
+    },
+    {
+      "id": "abdominoplastia",
+      "livro": "Abdominoplastia ou Dermolipectomia",
+      "ordem": 3,
+      "aulaPlanograma": "03",
+      "dataAula": "2026-08-18",
+      "fonte": "ABDOMINOPLASTIA OU DERMOLIPECTOMIA.ppt",
+      "slides": 30,
+      "professor": "Prof.ª Ms. Cintia Zacaib Silva",
+      "estado": "desbloqueada",
+      "objetivo": "Ensinar a abdominoplastia como cirurgia de contorno e de parede — história das técnicas, diástase, ato, complicações e o que a fisioterapia segura no pré e no pós — para Giovana não tratar 'barriga' e sim um retalho, um umbigo transplantado e um risco de seroma.",
+      "emocaoAlvo": "respeito pelo corpo operado e segurança clínica",
+      "acaoPrincipal": "montar o raciocínio pré → ato → pós → fisioterapia",
+      "recompensaVisual": "cinturão de luz reconstruído no mapa do tronco + flor âmbar",
+      "capitulos": [
+        {
+          "id": "abdomino-01",
+          "ordem": 1,
+          "titulo": "Devolver o contorno",
+          "subtitulo": "Conceito, finalidade e a linhagem das técnicas",
+          "dificuldade": "faculdade",
+          "tempoEstimadoMin": 20,
+          "xp": 140,
+          "flor": "ambar",
+          "origensSlides": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "ensinamentosObrigatorios": [
+            "Abdominoplastia é um dos procedimentos mais realizados na cirurgia plástica mundial. Abrange o aspecto estético e reconstrutor da parede abdominal.",
+            "Há muitas variações das incisões, do reparo musculofascial e da remodelagem do umbigo.",
+            "1965, Callia: incisão sobre o púbis com prolongamentos laterais.",
+            "1967, Pitanguy: incisão horizontal baixa com extremidades para fora e para baixo; plicatura dos retos abdominais sem abertura da aponeurose.",
+            "Finalidade: melhorar o aspecto do abdômen e devolver o contorno corporal alterado por distensões da obesidade ou da gravidez.",
+            "Resultado: remoção do excesso de pele e de tecido gorduroso da parte inferior do abdômen; tonicidade à pele esticada; reforço muscular; achatamento do abdômen inferior.",
+            "Hakme (1985): associou lipoaspiração à abdominoplastia parcial — minilipoabdominoplastia e miniabdominoplastia.",
+            "Avelar (1985): lipoaspiração + abdominoplastia para abdome protruso, gordura localizada supra e infraumbilical e flacidez muscular.",
+            "Baroudi et al. (1998): pontos capitonados unindo o retalho à parede, do processo xifoide à borda inferior da incisão do púbis, para prevenir seroma.",
+            "Saldanha et al. (2001, 2003) e Avelar (2001): abdominoplastias sem descolamento — lipoabdominoplastias.",
+            "Bozola & Psillakis (1988) e Rosa & Bozola (2010): classificação das alterações estéticas do abdome com tratamentos específicos.",
+            "Nahas & Ferreira (2005): eficácia a longo prazo da correção da diástase dos retos. Em 2010, fatores relacionados à flacidez da parede abdominal."
+          ]
+        },
+        {
+          "id": "abdomino-02",
+          "ordem": 2,
+          "titulo": "A parede que se afasta",
+          "subtitulo": "Diástase, plicatura e o ato cirúrgico",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 22,
+          "xp": 160,
+          "flor": "peonia",
+          "origensSlides": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+          "ensinamentosObrigatorios": [
+            "Diástase abdominal: afastamento dos músculos abdominais e do tecido conjuntivo, em geral na gravidez; principal causa de flacidez abdominal e dor lombar no pós-parto.",
+            "Anestesia mais usada: geral ou mista (geral + local).",
+            "Incisão horizontal logo acima dos pelos pubianos, de onde parte um corte em elipse cuja maior largura vai até o umbigo; o umbigo será transplantado e, se necessário, remodelado.",
+            "Após a incisão, o tecido flácido que cobre o músculo é puxado em direção ao centro: reforça a musculatura, firma a parede e afina a cintura.",
+            "O excesso de pele é retirado e, antes da sutura, o umbigo é reinstalado no local original.",
+            "O objetivo não é a perfeição, e sim diminuir o problema.",
+            "Quanto menor a quantidade de pele em excesso a ser retirada, mais satisfatórios tendem a ser os resultados finais."
+          ]
+        },
+        {
+          "id": "abdomino-03",
+          "ordem": 3,
+          "titulo": "Os primeiros trinta dias — e os dezoito meses",
+          "subtitulo": "Complicações, pós-operatório e fisioterapia",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 22,
+          "xp": 160,
+          "flor": "hortensia",
+          "origensSlides": [24, 25, 26, 27, 28, 29, 30],
+          "ensinamentosObrigatorios": [
+            "Principais complicações: seromas; deiscências de suturas; necrose de pele; aderências; diminuição ou perda de sensibilidade em alguma área do abdome (transitória ou definitiva).",
+            "Pós-operatório em geral indolor; internação média de 24 horas.",
+            "Levantar da cama já no dia seguinte, alternando períodos deitado e sentado.",
+            "Andar com o tronco ligeiramente curvado para a frente, passos curtos, nos primeiros cinco dias, evitando escadas longas.",
+            "Faixa abdominal por 30 dias. (O slide 26 também escreve faixa nos primeiros cinco dias — inconsistência da fonte a ser ensinada como 'os dois tempos do slide', sem apagar nenhum.)",
+            "Ao fim do primeiro mês: retira-se o curativo de micropore e aplica-se creme indicado pelo médico na cicatriz.",
+            "Inchaço natural e possível falta de sensibilidade são comuns e desaparecem com o tempo.",
+            "Resultado definitivo: 12 a 18 meses.",
+            "Cicatrizes hipertróficas e queloideanas originam-se principalmente do excesso de tensão na região inferior do abdome e da produção de colágeno.",
+            "Seroma é complicação comum nas cirurgias convencionais e nas associações com lipoaspiração.",
+            "Fisioterapia pré: anamnese completa; correção de desvios posturais; fortalecimento muscular; melhorar o fluxo do sistema linfático.",
+            "Fisioterapia pós: compressão; crioterapia 20 a 30 min; drenagem linfática; ultrassom."
+          ]
+        }
+      ],
+      "conceitos": [
+        "abdominoplastia",
+        "dermolipectomia",
+        "contorno-corporal",
+        "plicatura-dos-retos",
+        "diastase-abdominal",
+        "callia-1965",
+        "pitanguy-1967",
+        "minilipoabdominoplastia",
+        "pontos-capitonados",
+        "lipoabdominoplastia-sem-descolamento",
+        "transplante-do-umbigo",
+        "seroma",
+        "deiscencia",
+        "necrose-de-pele",
+        "faixa-abdominal",
+        "fisioterapia-pre-abdominal",
+        "fisioterapia-pos-abdominal"
+      ],
+      "glossario": [
+        "abdominoplastia",
+        "dermolipectomia",
+        "diastase",
+        "plicatura",
+        "aponeurose",
+        "retalho",
+        "pontos-capitonados",
+        "processo-xifoide",
+        "lipoaspiracao",
+        "lipoabdominoplastia",
+        "seroma",
+        "deiscencia",
+        "necrose",
+        "hipoestesia",
+        "faixa-abdominal",
+        "crioterapia",
+        "drenagem-linfatica"
+      ],
+      "imagens": [
+        {
+          "id": "a-fig-01",
+          "slide": 13,
+          "tipo": "esquema",
+          "titulo": "Diástase abdominal",
+          "oQueMostra": "Corte axial esquemático: reto abdominal à esquerda, diástase no centro, bainha anterior dos retos, musculatura lateral. Quadrado marca a área da plicatura.",
+          "destaques": ["reto-abdominal", "diastase", "bainha-anterior", "area-da-plicatura"]
+        },
+        {
+          "id": "a-fig-02",
+          "slide": 14,
+          "tipo": "foto-intraoperatoria",
+          "titulo": "Antes e depois das plicaturas",
+          "legendaFonte": "Notar melhora do abaulamento da parede abdominal.",
+          "oQueMostra": "Dois campos cirúrgicos da parede: à esquerda parede mais laxa/abaulada; à direita parede tensionada após plicatura.",
+          "destaques": ["abaulamento", "parede-tensionada", "plicatura"]
+        },
+        {
+          "id": "a-fig-03",
+          "slide": 18,
+          "tipo": "foto-clinica",
+          "titulo": "Abdominoplastia / Lipoaspiração",
+          "oQueMostra": "Cicatriz horizontal baixa recém-suturada, umbigo reimplantado, cânula/instrumento ao lado.",
+          "destaques": ["incisao-horizontal-baixa", "umbigo-reinstalado", "associacao-com-lipo"]
+        },
+        {
+          "id": "a-fig-04",
+          "slide": 19,
+          "tipo": "foto-clinica",
+          "titulo": "Pré-operatório",
+          "oQueMostra": "Três vistas (frente, frente próxima, perfil) de abdômen com flacidez e protrusão, sem cicatriz visível de abdominoplastia.",
+          "destaques": ["flacidez", "protrusao", "contorno-alterado"]
+        },
+        {
+          "id": "a-fig-05",
+          "slide": 20,
+          "tipo": "foto-clinica",
+          "titulo": "Pós-operatório",
+          "oQueMostra": "Mesmas três vistas após cirurgia: abdômen aplanado, cicatriz baixa discreta, cintura mais definida.",
+          "destaques": ["achatamento", "cicatriz-baixa", "cintura"]
+        },
+        {
+          "id": "a-fig-06",
+          "slide": 22,
+          "tipo": "foto-clinica",
+          "titulo": "Antes e depois — frente e perfil",
+          "oQueMostra": "Paciente com flacidez e diástase aparente vs. contorno reconstruído em frente e perfil.",
+          "destaques": ["antes-depois", "perfil", "contorno"]
+        },
+        {
+          "id": "a-fig-07",
+          "slide": 23,
+          "tipo": "foto-clinica",
+          "titulo": "Antes e depois — close do abdômen inferior",
+          "oQueMostra": "Pele em avental / flacidez infraumbilical versus abdômen liso com cicatriz baixa sob a linha do biquíni.",
+          "destaques": ["excesso-de-pele", "resultado-estético", "cicatriz-escondida"]
+        }
+      ],
+      "tabelas": [],
+      "exerciciosNaFonte": [],
+      "inconsistenciasDaFonte": [
+        "Slide 4: 'alternado' no lugar de 'alterado'.",
+        "Slide 26 cita faixa abdominal por 5 dias; slide 27 cita 30 dias. Ensinar os dois tempos sem apagar a fonte."
+      ]
+    },
+    {
+      "id": "mamoplastia",
+      "livro": "Mamoplastia",
+      "ordem": 4,
+      "aulaPlanograma": "04",
+      "dataAula": "2026-08-25",
+      "fonte": "Mamoplastia.ppt",
+      "slides": 19,
+      "professor": "Prof.ª Ms. Cintia Zacaib Silva",
+      "estado": "desbloqueada",
+      "objetivo": "Ensinar as três mamoplastias da aula — redutora, mastopexia e aumento — como três problemas diferentes da mesma região: volume, queda e ausência — e o que a fisioterapia protege no ombro, na aréola, na cápsula e na cicatriz.",
+      "emocaoAlvo": "cuidado preciso, sem constrangimento",
+      "acaoPrincipal": "separar as três cirurgias e recitar o pós de cada uma",
+      "recompensaVisual": "três pétalas (reduzir, erguer, preencher) se unem numa flor",
+      "capitulos": [
+        {
+          "id": "mamo-01",
+          "ordem": 1,
+          "titulo": "Reduzir e erguer",
+          "subtitulo": "Mamoplastia redutora e mastopexia",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 20,
+          "xp": 150,
+          "flor": "camelia",
+          "origensSlides": [1, 2, 3, 4, 5, 6, 7],
+          "ensinamentosObrigatorios": [
+            "Redutora: retira-se pele, gordura, às vezes glândulas mamárias, além de realizar plicatura da glândula mamária.",
+            "Incisões em 'L' ou em 'T' invertido, também chamada em âncora.",
+            "Pós-operatório da redutora: contraindicação total de flexão ou abdução do ombro acima de 45°.",
+            "Restrição da mobilidade do ombro: 20 a 30 dias.",
+            "Cuidado com o tracionamento da cicatriz.",
+            "Mastopexia: procedimento para correção da ptose mamária.",
+            "Normalmente faz-se apenas plicatura da glândula mamária.",
+            "Algumas vezes é necessária a exérese de pele."
+          ]
+        },
+        {
+          "id": "mamo-02",
+          "ordem": 2,
+          "titulo": "Preencher com cuidado",
+          "subtitulo": "Aumento, planos de inclusão e encapsulamento",
+          "dificuldade": "faculdade",
+          "tempoEstimadoMin": 22,
+          "xp": 160,
+          "flor": "perola",
+          "origensSlides": [8, 9, 10, 11, 12, 13, 14, 15],
+          "ensinamentosObrigatorios": [
+            "Indicações: hipomastia ou reconstrução pós-mastectomia, com inclusão de próteses de silicone texturizadas.",
+            "Dois níveis de inserção: retroglandular ou retromuscular; a retromuscular tem menores riscos de encapsulamento.",
+            "É necessária quantidade de pele adequada ao volume e elasticidade cutânea satisfatória.",
+            "Se os requisitos não forem atingidos (ex.: mastectomia radical com grande exérese de pele), pode-se inserir temporariamente próteses expansivas e depois trocar pela definitiva.",
+            "A maior complicação desta cirurgia é o encapsulamento ou contratura da prótese.",
+            "Causas de encapsulamento: prótese maior do que a cavidade; trauma cirúrgico; acúmulo seroso ou sanguíneo; presença de patches nas próteses; infecções subclínicas; extravasamento de silicone gel.",
+            "Outras complicações: hematomas; infecção; exposição da prótese; ruptura; assimetria; hipossensibilidade; enfisema subcutâneo."
+          ]
+        },
+        {
+          "id": "mamo-03",
+          "ordem": 3,
+          "titulo": "O que a fisioterapia segura",
+          "subtitulo": "Quadro pós-operatório e objetivos pré, imediato e tardio",
+          "dificuldade": "clinica",
+          "tempoEstimadoMin": 18,
+          "xp": 150,
+          "flor": "azaleia",
+          "origensSlides": [16, 17, 18, 19],
+          "ensinamentosObrigatorios": [
+            "Pós-operatório observado: edema moderado nas extremidades dos retalhos no polo inferior da mama; edema acentuado na aréola mamilar; equimoses nas aréolas e polos lateral e medial; hipoestesia; dor junto às incisões; edema junto às incisões; discreta cianose e espasmos da musculatura peitoral.",
+            "Objetivos do pré-operatório: melhorar a circulação; melhorar a hidratação cutânea.",
+            "Pós imediato: melhorar a irrigação sanguínea areolar; reduzir edema; melhorar quadro álgico; diminuir contratura capsular.",
+            "Pós tardio: diminuir a formação de trombos; reeducação respiratória; melhorar a hidratação cutânea; diminuir edema e hematomas; diminuir chances de seroma; tratar e/ou evitar aderências; melhorar cicatrização."
+          ]
+        }
+      ],
+      "conceitos": [
+        "mamoplastia-redutora",
+        "incisao-em-l",
+        "incisao-em-t-invertido-ancora",
+        "restricao-ombro-45",
+        "mastopexia",
+        "ptose-mamaria",
+        "mamoplastia-de-aumento",
+        "hipomastia",
+        "reconstrucao-pos-mastectomia",
+        "plano-retroglandular",
+        "plano-retromuscular",
+        "protese-expansiva",
+        "encapsulamento",
+        "contratura-capsular",
+        "fisioterapia-mama-pre",
+        "fisioterapia-mama-imediato",
+        "fisioterapia-mama-tardio"
+      ],
+      "glossario": [
+        "mamoplastia",
+        "redutora",
+        "mastopexia",
+        "ptose",
+        "plicatura-glandular",
+        "ancora",
+        "hipomastia",
+        "mastectomia",
+        "protese-texturizada",
+        "retroglandular",
+        "retromuscular",
+        "protese-expansiva",
+        "encapsulamento",
+        "contratura-capsular",
+        "patches",
+        "enfisema-subcutaneo",
+        "hipoestesia",
+        "areola",
+        "polo-inferior"
+      ],
+      "imagens": [
+        {
+          "id": "m-fig-01",
+          "slide": 3,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Redutora — antes e depois (simetria e volume)",
+          "oQueMostra": "Ilustração de mamas volumosas e ptosadas versus mamas menores, mais altas, com cicatriz periareolar.",
+          "destaques": ["volume", "ptose", "posicao-areolar"]
+        },
+        {
+          "id": "m-fig-02",
+          "slide": 4,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Redutora — assimetria e território glandular",
+          "oQueMostra": "Mama esquerda com mancha amarela (território a abordar / assimetria) versus resultado simétrico.",
+          "destaques": ["assimetria", "territorio-glandular", "resultado"]
+        },
+        {
+          "id": "m-fig-03",
+          "slide": 7,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Mastopexia — antes e depois",
+          "oQueMostra": "Mama ptosada sem grande excesso de volume versus mama reposicionada, cicatriz periareolar.",
+          "destaques": ["ptose", "plicatura", "sem-grande-exerese"]
+        },
+        {
+          "id": "m-fig-04",
+          "slide": 10,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Aumento — sequência de perfil e corte",
+          "oQueMostra": "Quatro quadros: hipomastia de perfil, mama em 3/4, corte sagital com prótese, resultado de perfil.",
+          "destaques": ["hipomastia", "protese-em-corte", "projecao"]
+        },
+        {
+          "id": "m-fig-05",
+          "slide": 11,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Aumento — antes, técnica, depois",
+          "oQueMostra": "Tríptico frontal: mama pequena; corte com prótese; mama projetada.",
+          "destaques": ["antes", "tecnica", "depois"]
+        },
+        {
+          "id": "m-fig-06",
+          "slide": 12,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Demarcação para cirurgia",
+          "oQueMostra": "Mama com traçados pré-operatórios ao redor da aréola e meridiano.",
+          "destaques": ["demarcacao", "areola", "eixo"]
+        },
+        {
+          "id": "m-fig-07",
+          "slide": 13,
+          "tipo": "ilustracao-clinica",
+          "titulo": "Depois da prótese — corte sagital",
+          "oQueMostra": "Prótese em posição, tecido glandular/pele à frente, plano profundo atrás. Usar para ensinar retroglandular vs retromuscular.",
+          "destaques": ["plano-de-inclusao", "protese", "tecido-de-cobertura"]
+        }
+      ],
+      "tabelas": [],
+      "exerciciosNaFonte": []
+    }
+  ],
+  "materiasBloqueadas": [
+    {
+      "id": "ritidoplastia",
+      "nome": "Ritidoplastia",
+      "dataAula": "2026-09-29",
+      "estado": "bloqueada",
+      "motivo": "PDF ainda não enviado. Calendário mostra 'Carregando próximas aventuras...'"
+    },
+    {
+      "id": "lipoaspiracao",
+      "nome": "Lipoaspiração",
+      "dataAula": "2026-10-06",
+      "estado": "bloqueada",
+      "motivo": "PDF ainda não enviado"
+    },
+    {
+      "id": "queimados",
+      "nome": "Queimados",
+      "dataAula": "2026-10-20",
+      "estado": "bloqueada",
+      "motivo": "PDF ainda não enviado"
+    },
+    {
+      "id": "hanseniase",
+      "nome": "Hanseníase",
+      "datas": ["2026-11-10", "2026-11-17"],
+      "estado": "bloqueada",
+      "motivo": "Trabalhos de apresentação; material ainda não enviado"
+    }
+  ],
+  "calendario": {
+    "visao": "mensal",
+    "eventos": [
+      { "data": "2026-08-04", "tipo": "aula", "materiaId": "cicatrizacao", "titulo": "Apresentação da Disciplina e Cicatrização" },
+      { "data": "2026-08-11", "tipo": "aula", "materiaId": "queloide-hipertrofica", "titulo": "Cicatriz Hipertrófica e Queloideana" },
+      { "data": "2026-08-18", "tipo": "aula", "materiaId": "abdominoplastia", "titulo": "Abdominoplastia" },
+      { "data": "2026-08-25", "tipo": "aula", "materiaId": "mamoplastia", "titulo": "Mamoplastia" },
+      { "data": "2026-09-14", "tipo": "avaliacao", "titulo": "Casos clínicos em sala (nota) + correção", "arquivoEnviado": false },
+      { "data": "2026-09-22", "tipo": "prova", "titulo": "Prova Bimestral", "coroa": true, "cobre": ["cicatrizacao", "queloide-hipertrofica", "abdominoplastia", "mamoplastia"] },
+      { "data": "2026-09-29", "tipo": "aula-bloqueada", "titulo": "Ritidoplastia" },
+      { "data": "2026-10-06", "tipo": "aula-bloqueada", "titulo": "Lipoaspiração" },
+      { "data": "2026-10-13", "tipo": "evento", "titulo": "7ª Maratona de Empreendedorismo e Inovação" },
+      { "data": "2026-10-20", "tipo": "aula-bloqueada", "titulo": "Queimados" },
+      { "data": "2026-10-27", "tipo": "pratica", "titulo": "Aula prática" },
+      { "data": "2026-11-03", "tipo": "pratica", "titulo": "Aula prática" },
+      { "data": "2026-11-10", "tipo": "seminario-bloqueado", "titulo": "Trabalhos de Hanseníase" },
+      { "data": "2026-11-17", "tipo": "seminario-bloqueado", "titulo": "Trabalhos de Hanseníase" },
+      { "data": "2026-11-24", "tipo": "prova", "titulo": "Prova", "coroa": true },
+      { "data": "2026-12-01", "tipo": "admin", "titulo": "Entrega das notas e médias" },
+      { "data": "2026-12-08", "tipo": "admin", "titulo": "2ª chamada" },
+      { "data": "2026-12-15", "tipo": "exame", "titulo": "Exame" }
+    ]
+  },
+  "moldeUniversal": {
+    "porMateria": [
+      "objetivo",
+      "mapa",
+      "capitulos",
+      "conceitos",
+      "glossario",
+      "imagens",
+      "aula",
+      "missoes",
+      "quiz",
+      "revisao",
+      "provaFinal"
+    ],
+    "porCapitulo": [
+      "missaoDaAula",
+      "aulaPrincipal",
+      "figurasInterativas",
+      "analogia",
+      "aplicacaoClinica",
+      "errosComuns",
+      "missoes",
+      "chefeDaFase",
+      "vitoria"
+    ],
+    "modosProfessor": ["simples", "faculdade", "clinica", "revisao"],
+    "cadaConceitoResponde": ["oQueE", "porQueExiste", "comoFunciona", "ondeAparece", "comoCaiNaProva"]
+  },
+  "fluxo": {
+    "castelo": {
+      "entrada": "Boa noite, Giovana",
+      "prioridadeHoje": "Prova Bimestral — 22/09 — modo revisão das 4 matérias do Bloco I",
+      "cta": "Entrar na revisão da prova",
+      "widgets": ["proximaProva", "continuarEstudando", "sequencia", "xp", "jardim", "calendarioPequeno"]
+    },
+    "jornadaDaMateria": [
+      "Biblioteca escolhe o livro",
+      "Mapa da matéria (constelação dos capítulos)",
+      "Capítulo: Missão → Aula → Figuras → Analogia → Clínica → Erros → Missões → Chefe → Vitória/Flor",
+      "Revisão da matéria",
+      "Prova Final da matéria"
+    ],
+    "jornadaDaProvaBimestral": [
+      "Calendário com coroa no dia 22/09",
+      "Modo urgência: somente as 4 matérias do Bloco I",
+      "Professor em modo Revisão",
+      "Trilha única: Cicatrização → Quelóide → Abdominoplastia → Mamoplastia → Prova do Bloco",
+      "Dias futuros (Ritidoplastia em diante) permanecem com 'Carregando próximas aventuras...'"
+    ],
+    "navegacaoCastelo": ["castelo", "biblioteca", "aula", "desafios", "calendario", "jardimDaVitoria"],
+    "regraDeCliques": "Máximo de 3 cliques de qualquer ponto do Castelo até a ação de estudar"
+  },
+  "schemaApp": {
+    "Subject": {
+      "id": "string",
+      "title": "string",
+      "professor": "string",
+      "objective": "string",
+      "map": "MindMapNode[]",
+      "chapters": "Chapter[]",
+      "concepts": "Concept[]",
+      "glossary": "GlossaryTerm[]",
+      "images": "Figure[]",
+      "tables": "Table[]",
+      "missions": "Mission[]",
+      "quiz": "Quiz",
+      "review": "Review",
+      "finalExam": "Exam"
+    },
+    "Chapter": {
+      "id": "string",
+      "title": "string",
+      "mission": { "learn": "string", "minutes": "number", "difficulty": "simples|faculdade|clinica|revisao", "xp": "number" },
+      "lesson": { "modes": { "simples": "RichText", "faculdade": "RichText", "clinica": "RichText", "revisao": "RichText" } },
+      "figures": "Figure[]",
+      "analogy": "RichText",
+      "clinicalApplication": "RichText",
+      "commonMistakes": "Mistake[]",
+      "missions": "Mission[]",
+      "bossQuiz": "Quiz",
+      "victory": { "xp": "number", "flowerId": "string", "message": "string" }
+    },
+    "Figure": {
+      "id": "string",
+      "src": "string",
+      "caption": "string",
+      "explanation": "string",
+      "notes": "string[]",
+      "highlights": "Highlight[]"
+    },
+    "Progress": {
+      "xp": "number",
+      "streak": "number",
+      "flowers": "Flower[]",
+      "level": "Aprendiz|Guardia|PrincesaDoConhecimento|RainhaDaBiblioteca",
+      "achievements": "Achievement[]"
+    }
+  },
+  "gamificacaoDesteBloco": {
+    "capitulos": 14,
+    "floresDoBloco": 14,
+    "niveis": ["Aprendiz", "Guardiã", "Princesa do Conhecimento", "Rainha da Biblioteca"],
+    "conquistasPossiveis": [
+      "Primeira Flor — concluir cicatrizacao-01",
+      "Constelação — acender as 5 fases da cicatrização no mapa",
+      "Olho Clínico — acertar o diferencial hipertrófica vs quelóide no Chefe",
+      "Cintura de Luz — concluir abdominoplastia",
+      "Três Pétalas — concluir as três mamoplastias",
+      "Biblioteca Real — concluir as 4 matérias do Bloco I",
+      "Madrugada — estudar entre 00h e 05h"
+    ]
+  },
+  "gaps": [
+    "Nenhum dos 4 conteúdos traz exercícios prontos. Missões, Chefes e Prova Final serão gerados na Fase 5 a partir dos ensinamentos obrigatórios, nunca inventando fato clínico fora da fonte.",
+    "Casos clínicos de 14/09 (para nota) não foram enviados.",
+    "Ritidoplastia, Lipoaspiração, Queimados e Hanseníase não foram enviados — livros travados.",
+    "A apresentação de Quelóide não detalha coagulação/inflamação/proliferação; ela depende da matéria Cicatrização. O mapa deve ligar as duas.",
+    "Fotos clínicas reais exigem tratamento de figura interativa com overlay, nunca galeria."
+  ]
+}

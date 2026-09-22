@@ -1,0 +1,134 @@
+:root {
+  --bg: #0b0b10;
+  --surface: #12121a;
+  --surface-elevated: #1a1a26;
+  --glass: rgba(255, 255, 255, 0.06);
+  --border: rgba(185, 160, 232, 0.28);
+  --text-primary: #f6f3fa;
+  --text-secondary: #d8d0e8;
+  --text-muted: #b7b0c7;
+  --purple: #4b1e7a;
+  --violet: #6d3aa8;
+  --lilac: #b9a0e8;
+  --pink: #f48fb1;
+  --success: #1fa97a;
+  --warning: #c9a7e0;
+  --focus: #d4c2f5;
+  --locked: rgba(183, 176, 199, 0.42);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 14px 32px rgba(0, 0, 0, 0.42);
+  --glow: 0 0 24px rgba(120, 70, 200, 0.45);
+  --glow-success: 0 0 20px rgba(31, 169, 122, 0.35);
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --z-nav: 20;
+  --z-sheet: 30;
+  --z-toast: 40;
+  --z-focus: 50;
+  --type-display: 40px;
+  --type-h1: 32px;
+  --type-h2: 24px;
+  --type-h3: 20px;
+  --type-body-lg: 18px;
+  --type-body: 16px;
+  --type-body-sm: 14px;
+  --type-caption: 13px;
+  --type-label: 12px;
+  --type-button: 15px;
+  --leading-display: 1.15;
+  --leading-body: 1.6;
+  --leading-lesson: 1.7;
+  --motion-fast: 180ms;
+  --motion-normal: 280ms;
+  --motion-slow: 400ms;
+  --motion-celebration: 450ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes mm-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mm-slide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mm-xpfloat {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(-4px); }
+}
+
+@keyframes mm-unlock {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+@keyframes mm-grow {
+  from { opacity: 0.4; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes mm-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.motion-fade { animation: mm-fade var(--motion-normal) var(--ease-out) both; }
+.motion-slide { animation: mm-slide var(--motion-normal) var(--ease-out) both; }
+.motion-page { animation: mm-slide var(--motion-slow) var(--ease-out) both; }
+.motion-xp { animation: mm-xpfloat var(--motion-slow) var(--ease-out) both; }
+.motion-unlock { animation: mm-unlock var(--motion-slow) var(--ease-out) both; }
+.motion-grow { animation: mm-grow var(--motion-celebration) var(--ease-out) both; }
+.motion-reveal { animation: mm-reveal var(--motion-celebration) var(--ease-out) both; }
+.motion-lift { transition: transform var(--motion-normal) var(--ease-out), box-shadow var(--motion-normal) var(--ease-out); }
+.motion-scale { transition: transform var(--motion-fast) var(--ease-out); }
+.motion-glow { transition: box-shadow var(--motion-normal) var(--ease-out), filter var(--motion-fast) var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 180ms;
+    --motion-normal: 180ms;
+    --motion-slow: 180ms;
+    --motion-celebration: 180ms;
+  }
+
+  .motion-particles {
+    display: none !important;
+  }
+
+  .motion-lift,
+  .motion-scale,
+  .motion-float,
+  .motion-slide,
+  .motion-page,
+  .motion-xp,
+  .motion-grow {
+    transform: none !important;
+  }
+
+  .motion-fade,
+  .motion-slide,
+  .motion-page,
+  .motion-xp,
+  .motion-unlock,
+  .motion-grow,
+  .motion-reveal {
+    animation-name: mm-fade;
+    animation-duration: 180ms;
+  }
+}

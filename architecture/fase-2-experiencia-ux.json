@@ -1,0 +1,164 @@
+{
+  "fase": 2,
+  "status": "fechada-corrigida",
+  "implementacao": false,
+  "codigo": false,
+  "resumosDeConteudo": false,
+  "auditoria": "architecture/FASE-2-CORRECOES.md",
+  "specHumana": "architecture/FASE-2-EXPERIENCIA.md",
+  "proximoPasso": "FASE 3 — Design System e componentes visuais. Sem aula. Sem importar fonte.",
+  "camadas": {
+    "SOURCE": "arquivos, slides, títulos, textos, imagens, tabelas, ordem original",
+    "NORMALIZED_CONTENT": "conceitos e tópicos com source_ref",
+    "PEDAGOGY": "módulos, capítulos e aulas criados pelo MM Study; recorte atual é revisável",
+    "EXPERIENCE": "mapa, XP, mastery, flores, calendário, modos de progressão"
+  },
+  "sourceVsPedagogy": {
+    "quatorzeCapitulosSao": "PEDAGOGY proposta na Fase 1, não SOURCE",
+    "podeReagruparSemReprocessarPpt": true,
+    "equivalenciaPptCapitulo": false
+  },
+  "sourceRef": {
+    "obrigatorioEm": [
+      "conceito",
+      "explicacao",
+      "analogia",
+      "aplicacaoClinica",
+      "erroComum",
+      "figura",
+      "microdesafio",
+      "questaoBoss",
+      "questaoProva"
+    ],
+    "shape": {
+      "file": "string",
+      "slide": "number",
+      "section": "string?",
+      "asset_id": "string?"
+    },
+    "semFonte": "unsourced:true — só cola de UI, nunca fato acadêmico"
+  },
+  "principio": {
+    "jornada": ["APRENDER", "INTERAGIR", "PRATICAR", "EXPLICAR", "TESTAR", "CONQUISTAR"],
+    "perguntasPorTela": ["ondeEstou", "oQueAprendo", "oQueFazer", "quantoAvancei", "proximoPasso", "oQueGanhei"]
+  },
+  "moldeAula": [
+    "missao",
+    "objetivo",
+    "explicacao",
+    "figura",
+    "analogia",
+    "porQueImporta",
+    "aplicacaoFisioterapia",
+    "errosComuns",
+    "microDesafio",
+    "ensineDeVolta",
+    "dominioDoConceito"
+  ],
+  "moldeCapitulo": ["boss", "recompensaFlor"],
+  "ensineDeVolta": {
+    "modos": ["livre", "guiado", "rapido"],
+    "guiadoCampos": ["oQueE", "porQueAcontece", "qualAImportancia"],
+    "iaTempoReal": false,
+    "avaliacaoV1": "rubrica/chips/palavras-chave offline"
+  },
+  "progressao": {
+    "NORMAL_MODE": {
+      "desbloqueio": "capitulo N+1 apos vitoria de N",
+      "prova": "pede progressao minima"
+    },
+    "EXAM_URGENCY_MODE": {
+      "temporario": true,
+      "instanciaAtual": {
+        "examDate": "2026-09-22",
+        "coversPedagogyId": "bloco-1-proposta"
+      },
+      "revisaoPriorizada": true,
+      "acessoAcelerado": true,
+      "provaSemProgressaoCompleta": true
+    }
+  },
+  "xp": {
+    "tipo": "recompensa",
+    "nuncaDesce": true,
+    "erroNaoPunish": true,
+    "naoSignificaDominio": true,
+    "tabela": {
+      "explicacao": 10,
+      "figura": 10,
+      "analogia": 10,
+      "clinica": 10,
+      "errosComuns": 15,
+      "miniPrimeira": 25,
+      "miniRetry": 15,
+      "ensineDominio": 30,
+      "ensineAjuste": 20,
+      "boss": 80,
+      "capitulo": 50,
+      "revisaoLivro": 40,
+      "provaBloco": 150,
+      "streakDia": 10
+    },
+    "niveis": {
+      "Aprendiz": 0,
+      "Guardia": 500,
+      "PrincesaDoConhecimento": 1500,
+      "RainhaDaBiblioteca": 3500
+    }
+  },
+  "mastery": {
+    "tipo": "estado-pedagogico",
+    "escala": "0-100",
+    "separadoDeXp": true,
+    "sinais": ["acerto", "repeticao", "explicacao", "revisao", "desempenhoBoss", "recencia"],
+    "ui": "barra de dominio distinta do numero de XP"
+  },
+  "navegacao": {
+    "mobile": ["castelo", "biblioteca", "aula", "calendario", "jardim"],
+    "desktop": "sidebar-esquerda",
+    "maxCliquesAteEstudar": 3
+  },
+  "telas": [
+    "T01-entrada",
+    "T02-castelo",
+    "T03-biblioteca",
+    "T04-visao-disciplina",
+    "T05-mapa",
+    "T06-capitulo",
+    "T07-missao",
+    "T08-aula",
+    "T09-figuras",
+    "T10-analogia",
+    "T11-clinica",
+    "T12-erros-comuns",
+    "T13-mini-desafio",
+    "T14-ensine-de-volta",
+    "T15-boss",
+    "T16-recompensa",
+    "T17-jardim",
+    "T18-calendario",
+    "T19-revisao",
+    "T20-prova-final"
+  ],
+  "professora": {
+    "nome": "Professora MM Study",
+    "creditoFonte": "Prof.ª Ms. Cintia Zacaib Silva",
+    "tipo": "presenca-nao-chat",
+    "modos": ["simples", "faculdade", "clinica", "revisao"],
+    "iaTempoReal": false
+  },
+  "tokens": {
+    "bg": "#0B0B10",
+    "primary": "#4B1E7A",
+    "secondary": "#B9A0E8",
+    "accent": "#F48FB1",
+    "success": "#1FA97A",
+    "quase": "#C9A7E0",
+    "radiusCard": 24,
+    "radiusPill": 999,
+    "motionMin": 180,
+    "motionMax": 450,
+    "aulaMinFont": 18,
+    "touchMin": 44
+  }
+}
