@@ -14,7 +14,7 @@ export default function PortalPage() {
     setHello(greeting());
   }, []);
 
-  const firstVisit = ready && active;
+  const firstVisit = !ready || active;
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[520px] flex-col justify-between px-6 py-10">
